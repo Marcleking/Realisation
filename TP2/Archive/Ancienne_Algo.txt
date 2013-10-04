@@ -1,0 +1,13 @@
+Pour chaque employé
+	Générer horaire (horaire, employé)
+		Pour chaque Jour dans horaire
+			Si horaire < horaireDemande.Jour.NbRessource
+				Horaire.Add(Employé.jour.dispo)
+			fin si
+		fin pour
+
+		Si employé.next existe
+			générer horaire (horaire, employé.next)
+		Fin si
+	Fin GénérerHoraire
+Fin pour
