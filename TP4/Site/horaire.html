@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+ 
+	<head>
+		<meta charset="utf-8">
+		<title>Page horaire</title>
+		
+		
+		<script src="js/jquery-1.9.1.js"></script>
+		<script src="js/jquery-ui-1.10.3.custom.js"></script>
+		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+
+		
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+		
+		<style>
+			#feedback { font-size: 1.4em; }
+			.selectable .ui-selecting { background: #FECA40; }
+			.selectable .ui-selected { background: #F39814; color: white; }
+			.selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+			.selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+		</style>
+		<style>
+			td div{	
+				width:100%;
+				height:10px;}
+			.emp1{background:blue;}
+			.emp2{background:red;}
+			.emp3{background:green;}
+			.emp4{background:teal;}
+			td, th{
+				width:50px;
+				margin-bottom:10px;
+				border-right: 1px black solid;}
+			table{
+				margin:70px 20px;
+			}
+			tr > td{
+				padding-bottom:10px;
+			}
+			
+		</style>
+		
+		<link rel="stylesheet" href="css/foundation.css" type="text/css" media="screen">
+		
+		<script>
+			$(function() {
+				//$( "#selectable" ).selectable();
+				
+				var lignes = document.getElementsByClassName('selectable');
+				
+				for(var i = 0; i < lignes.length; i++){
+					
+					lignes[i].id = "selectable" + i;
+					$('#selectable' + i).bind("mousedown", function(e){
+							e.metaKey = true;
+						}).bind("mouseup",function(e){
+							
+						}).selectable({	filter: ":not(.en-tete)"});
+					
+				}
+				
+			});
+		</script>
+
+	</head>
+
+
+	<body>
+
+		<table id="horaire"  cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th><p>8:00</p></th>
+					<th><p>9:00</p></th>
+					<th><p>10:00</p></th>
+					<th><p>11:00</p></th>
+					<th><p>12:00</p></th>
+					<th><p>13:00</p></th>
+					<th><p>14:00</p></th>
+					<th><p>15:00</p></th>
+					<th><p>16:00</p></th>
+					<th><p>17:00</p></th>
+					<th><p>18:00</p></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="selectable">
+					<th class="en-tete">Dimanche</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Lundi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Mardi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Mercredi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Jeudi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Vendredi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+				
+				<tr class="selectable">
+					<th class="en-tete">Samedi</th>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+					<td class="ui-widget-content"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<table id="horaire" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th><p>8:00</p></th>
+					<th><p>9:00</p></th>
+					<th><p>10:00</p></th>
+					<th><p>11:00</p></th>
+					<th><p>12:00</p></th>
+					<th><p>13:00</p></th>
+					<th><p>14:00</p></th>
+					<th><p>15:00</p></th>
+					<th><p>16:00</p></th>
+					<th><p>17:00</p></th>
+					<th><p>18:00</p></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<th>Dimanche</th>
+					<td>
+						<div class="emp1"></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp1"></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp1"></div>
+						<div></div>
+						<div class="emp3"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp1"></div>
+						<div></div>
+						<div class="emp3"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp1"></div>
+						<div class="emp2"></div>
+						<div class="emp3"></div>
+						<div></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+						<div class="emp3"></div>
+						<div></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+						<div></div>
+						<div></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+						<div></div>
+						<div class="emp4"></div>
+					</td>
+					<td>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div class="emp4"></div>
+					</td>
+					<td>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div class="emp4"></div>
+					</td>
+					<td>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div class="emp4"></div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>Lundi</th>
+					<td>
+						<div class="emp4"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div class="emp4"></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+					</td>
+					<td>
+						<div></div>
+						<div class="emp2"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>Mardi</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Mercredi</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Jeudi</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Vendredi</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Samedi</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table id="horaire" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th><p>8:00</p></th>
+					<th><p>9:00</p></th>
+					<th><p>10:00</p></th>
+					<th><p>11:00</p></th>
+					<th><p>12:00</p></th>
+					<th><p>13:00</p></th>
+					<th><p>14:00</p></th>
+					<th><p>15:00</p></th>
+					<th><p>16:00</p></th>
+					<th><p>17:00</p></th>
+					<th><p>18:00</p></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				
+				<tr>
+					<th rowspan="4">Dimanche</th>
+					<td class="emp1"></td>
+					<td class="emp1"></td>
+					<td class="emp1"></td>
+					<td class="emp1"></td>
+					<td class="emp1"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td class="emp3"></td>
+					<td class="emp3"></td>
+					<td class="emp3"></td>
+					<td class="emp3"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+				</tr>
+				
+				<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+				
+				<tr>
+					<th rowspan="2">Lundi</th>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td class="emp4"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+					<td class="emp2"></td>
+				</tr>
+				
+				<tr>
+					<th>Mardi</th>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+				</tr>
+				
+				<tr>
+					<th>Mercredi</th>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+				</tr>
+				
+				<tr>
+					<th>Jeudi</th>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+				</tr>
+				
+				<tr>
+					<th>Vendredi</th>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+				</tr>
+				
+				<tr>
+					<th>Samedi</th>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+					<td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+	</body>
+	
+</html>
