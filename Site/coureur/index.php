@@ -32,7 +32,7 @@ if(!defined('TMVC_BASEDIR'))
   define('TMVC_BASEDIR', dirname(__FILE__) . DS . '..' . DS .  'tinymvc' . DS);
 
 if(!defined('url'))
-	define('url', '/coureur/index.php');
+	define('url', '/Realisation/Site/coureur/index.php');
 
 /* include main tmvc class */
 require(TMVC_BASEDIR . 'sysfiles' . DS . 'TinyMVC.php');

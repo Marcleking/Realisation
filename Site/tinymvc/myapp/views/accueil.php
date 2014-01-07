@@ -1,4 +1,4 @@
-<div class="medium-8 columns" style="margin-left:10px;">
+<div class="medium-8 columns">
 	<h3 id="numero8">Messages</h3>
 	<div class="row">
 		<div class="medium-12 columns panel">
@@ -44,7 +44,7 @@
 		<p>Vous pouvez aller sur l’accueil du site ici.</p>
 	</li>
 	<li data-id="numero2" data-text="Suivant">
-		<p>Vous pouvez voir les messages complets ici.</p>
+		<p>Vous pouvez voir les messages facilement ici.</p>
 	</li>
 	<li data-id="numero3" data-text="Suivant">
 		<p>Les documents de formations sont ici.</p>
@@ -62,7 +62,7 @@
 		<p>En quittant le site, soyez sécuritaire et déconnectez-vous!</p>
 	</li>
 	<li data-id="numero8" data-button="Suivant">
-		<p>En vous connectant, vous allez pouvoir voir un apperçu des messages directement ici.</p>
+		<p>En vous connectant, vous allez pouvoir voir les messages directement ici.</p>
 	</li>
 	<li data-id="numero9" data-button="Suivant">
 		<p>Si vous voulez rendre service à quelqu’un, vous pouvez le remplacer ici. Il sera content :P</p>
