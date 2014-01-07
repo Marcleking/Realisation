@@ -1,0 +1,1 @@
+<h1><img id="firstStop" src="<?=url?>/../img/logo.png" alt="le coureur nordique"/></h1>
