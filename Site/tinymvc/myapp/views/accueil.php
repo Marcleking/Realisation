@@ -35,7 +35,7 @@
 		</a>
 	</div>
 </div>
-
+<!--
 <ol class="joyride-list" data-joyride>
 	<li data-id="firstStop" data-text="Suivant">
 		<p>Bonjour et bienvenue sur le portail employé pour les membres du personnel du Coureur Nordique!</p>
@@ -71,7 +71,7 @@
 		<p>C’est tout, vous connaissez maintenant le site :)</p>
 	</li>
 </ol>
-
+-->
 
 
 

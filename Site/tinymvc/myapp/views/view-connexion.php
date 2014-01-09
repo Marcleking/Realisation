@@ -24,7 +24,7 @@
 						<h1>Connexion</h1>
 
 						<div>
-						  	<label for="user">Nom d'utilisateur</label>
+						  	<label for="user">Numéro d'utilisateur</label>
 					      	<input type="text" id="user" name="user" placeholder="Entrez votre nom d'utilisateur..." required />
 					      	<small class="error">Veuillez indiquez un nom d'utilisateur.</small>
 				      	</div>
