@@ -9,10 +9,12 @@
 
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
+		<style>
+			.contenu {
+				overflow: auto;
+			}
+		</style>
 		
-
-		
-
 	</head>
 	<body>
 		<div class="row off-canvas-wrap">

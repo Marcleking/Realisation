@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
 --
 
 INSERT INTO `employe` (`noEmploye`, `nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `nbHeureMinTravail`, `nbHeureMaxTravail`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-(1, 'Larsen', 'Fuller', 'qweqwe', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 29, 45, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
+(1, 'Larsen', 'Fuller', SHA1('qweqwe'), 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 29, 45, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
 (2, 'Kelly', 'Jasper', 'DTC48QHI0XO', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 39, 43, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
 (3, 'Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 13, 28, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
 (4, 'Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 10, 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
