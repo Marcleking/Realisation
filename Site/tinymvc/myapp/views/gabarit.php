@@ -10,6 +10,7 @@
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 		<style>
+
 		#feedback { font-size: 1.4em; }
 		.selectable .ui-selecting { background: #FECA40; }
 		.selectable .ui-selected { background: #F39814; color: white; }
