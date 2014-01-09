@@ -11,7 +11,7 @@
 	  <hr />
 	  <li <?=$gestionCompte?> id="numero6"><a href="#"><i class="fa fa-cogs fa-2x"></i> Gestion du compte</a></li>
 	  <hr />
-	  <li id="numero7"><a href="#"><i class="fa fa-cogs fa-2x"></i> Gestion des comptes</a></li>
+	  <li id="numero7"><a href="#"><i class="fa fa-users fa-2x"></i> Gestion des comptes</a></li>
 	  <hr />
 	  <li id="numero8"><a href="<?=url?>/deconnexion"><i class="fa fa-cogs fa-2x"></i> Deconnexion</a></li>
 	
