@@ -1,4 +1,4 @@
-<?php 
+<?php
 	
 ?>
 
@@ -40,10 +40,7 @@
 	</style>
 	
 	<script>
-		 	$(document).foundation();
-		 	
-		 	$(document).foundation('joyride', 'start');
-			$(function() {
+		 	$(function() {
 				
 				var lignes = document.getElementsByClassName('selectable');
 				
@@ -67,55 +64,7 @@
 			document.getElementById('btnSubmit').addEventListener('click',serializeSchedule,false);
 		}
 	
-		var myDays= ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
-		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-				   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
-						 
-		function startAndEndOfWeek(date)
-		{
-		  // If no date object supplied, use current date
-		  // Copy date so don't modify supplied date
-		  var now = date? new Date(date) : new Date();
-		  // Get the previous Dimanche
-		  var Dimanche = new Date(now);
-		  Dimanche.setDate(Dimanche.getDate() - Dimanche.getDay());
-
-		  // Get next Sunday
-		  var Samedi = new Date(now);
-		  Samedi.setDate(Samedi.getDate() - Samedi.getDay() + 6);
-			
-		  var dateSemaineDebut = Dimanche.getDate().toString() + " " + mois[Dimanche.getMonth()] + " " + Dimanche.getFullYear(); 
-		  var dateSemaineFin = Samedi.getDate().toString() + " " + mois[Samedi.getMonth()] + " " + Samedi.getFullYear();
-		  // Return array of date objects
-		  return [dateSemaineDebut, dateSemaineFin];
-		}
 		
-		function remplirListeDate()
-		{
-			var date = new Date();
-			var vecteurDateSemaine = [];
-			
-			for(i = 5; i >= 0; i--)
-			{
-				vecteurDateSemaine.push(startAndEndOfWeek(date - (7 * i)));
-			}
-			
-			for(i = 0; i <= 10; i++)
-			{
-				vecteurDateSemaine.push(startAndEndOfWeek(date + (7 * i)));
-			}
-			
-			//Récupérer la liste qui existe
-			var uneListeDate = document.getElementById("listeDate");
-				
-			for(i = 0; i < vecteurDateSemaine.length; i++)
-			{
-				var option = document.createElement("option");
-				option.text = vecteurDateSemaine[i][0] + vecteurDateSemaine[i][1];
-				uneListeDate.options.add(option);
-			}
-		}
-		remplirListeDate();
 	
 		function serializeSchedule(){
 			var tableauHoraire = document.getElementById('horaire');
@@ -158,133 +107,7 @@
 
 	<h3>Saisie des disponibilités</h3>
 	
-	<form>
-		
-		<table id="horaire">
-			<thead>
-				<tr>
-					<th></th>
-					<th>8:00</th>
-					<th>9:00</th>
-					<th>10:00</th>
-					<th>11:00</th>
-					<th>12:00</th>
-					<th>13:00</th>
-					<th>14:00</th>
-					<th>15:00</th>
-					<th>16:00</th>
-					<th>17:00</th>
-					<th>18:00</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr class="selectable">
-					<th class="en-tete">Dimanche</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Lundi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Mardi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Mercredi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Jeudi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Vendredi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-				
-				<tr class="selectable">
-					<th class="en-tete">Samedi</th>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-					<td class="ui-widget-content"></td>
-				</tr>
-			</tbody>
-		</table>
+	<form id="formDispo">
 		
 		<label for="repetition">Répéter pour</label>
 		<input type="number" id="repetition" name="repetition" />
@@ -297,4 +120,110 @@
 		
 	</form>
 	
+	<script type="text/javascript">
+		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+					   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
+						 
+		function startAndEndOfWeek(date)
+		{
+		  // If no date object supplied, use current date
+		  // Copy date so don't modify supplied date
+		  var now = date? new Date(date) : new Date();
+		  // Get the previous Dimanche
+		  var Dimanche = new Date(now);
+		  Dimanche.setDate(Dimanche.getDate() - Dimanche.getDay());
+
+		  // Get next Sunday
+		  var Samedi = new Date(now);
+		  Samedi.setDate(Samedi.getDate() - Samedi.getDay() + 6);
+			
+		  var dateSemaineDebut = Dimanche.getDate().toString() + " " + mois[Dimanche.getMonth()] + " " + Dimanche.getFullYear() + " au "; 
+		  var dateSemaineFin = Samedi.getDate().toString() + " " + mois[Samedi.getMonth()] + " " + Samedi.getFullYear();
+		  // Return array of date objects
+		  return [dateSemaineDebut, dateSemaineFin];
+		}
+		
+		function remplirListeDate()
+		{
+			var vecteurDateSemaine = [];
+			
+			for(i = 5; i > 0; i--)
+			{
+				var jours = new Date();
+				jours.setDate(jours.getDate() - 7 * i);
+				vecteurDateSemaine.push(startAndEndOfWeek(jours));
+			}
+			
+			for(i = 0; i <= 10; i++)
+			{
+				var jours = new Date();
+				jours.setDate(jours.getDate() + 7 * i);
+				vecteurDateSemaine.push(startAndEndOfWeek(jours));
+			}
+			
+			var uneListeDate = document.getElementById("formDispo");
+			var elementListe = document.createElement('select');
+			
+			for(i = 0; i < vecteurDateSemaine.length; i++)
+			{
+				var option = document.createElement("option");
+				option.text = vecteurDateSemaine[i][0] + vecteurDateSemaine[i][1];
+				elementListe.options.add(option);
+			}
+			
+			uneListeDate.appendChild(elementListe);
+		}
+		
+		function genererTableau()
+		{
+			var heureOuverture = 9;
+			var tableau;
+			tableau = document.createElement("table");
+			var entete;
+			entete = document.createElement("thead");
+			var ligne;
+			ligne = document.createElement("tr");
+			
+			var celluleVide = document.createElement("th");
+			ligne.appendChild(celluleVide);
+			
+			for (var i=0; i<13; i++)
+			{
+			  var nouvRangee = document.createElement("th");
+			  nouvRangee.className = "en-tete";
+			  nouvRangee.colSpan = 2;
+			  nouvRangee.innerHTML = (heureOuverture + i) + ":00";
+			  ligne.appendChild(nouvRangee);
+			}
+			entete.appendChild(ligne);
+			tableau.appendChild(entete);
+			
+			var bodyTableau;
+			bodyTableau = document.createElement("tbody");
+			var vecteurJoursSemaine = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+			
+			for(var i=0; i<7; i++)
+			{
+				var lesLignes = document.createElement("tr");
+				var lesJours = document.createElement("th");
+				lesLignes.className = "selectable";
+				lesJours.className = "en-tete";
+				lesJours.innerHTML = vecteurJoursSemaine[i];
+				
+				lesLignes.appendChild(lesJours);
+				
+				for (var j=0; j<26; j++)
+				{
+					var lesCellules = document.createElement("td");
+					lesCellules.className = "ui-widget-content";
+					lesLignes.appendChild(lesCellules);
+				}
+				bodyTableau.appendChild(lesLignes);
+			}
+			tableau.appendChild(bodyTableau);
+			document.getElementById("formDispo").appendChild(tableau);
+		}
+		genererTableau();
+		remplirListeDate();
+	</script>
 </div>
