@@ -12,6 +12,7 @@ class Connexion_Controller extends TinyMVC_Controller
     	$this->view->assign('horaire', '');
     	$this->view->assign('dispo', '');
     	$this->view->assign('gestionCompte', '');
+		$this->view->assign('gestionComptes', '');
 
 	  	if(isset($_POST['user']) && isset($_POST['pwd']))
 	  	{

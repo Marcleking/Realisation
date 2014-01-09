@@ -1,10 +1,8 @@
 CREATE PROCEDURE Connexion (in p_noEmploye INT, 
-							in p_mdp varchar(30), 
-							OUT p_nom varchar(30), 
-							OUT p_type varchar(45))
+							in p_mdp varchar(30))
     READS SQL DATA
 
-    SELECT nom, typeEmploye into p_nom, p_type 
+    SELECT nom, typeEmploye
     FROM employe 
     where noEmploye = p_noEmploye
     AND motDePasse = p_mdp;
