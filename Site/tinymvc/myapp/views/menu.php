@@ -9,7 +9,9 @@
 	  <hr />
 	  <li <?=$dispo?> id="numero5"><a href="<?=url?>/disponibilites"><i class="fa fa-clock-o fa-2x"></i> Saisie des disponibilités</a></li>
 	  <hr />
-	  <li <?=$gestionCompte?> id="numero6"><a href="#"><i class="fa fa-cogs fa-2x"></i> Gestion du comptes</a></li>
+	  <li <?=$gestionCompte?> id="numero6"><a href="#"><i class="fa fa-cogs fa-2x"></i> Gestion du compte</a></li>
 	  <hr />
-	  <li id="numero7"><a href="<?=url?>/deconnexion"><i class="fa fa-cogs fa-2x"></i> Deconnexion</a></li>
+	  <li id="numero7"><a href="#"><i class="fa fa-users fa-2x"></i> Gestion des comptes</a></li>
+	  <hr />
+	  <li id="numero8"><a href="<?=url?>/deconnexion"><i class="fa fa-cogs fa-2x"></i> Deconnexion</a></li>
 	
