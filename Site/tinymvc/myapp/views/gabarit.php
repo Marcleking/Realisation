@@ -11,40 +11,7 @@
 
 		
 
-		<style>
-			#feedback { font-size: 1.4em; }
-			.selectable .ui-selecting { background: #FECA40; }
-			.selectable .ui-selected { background: #F39814; color: white; }
-			.selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-			.selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-			
-			.contenu {
-				overflow: auto;
-			}
-
-			html {
-				overflow: scroll;
-			}
-			
-			.off-canvas-list hr {
-				display: none;
-			}
-
-			td div{	
-				width:100%;
-				height:10px;}
-			.emp1{background:blue;}
-			.emp2{background:red;}
-			.emp3{background:green;}
-			.emp4{background:teal;}
-			td, th{
-				width:40px;
-				margin-bottom:10px;
-			}
-			tr > td{
-				padding-bottom:10px;
-			}
-		</style>
+		
 
 	</head>
 	<body>
@@ -87,26 +54,7 @@
 		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
 
 
-	  	<script>
-		 	$(document).foundation();
-		 	
-		 	$(document).foundation('joyride', 'start');
-			$(function() {
-				
-				var lignes = document.getElementsByClassName('selectable');
-				
-				for(var i = 0; i < lignes.length; i++){
-					
-					lignes[i].id = "selectable" + i;
-					$('#selectable' + i).bind("mousedown", function(e){
-							e.metaKey = true;
-						}).bind("mouseup",function(e){
-							
-						}).selectable({	filter: ":not(.en-tete)"});
-				}
-			});
-		</script>
-
+	  	
 		
 	</body>
 </html>
