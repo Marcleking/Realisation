@@ -16,10 +16,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Base de données: `tp3_coureur_nordique`
---
-
+DROP DATABASE IF EXISTS Coureur_Nordique;
+CREATE DATABASE Coureur_Nordique;
+USE Coureur_Nordique;
+grant usage on *.* to user_coureur@localhost identified by 'qweqwe';
+grant all privileges on Coureur_Nordique.* to user_coureur@localhost ;
 -- --------------------------------------------------------
 
 --
@@ -294,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `noEmploye` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(30) NOT NULL,
   `prenom` varchar(30) NOT NULL,
-  `motDePasse` varchar(30) NOT NULL,
+  `motDePasse` varchar(40) NOT NULL,
   `courriel` varchar(60) NOT NULL,
   `numeroCivique` varchar(10) DEFAULT NULL,
   `rue` varchar(50) DEFAULT NULL,
@@ -321,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
 --
 
 INSERT INTO `employe` (`noEmploye`, `nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `nbHeureMinTravail`, `nbHeureMaxTravail`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-(1, 'Larsen', 'Fuller', 'PFT79YVL6OY', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 29, 45, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
+(1, 'Larsen', 'Fuller', 'qweqwe', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 29, 45, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
 (2, 'Kelly', 'Jasper', 'DTC48QHI0XO', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 39, 43, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
 (3, 'Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 13, 28, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
 (4, 'Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 10, 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
@@ -977,3 +978,34 @@ ALTER TABLE `telephone`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--PROCÉDURE
+DELIMITER $$
+USE Coureur_Nordique $$
+
+DROP PROCEDURE IF EXISTS Connexion $$
+CREATE PROCEDURE Connexion (in p_noEmploye INT, 
+              in p_mdp varchar(40))
+    SELECT nom, typeEmploye
+    FROM employe 
+    where noEmploye = p_noEmploye
+    AND motDePasse = SHA1(p_mdp);
+$$
+
+DROP PROCEDURE IF EXISTS AjouterUtilisateur $$
+CREATE PROCEDURE AjouterUtilisateur(IN p_nom varchar(30), 
+                  IN p_prenom varchar(30), 
+                  IN p_motDePasse varchar(40), 
+                  IN p_possesseurCle tinyint(1), 
+                  IN p_typeEmploye varchar(45), 
+                  IN p_indPriorite int(11), 
+                  IN p_formationVetement tinyint(1), 
+                  IN p_formationChaussure tinyint(1), 
+                  IN p_formationCaissier tinyint(1), 
+                  IN p_respHoraireConflit tinyint(1))
+BEGIN
+  INSERT INTO employe (nom, prenom, motDePasse, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit) VALUES (p_nom, p_prenom, SHA1(p_motDePasse), p_possesseurCle, p_typeEmploye, p_indPriorite, p_formationVetement, p_formationChaussure, p_formationCaissier, p_respHoraireConflit);
+  SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
+END
