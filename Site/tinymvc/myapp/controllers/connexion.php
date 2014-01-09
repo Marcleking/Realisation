@@ -15,16 +15,19 @@ class Connexion_Controller extends TinyMVC_Controller
 
 	  	if(isset($_POST['user']) && isset($_POST['pwd']))
 	  	{
-	  		if($_POST['user'] == "Marc" && $_POST['pwd'] == "Marc")
-		  	{	
-		  		$_SESSION['user'] = new User();
-		  		$_SESSION['user']->setNom($_POST['user']);
-		  		$_SESSION['user']->setType("membre");
-			  	$this->view->assign('menu', $this->view->fetch("menu"));
+
+	  		$this->load->model('connexion_model','connexion');
+			$this->connexion->seConnecter($_POST['user'], $_POST['pwd']);
+
+			
+
+	  		if (isset($_SESSION['user']))
+	  		{
+	  			$this->view->assign('menu', $this->view->fetch("menu"));
 			  	$this->view->assign('contenu', $this->view->fetch("accueil"));
 			  	$this->view->display('gabarit');
 			  	return;
-		  	}
+	  		}
 	  	}
 	  	$this->view->display('view-connexion');
 	  }
