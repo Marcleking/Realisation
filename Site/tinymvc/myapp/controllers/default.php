@@ -14,6 +14,7 @@ class Default_Controller extends TinyMVC_Controller
         $this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
 		$this->view->assign('erreur', '');
+
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{

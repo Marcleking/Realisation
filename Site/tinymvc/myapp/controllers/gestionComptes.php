@@ -17,8 +17,28 @@ class gestionComptes_Controller extends TinyMVC_Controller
 	 	if(isset($_SESSION['user']))
 	  	{
 			if($_SESSION['user']->getType() == "Gestionnaire") {
+				
+				$this->load->model('affichageUtilisateurs_model','affiche');
+				$listEmploye = $this->affiche->AfficherUtilisateurs();
+				
+				$listHtml = '<dl class="accordion" data-accordion> ';
+				foreach($listEmploye as $x_value) {
+						$listHtml = $listHtml . '<dd><a href="#panel'.  $x_value["noEmploye"] .'">'. $x_value["noEmploye"] .' - '. $x_value["prenom"] ." ". $x_value["nom"] .'</a>';
+						$listHtml = $listHtml . '<div id="panel'.$x_value["noEmploye"] .'" class="content">Nom: '. $x_value["prenom"] ." ". $x_value["nom"];
+						$listHtml = $listHtml . '<br />Courriel: '.$x_value["courriel"] .'</div></dd>';
+				}
+				
+
+				
+				
+			
+				$this->view->assign('lstEmploye', $listHtml);
 				$this->view->assign('menu', $this->view->fetch("menu"));
 				$this->view->assign('contenu', $this->view->fetch("view-gestionComptes"));
+				
+				
+		
+				
 			}
 			else {
 				//Change view for error message
