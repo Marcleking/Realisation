@@ -22,7 +22,7 @@
 				<form data-abide action="<?=url?>/connexion" method="POST">
 					<div class="panel">
 						<h1>Connexion</h1>
-
+		
 						<div>
 						  	<label for="user">Numéro d'utilisateur</label>
 					      	<input type="text" id="user" name="user" placeholder="Entrez votre nom d'utilisateur..." required />
@@ -36,6 +36,9 @@
 				      	</div>
 				      	
 				      	<input type="submit" class="button"/>
+						
+							<?=$erreur?>
+						
 			      	</div>
 			  	</form>
 			</div>
