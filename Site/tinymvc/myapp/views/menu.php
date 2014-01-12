@@ -11,14 +11,10 @@
 	  <hr />
 	  <li <?=$gestionCompte?> id="numero6"><a href="#"><i class="fa fa-cogs fa-2x"></i> Gestion du compte</a></li>
 	  <hr />
-	  <?php 
-	  if ( $_SESSION['user']->getType() == "Gestionnaire")
-	  { ?>
-	  <li <?=$gestionComptes?> id="numero7"><a href="<?=url?>/gestionComptes"><i class="fa fa-users fa-2x"></i> Gestion des comptes</a></li>
-	  <hr />
-	  <?php
-	  }
-	  ?>
+	  <?php if ( $_SESSION['user']->getType() == "Gestionnaire") { ?>
+	  	<li <?=$gestionComptes?> id="numero7"><a href="<?=url?>/gestionComptes"><i class="fa fa-users fa-2x"></i> Gestion des comptes</a></li>
+	  	<hr />
+	  <?php } ?>
 	  
 	  <li id="numero8"><a href="<?=url?>/deconnexion"><i class="fa fa-cogs fa-2x"></i> Deconnexion</a></li>
 	

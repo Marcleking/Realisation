@@ -916,26 +916,26 @@ INSERT INTO `telephone` (`noTelphone`, `description`, `noEmploye`) VALUES
 -- Contraintes pour la table `ancienhoraire`
 --
 ALTER TABLE `ancienhoraire`
-  ADD CONSTRAINT `fk_AncienHoraire_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_AncienHoraire_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `destinataire`
 --
 ALTER TABLE `destinataire`
-  ADD CONSTRAINT `fk_ArticleLu_Article1` FOREIGN KEY (`idMessage`) REFERENCES `message` (`idMessage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Destinataire_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ArticleLu_Article1` FOREIGN KEY (`idMessage`) REFERENCES `message` (`idMessage`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Destinataire_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `disponibilitejours`
 --
 ALTER TABLE `disponibilitejours`
-  ADD CONSTRAINT `fk_DisponibiliteJours_DisponibiliteSemaine` FOREIGN KEY (`idDispoSemaine`) REFERENCES `disponibilitesemaine` (`idDispoSemaine`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_DisponibiliteJours_DisponibiliteSemaine` FOREIGN KEY (`idDispoSemaine`) REFERENCES `disponibilitesemaine` (`idDispoSemaine`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `disponibilitesemaine`
 --
 ALTER TABLE `disponibilitesemaine`
-  ADD CONSTRAINT `fk_DisponibiliteSemaine_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_DisponibiliteSemaine_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `document`
@@ -948,32 +948,32 @@ ALTER TABLE `document`
 --
 ALTER TABLE `fichier`
   ADD CONSTRAINT `fk_Fichier_Document1` FOREIGN KEY (`idDossier`) REFERENCES `document` (`idDossier`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Fichier_Employe1` FOREIGN KEY (`Employe_noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Fichier_Employe1` FOREIGN KEY (`Employe_noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `fichierlu`
 --
 ALTER TABLE `fichierlu`
-  ADD CONSTRAINT `fk_FichierLu_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_FichierLu_Fichier1` FOREIGN KEY (`noFichier`) REFERENCES `fichier` (`noFichier`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_FichierLu_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_FichierLu_Fichier1` FOREIGN KEY (`noFichier`) REFERENCES `fichier` (`noFichier`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `fk_Article_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Article_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `plagedetravail`
 --
 ALTER TABLE `plagedetravail`
-  ADD CONSTRAINT `fk_PlageDeTravail_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_PlageDeTravail_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `telephone`
 --
 ALTER TABLE `telephone`
-  ADD CONSTRAINT `fk_Telephone_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Telephone_Employe1` FOREIGN KEY (`noEmploye`) REFERENCES `employe` (`noEmploye`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
@@ -995,12 +995,11 @@ CREATE PROCEDURE Connexion (in p_noEmploye INT,
 $$
 
 DROP PROCEDURE IF EXISTS AjouterUtilisateur $$
-CREATE PROCEDURE AjouterUtilisateur(IN p_nom varchar(30), 
+CREATE PROCEDURE AjouterUtilisateur(IN p_nom varchar(30), -- ++++++++++++tel
                                     IN p_prenom varchar(30), 
                                     IN p_motDePasse varchar(40), 
-                                    IN p_possesseurCle tinyint(1), 
-                                    IN p_typeEmploye varchar(45), 
-                                    IN p_indPriorite int(11), 
+                                    IN p_possesseurCle tinyint(1),                   
+                                    IN p_typeEmploye varchar(45),
                                     IN p_formationVetement tinyint(1), 
                                     IN p_formationChaussure tinyint(1), 
                                     IN p_formationCaissier tinyint(1), 
@@ -1008,7 +1007,70 @@ CREATE PROCEDURE AjouterUtilisateur(IN p_nom varchar(30),
 BEGIN
   DECLARE id int(11);
   Set id = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1) + 1;
-  INSERT INTO employe (nom, prenom, motDePasse, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit) 
-  VALUES (p_nom, p_prenom, sha1(concat(sha1(p_motDePasse), id)), p_possesseurCle, p_typeEmploye, p_indPriorite, p_formationVetement, p_formationChaussure, p_formationCaissier, p_respHoraireConflit);
+  INSERT INTO employe (nom, prenom, motDePasse, possesseurCle, typeEmploye, formationVetement, formationChaussure, formationCaissier, respHoraireConflit) 
+  VALUES (p_nom, p_prenom, sha1(concat(sha1(p_motDePasse), id)), p_possesseurCle, p_typeEmploye, p_formationVetement, p_formationChaussure, p_formationCaissier, p_respHoraireConflit);
   SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
 END
+
+$$
+
+DROP PROCEDURE IF EXISTS Utilisateur $$
+CREATE PROCEDURE Utilisateur (in p_noEmploye INT)
+    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, nbHeureMinTravail, nbHeureMaxTravail, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+    FROM employe 
+    where noEmploye = p_noEmploye;
+$$
+
+DROP PROCEDURE IF EXISTS Utilisateurs $$
+CREATE PROCEDURE Utilisateurs ()
+    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, nbHeureMinTravail, nbHeureMaxTravail, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+    FROM employe;
+$$
+
+DROP PROCEDURE IF EXISTS SupprimerUtilisateur $$
+CREATE PROCEDURE SupprimerUtilisateur (p_noEmploye int)
+BEGIN
+  if exists(Select * from employe where noEmploye = p_noEmploye) then
+    Select * from employe where noEmploye = p_noEmploye;
+
+    DELETE FROM employe
+    WHERE noEmploye = p_noEmploye;
+  end if;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
+CREATE PROCEDURE ModifierUtilisateur (p_nom, 
+                                      p_prenom, 
+                                      p_motDePasse, 
+                                      p_courriel, 
+                                      p_numeroCivique, 
+                                      p_rue, 
+                                      p_ville, 
+                                      p_codePostal, 
+                                      p_possesseurCle, 
+                                      p_typeEmploye, 
+                                      p_indPriorite, 
+                                      p_nbHeureMinTravail, 
+                                      p_nbHeureMaxTravail, 
+                                      p_formationVetement, 
+                                      p_formationChaussure, 
+                                      p_formationCaissier, 
+                                      p_respHoraireConflit, 
+                                      p_notifHoraire, 
+                                      p_notifRemplacement, 
+                                      p_lastIp, 
+                                      p_lastLogon)
+BEGIN
+  if exists(Select * from employe where noEmploye = p_noEmploye) then
+    
+
+    UPDATE employe
+    SET nom_colonne_1 = 'nouvelle valeur'
+    WHERE noEmploye = p_noEmploye;
+
+    Select * from employe where noEmploye = p_noEmploye;
+  end if;
+END
+

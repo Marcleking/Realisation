@@ -32,7 +32,7 @@ class Connexion_Controller extends TinyMVC_Controller
 			  	return;
 	  		}
 	  	}
-		$this->view->assign('erreur', "<div data-alert class='alert-box warning round'>Numéro d'utilisateur et mot de passe incorrect.</div>");
+		$this->view->assign('erreur', "<div data-alert class='alert-box warning round'>Numéro d'utilisateur ou mot de passe incorrect.</div>");
 	  	$this->view->display('view-connexion');
 		
 	  }

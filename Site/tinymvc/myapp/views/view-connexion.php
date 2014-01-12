@@ -31,7 +31,7 @@
 
 				      	<div>
 					      	<label>Mot de passe</label>
-					      	<input type="password" class="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required pattern="alpha" />
+					      	<input type="password" class="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
 					      	<small class="error">Veuillez indiquez un mot de passe.</small>
 				      	</div>
 				      	
