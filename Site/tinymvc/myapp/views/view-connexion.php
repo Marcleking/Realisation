@@ -30,22 +30,24 @@
 				      	</div>
 
 				      	<div>
-					      	<label>Mot de passe</label>
-					      	<input type="password" class="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
+
+					      	<label for="pwd">Mot de passe</label>
+					      	<input type="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
+
 					      	<small class="error">Veuillez indiquez un mot de passe.</small>
 				      	</div>
 				      	
 				      	<input type="submit" class="button"/>
+						<?=$erreur?>
 						
-							<?=$erreur?>
-						
+							
 			      	</div>
 			  	</form>
 			</div>
 	  	</div>
 	  	
-		<script src="<?=url?>/../js/foundation.min.js"></script>
-		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
+		<!--<script src="<?=url?>/../js/foundation.min.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>-->
 	  	<script>
 		 	$(document).foundation();
 		</script>

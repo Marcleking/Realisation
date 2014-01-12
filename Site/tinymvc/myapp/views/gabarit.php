@@ -43,6 +43,11 @@
 		tr > td{
 			padding-bottom:10px;
 		}
+
+		hr {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
 	</style>
 
 	<script src="<?=url?>/../js/vendor/jquery.js"></script>

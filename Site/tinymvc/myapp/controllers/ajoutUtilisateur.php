@@ -59,15 +59,16 @@ class ajoutUtilisateur_Controller extends TinyMVC_Controller
 					}
 					
 					
-				$this->load->model('ajoutUtilisateur_model','ajout');
-				$test = $this->ajout->Ajoututilisateur($_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
-				//echo $test["nom"];
-
+					$this->load->model('ajoutUtilisateur_model','ajout');
+					$test = $this->ajout->Ajoututilisateur($_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
+					//echo $test["nom"];
+					
 						
 				}
-			
-				$this->view->assign('menu', $this->view->fetch("menu"));
-				$this->view->assign('contenu', $this->view->fetch("view-ajoutUtilisateur"));
+				
+					$this->view->assign('menu', $this->view->fetch("menu"));
+					$this->view->assign('contenu', $this->view->fetch("view-ajoutUtilisateur"));
+				
 			}
 			else {
 				//Change view for error message
