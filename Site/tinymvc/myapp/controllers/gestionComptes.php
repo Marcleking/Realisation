@@ -17,6 +17,15 @@ class gestionComptes_Controller extends TinyMVC_Controller
 	 	if(isset($_SESSION['user']))
 	  	{
 			if($_SESSION['user']->getType() == "Gestionnaire") {
+			
+				if(isset($_GET['id']))
+				{
+		
+		
+					
+					$this->load->model('supprimerUtilisateur_Model','supprimer');
+					$this->supprimer->supprimerUser($_GET['id']);
+				}
 				
 				$this->load->model('affichageUtilisateurs_model','affiche');
 				$listEmploye = $this->affiche->AfficherUtilisateurs();
@@ -28,7 +37,7 @@ class gestionComptes_Controller extends TinyMVC_Controller
 						$listHtml = $listHtml . '<div class="left"> Nom: '. $x_value["prenom"] ." ". $x_value["nom"]. '</div>';
 						$listHtml = $listHtml . '<div class="right"> Adresse: '. $x_value["numeroCivique"] .", ". $x_value["rue"]. '<br />'.$x_value["ville"]. ' '. $x_value["codePostal"] .'</div>';
 						$listHtml = $listHtml . '<br />Courriel: '.$x_value["courriel"];
-						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="#" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
+						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="'.url.'/gestionComptes?id='. $x_value["noEmploye"] .'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
 				}
 				
 

@@ -5,6 +5,8 @@ class Connexion_Controller extends TinyMVC_Controller
 
 	  function index()
 	  {
+	  echo "1";
+
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
 		$this->view->assign('accueil', '');
 		$this->view->assign('message', '');
@@ -15,7 +17,6 @@ class Connexion_Controller extends TinyMVC_Controller
 		$this->view->assign('gestionComptes', '');
 		
 		
-
 	  	if(isset($_POST['user']) && isset($_POST['pwd']))
 	  	{
 
