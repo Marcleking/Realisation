@@ -146,6 +146,8 @@
 		function remplirListeDate()
 		{
 			var vecteurDateSemaine = [];
+			var uneListeDate = document.getElementById("formDispo");
+			var elementListe = document.createElement('select');
 			
 			for(i = 5; i > 0; i--)
 			{
@@ -161,15 +163,14 @@
 				vecteurDateSemaine.push(startAndEndOfWeek(jours));
 			}
 			
-			var uneListeDate = document.getElementById("formDispo");
-			var elementListe = document.createElement('select');
-			
 			for(i = 0; i < vecteurDateSemaine.length; i++)
 			{
 				var option = document.createElement("option");
 				option.text = vecteurDateSemaine[i][0] + vecteurDateSemaine[i][1];
 				elementListe.options.add(option);
 			}
+			
+			elementListe.options.selectedIndex = 5;
 			
 			uneListeDate.appendChild(elementListe);
 		}
