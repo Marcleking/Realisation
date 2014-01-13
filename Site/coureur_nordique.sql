@@ -1101,8 +1101,10 @@ END
 $$
 
 DROP PROCEDURE IF EXISTS dispoChoisie $$
-CREATE PROCEDURE dispoChoisie(noEmp int(11), noSemaine int(11))
-  SELECT heureDebut, heureFin
-  FROM plagedetravail INNER JOIN disponibilitesemaine ON plagedetravail.noEmploye = disponibilitesemaine.noEmploye
-  WHERE plagedetravail.noEmploye = noEmp
-  AND idDispoSemaine = noSemaine;
+CREATE PROCEDURE dispoChoisie(noEmp int(11), noSemaine int(11), annee int(4))
+SELECT heureDebut, heureFin, jour
+FROM disponibilitejours
+WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
+											WHERE disponibilitesemaine.noEmploye = noEmp
+											AND disponibilitesemaine.noDispoSemaine = noSemaine
+											AND disponibilitesemaine.annee = annee);
