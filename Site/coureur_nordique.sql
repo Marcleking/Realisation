@@ -16,11 +16,11 @@
   /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
   /*!40101 SET NAMES utf8 */;
 
-  DROP DATABASE IF EXISTS Coureur_Nordique;
-  CREATE DATABASE Coureur_Nordique;
-  USE Coureur_Nordique;
+  DROP DATABASE IF EXISTS coureur_nordique;
+  CREATE DATABASE coureur_nordique;
+  USE coureur_nordique;
   grant usage on *.* to user_coureur@localhost identified by 'qweqwe';
-  grant all privileges on Coureur_Nordique.* to user_coureur@localhost ;
+  grant all privileges on coureur_nordique.* to user_coureur@localhost ;
   -- --------------------------------------------------------
 
   --
@@ -210,7 +210,7 @@
     `notifHoraire` tinyint(1) NOT NULL DEFAULT '1',
     `notifRemplacement` tinyint(1) NOT NULL DEFAULT '0',
     `lastIp` varchar(20) NOT NULL,
-    `lastLogon` varchar(20) NOT NULL,
+    `lastLogon` date NOT NULL,
     PRIMARY KEY (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
@@ -496,16 +496,25 @@
 
   --PROCÉDURE
   DELIMITER $$
-  USE Coureur_Nordique $$
+  USE coureur_nordique $$
 
   DROP PROCEDURE IF EXISTS Connexion $$
   CREATE PROCEDURE Connexion (in p_courriel varchar(60), 
-                              in p_mdp varchar(60))
+                              in p_mdp varchar(60),
+                              in p_lastIp varchar(20),
+                              in p_lastLogon date)
   BEGIN
-      SELECT courriel, typeEmploye
-      FROM employe
-      where courriel = p_courriel
-      AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+      if exists (SELECT courriel, typeEmploye FROM employe WHERE courriel = p_courriel AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel))) then
+        UPDATE employe
+          set lastIp = p_lastIp,
+          lastLogon = p_lastLogon
+          where courriel = p_courriel;
+        
+        SELECT courriel, typeEmploye 
+          FROM employe 
+          WHERE courriel = p_courriel 
+          AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+      end if;
   END
   $$
 
