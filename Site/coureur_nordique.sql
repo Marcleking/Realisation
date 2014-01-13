@@ -577,8 +577,8 @@
 
   $$
 
-  DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
-  CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
+  DROP PROCEDURE IF EXISTS ModifierUtilisateurAdmin $$
+  CREATE PROCEDURE ModifierUtilisateurAdmin (p_courriel varchar(60), p_nom varchar(30), 
                                         p_prenom varchar(30), p_motDePasse varchar(40),
                                         p_numeroCivique varchar(10), 
                                         p_rue varchar(50), p_ville varchar(45), 
@@ -605,6 +605,34 @@
           formationChaussure = p_formationChaussure,
           formationCaissier = p_formationCaissier,
           respHoraireConflit = p_respHoraireConflit,
+          notifHoraire = p_notifHoraire,
+          notifRemplacement = p_notifRemplacement
+      WHERE courriel = p_courriel;
+
+      Select * from employe where courriel = p_courriel;
+    end if;
+  END
+
+  $$
+
+  DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
+  CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
+                                        p_prenom varchar(30), p_motDePasse varchar(40),
+                                        p_numeroCivique varchar(10), 
+                                        p_rue varchar(50), p_ville varchar(45), 
+                                        p_codePostal varchar(7),
+                                        p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
+  BEGIN
+    if exists(Select * from employe where courriel = p_courriel) then
+      UPDATE employe
+      SET nom = p_nom,
+          prenom = p_prenom,
+          motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
+          courriel = p_courriel,
+          numeroCivique = p_numeroCivique,
+          rue = p_rue,
+          ville = p_ville,
+          codePostal = p_codePostal,
           notifHoraire = p_notifHoraire,
           notifRemplacement = p_notifRemplacement
       WHERE courriel = p_courriel;
