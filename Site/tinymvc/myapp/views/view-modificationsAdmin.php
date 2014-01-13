@@ -17,8 +17,8 @@
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
 			<div class="large-6 columns">
-			  <label>Retapez le mot de passe(*)</label>
-			  <input type="password" name="motdePasse1" placeholder="Mot de Passe" />
+			  <label>Courriel</label>
+			  <input type="text" name="motdePasse1" value="<?=$_GET['courriel']?>" placeholder="Courriel" />
 			</div>
 		</div>
 		
@@ -47,10 +47,38 @@
 			
 			<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire" <?php echo ($notHor==1 ? 'checked' : '');?>><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
 			<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" <?php echo ($notRem==1 ? 'checked' : '');?>><label for="notifRemplacement">Notifications pour tous les remplacements</label>
-		</div>
+					
+			  <label>Type employé</label>
+			  <select name="typeEmp">
+				<option value="Employé">Employé</option>
+				<option value="Gestionnaire">Gestionnaire</option>
+			  </select>
 		
+		</div>
+		<div class="large-5 columns">
+				<label>Formation</label>
+				<input id="Vetement" type="checkbox" name="Vetement" <?php echo ($formationVetement==1 ? 'checked' : '');?>><label for="Vetement" >Vétement</label><br />
+				<input id="Chaussure" type="checkbox" name="Chaussure" <?php echo ($formationChaussure==1 ? 'checked' : '');?>><label for="Chaussure" >Chaussure</label><br />
+				<input id="Caissier" type="checkbox" name="Caissier"  <?php echo ($formationCaissier==1 ? 'checked' : '');?>><label for="Caissier">Caissier</label><br />
+		</div>
 	</div>
+	
+	<div class="row">
+
+	  </div>
+	  
+	  <div class="row">
+			<div class="large-7 columns">
+				<input id="cle" type="checkbox" value="1" name="cle" <?php echo ($possesseurCle==1 ? 'checked' : '');?>><label for="cle">Possesseur d'une clé</label>
+				<input id="Conflit" type="checkbox" value="Oui" name="conflit" <?php echo ($respHoraireConflit==1 ? 'checked' : '');?>><label for="Conflit">Responsable Conflit</label>
+			</div>
+			
+
+
+			
+		</div>
   
+
 
  
  
