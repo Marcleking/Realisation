@@ -503,7 +503,7 @@
                               in p_mdp varchar(60))
   BEGIN
       SELECT courriel, typeEmploye
-      FROM employe 
+      FROM employe
       where courriel = p_courriel
       AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
   END
@@ -553,7 +553,7 @@
 
   DROP PROCEDURE IF EXISTS Utilisateur $$
   CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
-      SELECT nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
       FROM employe 
       where courriel = p_courriel;
   $$
