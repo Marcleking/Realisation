@@ -22,7 +22,7 @@
 				<form data-abide action="<?=url?>/connexion" method="POST">
 					<div class="panel">
 						<h1>Connexion</h1>
-
+		
 						<div>
 						  	<label for="user">Numéro d'utilisateur</label>
 					      	<input type="text" id="user" name="user" placeholder="Entrez votre nom d'utilisateur..." required />
@@ -30,19 +30,24 @@
 				      	</div>
 
 				      	<div>
-					      	<label>Mot de passe</label>
-					      	<input type="password" class="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required pattern="alpha" />
+
+					      	<label for="pwd">Mot de passe</label>
+					      	<input type="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
+
 					      	<small class="error">Veuillez indiquez un mot de passe.</small>
 				      	</div>
 				      	
 				      	<input type="submit" class="button"/>
+						<?=$erreur?>
+						
+							
 			      	</div>
 			  	</form>
 			</div>
 	  	</div>
 	  	
-		<script src="<?=url?>/../js/foundation.min.js"></script>
-		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
+		<!--<script src="<?=url?>/../js/foundation.min.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>-->
 	  	<script>
 		 	$(document).foundation();
 		</script>

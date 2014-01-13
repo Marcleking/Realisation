@@ -1,74 +1,81 @@
 <div class="panel medium-12 columns">
 	<h3>Ajout d'un utilisateur</h3>
 	
-	<form>
+<form data-abide action="<?=url?>/ajoutUtilisateur" method="POST">
   <div class="row">
-    <div class="large-5 columns">
-      <label>Nom</label>
-      <input type="text" placeholder="large-5.columns" />
+    <div class="large-6 columns <?=$erreurNom?>">
+      <label>Nom(*)</label>
+      <input type="text" id="nom" name="nom" placeholder="Nom" />
     </div>
-	<div class="large-5 columns">
-      <label>Prénom</label>
-      <input type="text" placeholder="large-5.columns" />
+	<div class="large-6 columns <?=$erreurPrenom?>">
+      <label>Prénom(*)</label>
+      <input type="text" id="prenom" name="prenom" placeholder="Prénom" />
+	  
     </div>
   </div>
   <div class="row">
-    <div class="large-5 columns">
-      <label>Mot de Passe</label>
-      <input type="text" placeholder="large-5.columns" />
+    <div class="large-6 columns <?=$erreurMotDePasse?>">
+      <label>Mot de Passe(*)</label>
+      <input type="password" name="motdePasse" placeholder="Mot de Passe" />
     </div>
-	<div class="large-5 columns">
+	<div class="large-6 columns">
       <label>Courriel</label>
-      <input type="text" placeholder="large-5.columns" />
+      <input type="text" name="courriel" placeholder="Courriel" />
     </div>
   </div>
   
 	<div class="row">
-		<div class="large-3 columns">
+		<div class="large-6 columns">
 			<label>Numéro civique</label>
-			<input type="text" placeholder="large-4.columns" />
+			<input type="text" name="numeroCiv" placeholder="Numéro civique" />
 		</div>
-		<div class="large-5 columns">
+		<div class="large-6 columns">
 			<label>Rue</label>
-			<input type="text" placeholder="large-5.columns" />
+			<input type="text" name="rue" placeholder="Rue" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="large-5 columns">
+		<div class="large-6 columns">
 			<label>Ville</label>
-			<input type="text" placeholder="large-4.columns" />
+			<input type="text" name="ville" placeholder="Ville" />
 		</div>
-		<div class="large-5 columns">
+		<div class="large-6 columns">
 			<label>Code postal</label>
-			<input type="text" placeholder="large-4.columns" />
+			<input type="text" name="codepost" placeholder="Code postal" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="large-4 columns">
-		  <label>possesseur d'un clé</label>
-		  <select>
-			<option value="Non">Non</option>
-			<option value="Oui">Oui</option>
-		  </select>
+			<input id="cle" type="checkbox" value="1" name="cle"><label for="cle">Possesseur d'une clé</label><br />
+			<input id="Conflit" type="checkbox" value="Oui" name="conflit"><label for="Conflit">Responsable Conflit</label>
 		</div>
 		<div class="large-4 columns">
 		  <label>Type employé</label>
-		  <select>
-			<option value="Non">Employé</option>
-			<option value="Oui">Gestionnaire</option>
+		  <select name="typeEmp">
+			<option value="Employé">Employé</option>
+			<option value="Gestionnaire">Gestionnaire</option>
 		  </select>
 		</div>
 		<div class="large-4 columns">
-			<label>Responsable Conflit</label>
-			<input type="radio" name="RespCon" value="non" id="rcNon" Checked><label for="rcNon" >Non</label>
-			<input type="radio" name="RespCon" value="oui" id="rcOui"><label for="rcOui">Oui</label>
+			
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="large-6 columns">
+			<label>Formation</label>
+			<input id="Vetement" type="checkbox" name="Vetement" ><label for="Vetement">Vétement</label>
+			<input id="Chaussure" type="checkbox" name="Chaussure" ><label for="Chaussure">Chaussure</label>
+			<input id="Caissier" type="checkbox" name="Caissier" ><label for="Caissier">Caissier</label>
 		</div>
 	</div>
 
  
  
-  
+  <input type="submit" class="button"/>
   
 </form>
-	<a href="#" class="button right radius">Envoyer</a>
+
 </div>
+
+  
