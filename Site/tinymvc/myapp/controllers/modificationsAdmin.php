@@ -22,14 +22,8 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 			if($_SESSION['user']->getType() == "Gestionnaire") {
 			
 			
-			$this->load->model('modifierUtilisateurAdmin_model','affiche');
+			$this->load->model('modifierutilisateuradmin_model','affiche');
 			$result = $this->affiche->AfficherUtilisateur($_GET['courriel']);
-			
-			
-			
-			
-			
-			
 			
 			
 			$this->load->model('affichageUtilisateur_model','affiche');
@@ -53,6 +47,8 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 
 			
 			$this->view->assign('menu', $this->view->fetch("menu"));
+
+			
 			$this->view->assign('contenu', $this->view->fetch("view-modificationsAdmin"));
 			}
 			else {

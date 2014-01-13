@@ -1,5 +1,5 @@
 <?php
-	class modifierUtilisateur_Model extends TinyMVC_Model
+	class modifierutilisateur_model extends TinyMVC_Model
 	{
 		function modifierUnutilisateur($nom, $prenom, $motPasse, $courriel, $numerocivique, $rue, $ville, $codePostal, $notifHoraire, $notifRemplacement) {
 
