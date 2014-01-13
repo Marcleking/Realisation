@@ -22,11 +22,41 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 			if($_SESSION['user']->getType() == "Gestionnaire") {
 			
 			
-			$this->load->model('modifierUtilisateurAdmin_model','affiche');
-			$result = $this->affiche->AfficherUtilisateur($_GET['courriel']);
 			
 			
-			
+			if(isset($_POST['nom']) || isset($_POST['prenom']) || isset($_POST['motdePasse']) || isset($_POST['courriel']) || isset($_POST['numeroCivique']) || isset($_POST['rue']) || 
+					isset($_POST['ville']) || isset($_POST['codepost']) || isset($_POST['notifHoraire']) || isset($_POST['notifRemplacement']) || isset($_POST['typEmp']) || isset($_POST['Vetement']) || isset($_POST['Chaussure'])
+					|| isset($_POST['Caissier']) || isset($_POST['cle']) || isset($_POST['conflit'])) {
+					
+						$cle = 1;
+						$formationVetement = 1;
+						$formationChaussure = 1;
+						$formationCaissier = 1;
+						$respHoraireConflit = 1;
+						
+						if(!isset($_POST['cle'])) {
+							$cle = 0;
+						}
+						
+						if(!isset($_POST['Vetement'])) {
+							$formationVetement = 0;
+						}
+						
+						if(!isset($_POST['Chaussure'])) {
+							$formationChaussure = 0;
+						}
+						
+						if(!isset($_POST['Caissier'])) {
+							$formationCaissier = 0;
+						}
+						
+						if(!isset($_POST['conflit'])) {
+							$respHoraireConflit = 0;
+					}
+					
+						$this->load->model('modifierUtilisateurAdmin_Model','modifie');
+						$result = $this->modifie->modifierUnutilisateurAdmin($_GET['courriel'], $_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $_POST['numeroCiv'], $_POST['rue'], $_POST['ville'], $_POST['codepost'],  $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
+					}
 			
 			
 			

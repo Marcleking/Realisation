@@ -1,6 +1,6 @@
 <div class="panel medium-12 columns">
 	<h3>Gestion du compte</h3>
-	<form data-abide action="<?=url?>/gestionCompte" method="POST">
+	<form data-abide action="<?=url?>/modificationsAdmin?courriel=<?=$courriel?>" method="POST">
 		<div class="row">
 			<div class="large-6 columns">
 			  <label>Nom</label>
