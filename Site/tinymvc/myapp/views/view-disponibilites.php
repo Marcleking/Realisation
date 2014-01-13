@@ -203,7 +203,20 @@
 	</form>
 	
 	<script type="text/javascript">
-				
+	
+		window.addEventListener('change', recuperationDisponibilite, false);
+		
+		function recuperationDisponibilite()
+		{
+			$.ajax({
+				url: "<?=url?>/../../tinymvc/myapp/models/fetch_dispos.php",
+				datatype:'json',
+				success:function(vctDisponibilite){
+					
+				}
+			})
+		}
+
 		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
 						"Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
 						 
