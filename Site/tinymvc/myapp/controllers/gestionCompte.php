@@ -37,9 +37,18 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));
 			
 			$this->load->model('affichageUtilisateur_model','affiche');
-			$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());					
+			$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());	
 			
+			//$this->view->assign('nom', $result["nom"]);
+			//$this->view->assign('prenom', $result["prenom"]);
+			//$this->view->assign('numCivi', $result["numeroCivique"]);
+			//$this->view->assign('rue', $result["rue"]);
+			//$this->view->assign('ville', $result["ville"]);
+			//$this->view->assign('CP', $result["codePostal"]);
+			//$this->view->assign('notHor', $result["notifHoraire"]);
+			//$this->view->assign('notRem', $result["notifRemplacement"]);
 			
+			//echo$_SESSION['user']->getNom();
 		
 		} else {
 			$this->view->display('view-connexion');
