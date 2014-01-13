@@ -13,7 +13,7 @@
 
 
     			//Envoie du courriel
-
+    			mail($courriel, "Le coureur nordique", "Voici les informations de votre compte."); 
 
 
 
