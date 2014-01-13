@@ -4,8 +4,11 @@
 		function supprimerUser($noEmploye) {
 			$row = $this->db->query_one('Call SupprimerUtilisateur(?)', array($noEmploye));
 
-    		//if($row != null) {
-    		//}
+    		if($row != null) {
+    			return true;
+    		}
+
+    		return false;
 		}
 	}
 ?>

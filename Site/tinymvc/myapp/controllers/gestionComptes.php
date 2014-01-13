@@ -5,7 +5,8 @@ class gestionComptes_Controller extends TinyMVC_Controller
 	  function index()
 	  {
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
-
+		
+		
 		$this->view->assign('accueil', '');
 		$this->view->assign('message', '');
         $this->view->assign('documents', '');
@@ -13,18 +14,23 @@ class gestionComptes_Controller extends TinyMVC_Controller
         $this->view->assign('dispo', '');
         $this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', 'class="active"');
+		
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{
+	  		$this->view->assign('menu', $this->view->fetch("menu"));
+
 			if($_SESSION['user']->getType() == "Gestionnaire") {
-			
-				if(isset($_GET['id']))
+				
+				if(isset($_GET['suppId']))
 				{
-		
-		
-					
 					$this->load->model('supprimerUtilisateur_Model','supprimer');
-					$this->supprimer->supprimerUser($_GET['id']);
+
+					if($this->supprimer->supprimerUser($_GET['suppId'])) {
+						$this->view->assign("success", "");
+					} else {
+						$this->view->assign("fail", "");
+					}
 				}
 				
 				$this->load->model('affichageUtilisateurs_model','affiche');
@@ -37,26 +43,20 @@ class gestionComptes_Controller extends TinyMVC_Controller
 						$listHtml = $listHtml . '<div class="left"> Nom: '. $x_value["prenom"] ." ". $x_value["nom"]. '</div>';
 						$listHtml = $listHtml . '<div class="right"> Adresse: '. $x_value["numeroCivique"] .", ". $x_value["rue"]. '<br />'.$x_value["ville"]. ' '. $x_value["codePostal"] .'</div>';
 						$listHtml = $listHtml . '<br />Courriel: '.$x_value["courriel"];
-						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="'.url.'/gestionComptes?id='. $x_value["noEmploye"] .'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
+						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="'.url.'/gestionComptes?suppId='. $x_value["noEmploye"] .'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
 				}
 				
 
-				
-				
-			
 				$this->view->assign('lstEmploye', $listHtml);
-				$this->view->assign('menu', $this->view->fetch("menu"));
 				$this->view->assign('contenu', $this->view->fetch("view-gestionComptes"));
-				
-				
-		
 				
 			}
 			else {
-				//Change view for error message
-				$this->view->display('view-connexion');
+				$this->view->display('view-interdit');
+				return;
 			}
 		} else {
+
 			$this->view->display('view-connexion');
 	  		return;
 		}

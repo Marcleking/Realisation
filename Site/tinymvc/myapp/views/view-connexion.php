@@ -38,8 +38,10 @@
 				      	</div>
 				      	
 				      	<input type="submit" class="button"/>
-						<?=$erreur?>
 						
+				      	<?php if (isset($erreur)) { ?>
+							<?=$erreur?>
+						<?php } ?>
 							
 			      	</div>
 			  	</form>
