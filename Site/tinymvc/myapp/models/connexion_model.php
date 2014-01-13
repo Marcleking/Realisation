@@ -6,7 +6,7 @@
 
     		if($row != null) {
     			$_SESSION['user'] = new User();
-		  		$_SESSION['user']->setNom($row["nom"]);
+		  		$_SESSION['user']->setNom($row["courriel"]);
 		  		$_SESSION['user']->setType($row["typeEmploye"]);
     		}
 		}

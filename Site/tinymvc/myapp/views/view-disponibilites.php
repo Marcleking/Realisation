@@ -74,9 +74,9 @@
 			jsonForm.horaire = serializeSchedule();
 			
 			$.ajax({
+				url:"<?=url?>/../../tinymvc/myapp/models/test.php",
 				type:"POST",
-				url:"view-disponibilites.php",
-				data:jsonForm,
+				data:JSON.stringify(jsonForm),
 				dataType:"json"
 			});
 			
@@ -198,7 +198,7 @@
 		<label for="nbDesire"> Nombres d'heures désirées : </label>
 		<input type="number" id="nbDesire" name="nbDesire" />
 		
-		<input id="btnSubmit" type="submit" value="Envoyer" action="view-disponibilites.php" class="button right radius" />
+		<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
 		
 	</form>
 	
@@ -216,7 +216,7 @@
 				}
 			})
 		}
-	
+
 		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
 						"Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
 						 

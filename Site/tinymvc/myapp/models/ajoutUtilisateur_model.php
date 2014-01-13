@@ -1,8 +1,8 @@
 <?php
 	class ajoutUtilisateur_Model extends TinyMVC_Model
 	{
-		function Ajoututilisateur($nom, $prenom, $motPasse, $possesseurCle, $typeEmploye, $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit) {
-			$row = $this->db->query_one('Call AjouterUtilisateur(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($nom, $prenom, $motPasse, $possesseurCle, $typeEmploye, $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit));
+		function Ajoututilisateur($courriel, $typeEmploye, $formationVetement, $formationChaussure, $formationCaissier, $possesseurCle, $respHoraireConflit) {
+			$row = $this->db->query_one('Call AjouterUtilisateur(?, ?, ?, ?, ?, ?, ?)', array($courriel, $typeEmploye, $formationVetement, $formationChaussure, $formationCaissier, $possesseurCle, $respHoraireConflit));
 
     		if($row != null) {
     			$arrayUtil = array (
@@ -10,9 +10,6 @@
 					"prenom" => $row["prenom"]);
 				return $arrayUtil;
     		}
-			
-			
-			
 		}
 	}
 ?>

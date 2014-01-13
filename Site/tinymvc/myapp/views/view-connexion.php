@@ -48,8 +48,6 @@
 			</div>
 	  	</div>
 	  	
-		<!--<script src="<?=url?>/../js/foundation.min.js"></script>
-		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>-->
 	  	<script>
 		 	$(document).foundation();
 		</script>
