@@ -515,7 +515,9 @@ class TinyMVC_PDO
     switch($return_type)
     {
       case TMVC_SQL_INIT:
-        return $this->result->fetch();
+        try { //Test --> s'il n'y a aucune ligne ne fait rien.
+          return $this->result->fetch();
+        } catch (Exception $e) {}
         break;
       case TMVC_SQL_ALL:
         return $this->result->fetchAll();

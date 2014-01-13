@@ -8,56 +8,12 @@
 
 
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
 		<style>
-			#feedback { font-size: 1.4em; }
-			.selectable .ui-selecting { background: #FECA40; }
-			.selectable .ui-selected { background: #F39814; color: white; }
-			.selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-			.selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-			
-			.contenu {
-				overflow: auto;
-			}
-
-			html {
-				overflow: scroll;
-			}
-			
-			.off-canvas-list hr {
-				display: none;
-			}
-
-			td div{	
-				width:100%;
-				height:10px;}
-			.emp1{background:blue;}
-			.emp2{background:red;}
-			.emp3{background:green;}
-			.emp4{background:teal;}
-			td, th{
-				width:40px;
-				margin-bottom:10px;
-			}
-			tr > td{
-				padding-bottom:10px;
-			}
-
 			hr {
 				margin-top: 10px;
 				margin-bottom: 10px;
 			}
 		</style>
-
-		<script src="<?=url?>/../js/vendor/jquery.js"></script>
-		<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
-		<script src="<?=url?>/../js/jquery.js"></script>
-		<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="<?=url?>/../js/foundation.min.js"></script>
-		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
-		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
-		
-
 	</head>
 	<body>
 		<div class="row off-canvas-wrap">
@@ -82,13 +38,20 @@
 							  <?=$menu?>
 							</ul>
 				    </div>
+				    
+
 				    <div class="contenu">
-				    	<?=$contenu?>
+				    	<div class="medium-9 columns">
+							<h3>Interdit</h3>
+					    	<div class="panel">
+					    		Accès interdit
+					    	</div>
+					    </div>
 				    </div>
 				  <!-- close the off-canvas menu -->
 				  <a class="exit-off-canvas"></a>
 
 				</div>
-	  	</div>
+	  	</div>	
 	</body>
 </html>
