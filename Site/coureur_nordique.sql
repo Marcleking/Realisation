@@ -521,7 +521,7 @@
     if not exists (SELECT * from employe where courriel = p_courriel) then
       INSERT INTO employe (courriel, motDePasse, typeEmploye, formationVetement, formationCaissier, possesseurCle, respHoraireConflit) 
         VALUES (p_courriel, sha1(concat(sha1(p_courriel), p_courriel)), p_typeEmploye, p_formationVetement, p_formationChaussure, p_possesseurCle, p_respHoraireConflit);
-      SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
+      SELECT * FROM employe where courriel = p_courriel;
     end if;
   END
 
@@ -553,14 +553,14 @@
 
   DROP PROCEDURE IF EXISTS Utilisateur $$
   CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
-      SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
       FROM employe 
       where courriel = p_courriel;
   $$
 
   DROP PROCEDURE IF EXISTS Utilisateurs $$
   CREATE PROCEDURE Utilisateurs ()
-      SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
       FROM employe;
   $$
 
