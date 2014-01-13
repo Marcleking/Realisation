@@ -19,6 +19,9 @@ class Disponibilites_Controller extends TinyMVC_Controller
 	  	{
 	  		$this->view->assign('menu', $this->view->fetch("menu"));
 		  	$this->view->assign('contenu', $this->view->fetch("view-disponibilites"));
+			
+			
+			
 		} else {
 			$this->view->display('view-connexion');
 	  		return;
