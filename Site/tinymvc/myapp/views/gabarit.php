@@ -50,13 +50,8 @@
 		}
 	</style>
 
-	<script src="<?=url?>/../js/vendor/jquery.js"></script>
-	<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
-	<script src="<?=url?>/../js/jquery.js"></script>
-	<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="<?=url?>/../js/foundation.min.js"></script>
-	<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
-	<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
+	
+
 	
 
 	</head>
@@ -93,8 +88,17 @@
 	  	</div>
 	  	
 
-
-	  	
+		<script src="<?=url?>/../js/vendor/jquery.js"></script>
+		<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
+		<script src="<?=url?>/../js/jquery.js"></script>
+		<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?=url?>/../js/foundation.min.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.alert.js"></script>
+	  	<script>
+		 	$(document).foundation();
+		</script>
 		
 	</body>
 </html>

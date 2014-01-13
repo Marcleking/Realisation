@@ -795,16 +795,16 @@ INSERT INTO `ressource` (`idBlocRessource`, `dateDuJour`, `heureDebut`, `heureFi
 CREATE TABLE IF NOT EXISTS `telephone` (
   `noTelephone` varchar(12) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
-  `noEmploye` int(11) NOT NULL,
+  `courriel` varchar(60) NOT NULL,
   PRIMARY KEY (`noTelephone`),
-  KEY `fk_Telephone_Employe1_idx` (`noEmploye`)
+  KEY `fk_Telephone_Employe1_idx` (`courriel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `telephone`
 --
 
-INSERT INTO `telephone` (`noTelephone`, `description`, `noEmploye`) VALUES
+INSERT INTO `telephone` (`noTelephone`, `description`, `courriel`) VALUES
 ('004-844-4278', 'Cellulaire', 1),
 ('006-181-6338', 'Cellulaire', 26),
 ('051-555-4823', 'Maison', 4),
@@ -995,11 +995,17 @@ END
 $$
 
 DROP PROCEDURE IF EXISTS AjouterUtilisateur $$
-CREATE PROCEDURE AjouterUtilisateur(in p_courriel varchar(60))
+CREATE PROCEDURE AjouterUtilisateur(in p_courriel varchar(60),
+                                    in p_typeEmploye varchar(45),
+                                    in p_formationVetement tinyint(1),
+                                    in p_formationChaussure tinyint(1),
+                                    in p_formationCaissier  tinyint(1),
+                                    in p_possesseurCle  tinyint(1),
+                                    in p_respHoraireConflit tinyint(1))
 BEGIN
   if not exists (SELECT * from employe where courriel = p_courriel) then
-    INSERT INTO employe (courriel, motDePasse) 
-      VALUES (p_courriel, sha1(concat(sha1(p_courriel), p_courriel)));
+    INSERT INTO employe (courriel, motDePasse, typeEmploye, formationVetement, formationCaissier, possesseurCle, respHoraireConflit) 
+      VALUES (p_courriel, sha1(concat(sha1(p_courriel), p_courriel)), p_typeEmploye, p_formationVetement, p_formationChaussure, p_possesseurCle, p_respHoraireConflit);
     SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
   end if;
 END
@@ -1009,80 +1015,69 @@ $$
 DROP PROCEDURE IF EXISTS AjoutTelephone $$
 CREATE PROCEDURE AjoutTelephone (in p_noTelephone varchar(12),
                                   in p_description varchar(100),
-                                  in p_noEmploye int(11))
+                                  in p_courriel varchar(60))
 BEGIN
   if exists(Select * from employe where noEmploye = p_noEmploye) then
     INSERT INTO telephone (noTelephone, description, noEmploye)
       VALUES (p_noTelephone, p_description, p_noEmploye);
-    SELECT * FROM telephone WHERE noEmploye = p_noEmploye;
+    SELECT * FROM telephone WHERE courriel = p_courriel;
   end if;
 END
 
 $$
 
 DROP PROCEDURE IF EXISTS AfficheTelephone $$
-CREATE PROCEDURE AfficheTelephone (p_noEmploye int(11))
+CREATE PROCEDURE AfficheTelephone (in p_courriel varchar(60))
 BEGIN
   if exists(Select * from employe where noEmploye = p_noEmploye) then
-    SELECT * FROM telephone WHERE noEmploye = p_noEmploye;
+    SELECT * FROM telephone WHERE courriel = p_courriel;
   end if;
 END
 
 $$
 
 DROP PROCEDURE IF EXISTS Utilisateur $$
-CREATE PROCEDURE Utilisateur (in p_noEmploye INT)
-    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, nbHeureMinTravail, nbHeureMaxTravail, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
+    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
     FROM employe 
-    where noEmploye = p_noEmploye;
+    where courriel = p_courriel;
 $$
 
 DROP PROCEDURE IF EXISTS Utilisateurs $$
 CREATE PROCEDURE Utilisateurs ()
-    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, nbHeureMinTravail, nbHeureMaxTravail, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+    SELECT noEmploye, nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
     FROM employe;
 $$
 
 DROP PROCEDURE IF EXISTS SupprimerUtilisateur $$
-CREATE PROCEDURE SupprimerUtilisateur (p_noEmploye int)
+CREATE PROCEDURE SupprimerUtilisateur (in p_courriel varchar(60))
 BEGIN
-  if exists(Select * from employe where noEmploye = p_noEmploye) then
-    Select * from employe where noEmploye = p_noEmploye;
+  if exists(Select * from employe where courriel = p_courriel) then
+    Select * from employe where courriel = p_courriel;
 
     DELETE FROM employe
-    WHERE noEmploye = p_noEmploye;
+    WHERE courriel = p_courriel;
   end if;
 END
 
 $$
 
 DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
-CREATE PROCEDURE ModifierUtilisateur (p_noEmploye int(11),
-                                      p_nom varchar(30), 
-                                      p_prenom varchar(30), 
-                                      p_motDePasse varchar(40), 
-                                      p_courriel varchar(60), 
+CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
+                                      p_prenom varchar(30), p_motDePasse varchar(40),
                                       p_numeroCivique varchar(10), 
-                                      p_rue varchar(50), 
-                                      p_ville varchar(45), 
-                                      p_codePostal varchar(7), 
-                                      p_possesseurCle tinyint(1), 
-                                      p_typeEmploye varchar(45), 
-                                      p_indPriorite int(11), 
-                                      p_nbHeureMinTravail int(11), 
-                                      p_nbHeureMaxTravail int(11), 
-                                      p_formationVetement tinyint(1), 
-                                      p_formationChaussure tinyint(1), 
-                                      p_formationCaissier tinyint(1), 
-                                      p_respHoraireConflit tinyint(1), 
-                                      p_notifHoraire tinyint(1), 
-                                      p_notifRemplacement tinyint(1))
+                                      p_rue varchar(50), p_ville varchar(45), 
+                                      p_codePostal varchar(7), p_possesseurCle tinyint(1), 
+                                      p_typeEmploye varchar(45), p_indPriorite int(11),
+                                      p_formationVetement tinyint(1), p_formationChaussure tinyint(1), 
+                                      p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1), 
+                                      p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
 BEGIN
-  if exists(Select * from employe where noEmploye = p_noEmploye) then
+  if exists(Select * from employe where courriel = p_courriel) then
     UPDATE employe
     SET nom = p_nom,
         prenom = p_prenom,
-        motDePasse = sha1(concat(sha1(p_motDePasse),p_noEmploye)),
+        motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
         courriel = p_courriel,
         numeroCivique = p_numeroCivique,
         rue = p_rue,
@@ -1091,17 +1086,15 @@ BEGIN
         possesseurCle = p_possesseurCle,
         typeEmploye = p_typeEmploye,
         indPriorite = p_indPriorite,
-        nbHeureMinTravail = p_nbHeureMinTravail,
-        nbHeureMaxTravail = p_nbHeureMaxTravail,
         formationVetement = p_formationVetement,
         formationChaussure = p_formationChaussure,
         formationCaissier = p_formationCaissier,
         respHoraireConflit = p_respHoraireConflit,
         notifHoraire = p_notifHoraire,
         notifRemplacement = p_notifRemplacement
-    WHERE noEmploye = p_noEmploye;
+    WHERE courriel = p_courriel;
 
-    Select * from employe where noEmploye = p_noEmploye;
+    Select * from employe where courriel = p_courriel;
   end if;
 END
 
@@ -1109,7 +1102,7 @@ $$
 
 DROP PROCEDURE IF EXISTS dispoChoisie $$
 CREATE PROCEDURE dispoChoisie(noEmp int(11), noSemaine int(11))
-SELECT heureDebut, heureFin
-FROM plagedetravail INNER JOIN disponibilitesemaine ON plagedetravail.noEmploye = disponibilitesemaine.noEmploye
-WHERE plagedetravail.noEmploye = noEmp
-AND idDispoSemaine = noSemaine;
+  SELECT heureDebut, heureFin
+  FROM plagedetravail INNER JOIN disponibilitesemaine ON plagedetravail.noEmploye = disponibilitesemaine.noEmploye
+  WHERE plagedetravail.noEmploye = noEmp
+  AND idDispoSemaine = noSemaine;
