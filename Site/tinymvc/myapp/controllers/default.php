@@ -4,6 +4,7 @@ class Default_Controller extends TinyMVC_Controller
 {
 	  function index()
 	  {
+	  	
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
 
 		$this->view->assign('accueil', 'class="active"');
