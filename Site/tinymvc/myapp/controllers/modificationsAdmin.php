@@ -53,32 +53,49 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 					
 						$this->load->model('modifierutilisateuradmin_model','modifie');
 						$result = $this->modifie->modifierUnutilisateurAdmin($_GET['courriel'], $_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $_POST['numeroCiv'], $_POST['rue'], $_POST['ville'], $_POST['codepost'],  $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
-					}
+						
+						
+						$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
+					} else 
 		
-			$this->load->model('affichageUtilisateur_model','affiche');
-			$result = $this->affiche->AfficherUtilisateur($_GET['courriel']);	
 			
-			$this->view->assign('nom', $result["nom"]);
-			$this->view->assign('prenom', $result["prenom"]);
-			$this->view->assign('courriel', $result["courriel"]);
-			$this->view->assign('numCivi', $result["numeroCivique"]);
-			$this->view->assign('rue', $result["rue"]);
-			$this->view->assign('ville', $result["ville"]);
-			$this->view->assign('codePostal', $result["codePostal"]);
-			$this->view->assign('notHor', $result["notifHoraire"]);
-			$this->view->assign('notRem', $result["notifRemplacement"]);
-			$this->view->assign('formationVetement', $result["formationVetement"]);
-			$this->view->assign('formationChaussure', $result["formationChaussure"]);
-			$this->view->assign('formationCaissier', $result["formationCaissier"]);
-			$this->view->assign('respHoraireConflit', $result["respHoraireConflit"]);
-			$this->view->assign('possesseurCle', $result["possesseurCle"]);
-			$this->view->assign('typeEmploye', $result["typeEmploye"]);
+			
+			
+			if(isset($_GET['courriel']))
+			{
+				$this->load->model('affichageUtilisateur_model','affiche');
+				$result = $this->affiche->AfficherUtilisateur($_GET['courriel']);	
+				
+				if(!empty($result)) {				
+				$this->view->assign('nom', $result["nom"]);
+				$this->view->assign('prenom', $result["prenom"]);
+				$this->view->assign('courriel', $result["courriel"]);
+				$this->view->assign('numCivi', $result["numeroCivique"]);
+				$this->view->assign('rue', $result["rue"]);
+				$this->view->assign('ville', $result["ville"]);
+				$this->view->assign('codePostal', $result["codePostal"]);
+				$this->view->assign('notHor', $result["notifHoraire"]);
+				$this->view->assign('notRem', $result["notifRemplacement"]);
+				$this->view->assign('formationVetement', $result["formationVetement"]);
+				$this->view->assign('formationChaussure', $result["formationChaussure"]);
+				$this->view->assign('formationCaissier', $result["formationCaissier"]);
+				$this->view->assign('respHoraireConflit', $result["respHoraireConflit"]);
+				$this->view->assign('possesseurCle', $result["possesseurCle"]);
+				$this->view->assign('typeEmploye', $result["typeEmploye"]);
+				
+				$this->view->assign('contenu', $this->view->fetch("view-modificationsAdmin"));
+				} else {
+					$this->view->assign('erreur', 'Vous devez avoir un courriel valide et disponible dans un des comptes des employés!');
+					$this->view->assign('contenu', $this->view->fetch("view-interditavecmessage"));
+				}
+			} else {
+				
+				$this->view->assign('erreur', 'Vous devez avoir un courriel valide et disponible dans un des comptes des employés!');
+				$this->view->assign('contenu', $this->view->fetch("view-interditavecmessage"));
+			}
 
-			
 			$this->view->assign('menu', $this->view->fetch("menu"));
-
 			
-			$this->view->assign('contenu', $this->view->fetch("view-modificationsAdmin"));
 			}
 			else {
 				$this->view->display('view-interdit');
