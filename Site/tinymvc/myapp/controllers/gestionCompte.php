@@ -37,6 +37,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 
 			$this->load->model('affichageUtilisateur_model','affiche');
 			$result = $this->affiche->AfficherUtilisateur($_SESSION['user']->getNom());	
+			
 			$this->view->assign('nom', $result["nom"]);
 			$this->view->assign('prenom', $result["prenom"]);
 			$this->view->assign('numCivi', $result["numeroCivique"]);

@@ -1,6 +1,6 @@
 <?php
 
-class gestionComptes_Controller extends TinyMVC_Controller
+class modificationsAdmin_Controller extends TinyMVC_Controller
 {
 	  function index()
 	  {
@@ -18,11 +18,30 @@ class gestionComptes_Controller extends TinyMVC_Controller
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{
-	  		$this->view->assign('menu', $this->view->fetch("menu"));
-
+	  		
 			if($_SESSION['user']->getType() == "Gestionnaire") {
-				
 			
+			$this->load->model('affichageUtilisateur_model','affiche');
+			$result = $this->affiche->AfficherUtilisateur($_GET['courriel']);	
+			
+			$this->view->assign('nom', $result["nom"]);
+			$this->view->assign('prenom', $result["prenom"]);
+			$this->view->assign('courriel', $result["courriel"]);
+			$this->view->assign('numCivi', $result["numeroCivique"]);
+			$this->view->assign('rue', $result["rue"]);
+			$this->view->assign('ville', $result["ville"]);
+			$this->view->assign('codePostal', $result["codePostal"]);
+			$this->view->assign('notHor', $result["notifHoraire"]);
+			$this->view->assign('notRem', $result["notifRemplacement"]);
+			$this->view->assign('formationVetement', $result["formationVetement"]);
+			$this->view->assign('formationChaussure', $result["formationChaussure"]);
+			$this->view->assign('formationCaissier', $result["formationCaissier"]);
+			$this->view->assign('respHoraireConflit', $result["respHoraireConflit"]);
+			$this->view->assign('possesseurCle', $result["possesseurCle"]);
+
+			
+			$this->view->assign('menu', $this->view->fetch("menu"));
+			$this->view->assign('contenu', $this->view->fetch("view-modificationsAdmin"));
 			}
 			else {
 				$this->view->display('view-interdit');
