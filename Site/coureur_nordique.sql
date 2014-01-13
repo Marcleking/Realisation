@@ -594,8 +594,7 @@
                                         p_codePostal varchar(7), p_possesseurCle tinyint(1), 
                                         p_typeEmploye varchar(45),
                                         p_formationVetement tinyint(1), p_formationChaussure tinyint(1), 
-                                        p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1), 
-                                        p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
+                                        p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
       if p_motDePasse != "" then
@@ -613,9 +612,7 @@
             formationVetement = p_formationVetement,
             formationChaussure = p_formationChaussure,
             formationCaissier = p_formationCaissier,
-            respHoraireConflit = p_respHoraireConflit,
-            notifHoraire = p_notifHoraire,
-            notifRemplacement = p_notifRemplacement
+            respHoraireConflit = p_respHoraireConflit
         WHERE courriel = p_courriel;
       else
         UPDATE employe
@@ -631,9 +628,7 @@
             formationVetement = p_formationVetement,
             formationChaussure = p_formationChaussure,
             formationCaissier = p_formationCaissier,
-            respHoraireConflit = p_respHoraireConflit,
-            notifHoraire = p_notifHoraire,
-            notifRemplacement = p_notifRemplacement
+            respHoraireConflit = p_respHoraireConflit
         WHERE courriel = p_courriel;
       end if;
 
