@@ -16,9 +16,30 @@ class gestionCompte_Controller extends TinyMVC_Controller
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{
-		
-				$this->view->assign('menu', $this->view->fetch("menu"));
-				$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));		
+			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['motdePasse']) && isset($_POST['motdePasse1']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['motdePasse'])&& !empty($_POST['motdePasse1'])) {
+				
+				$notifHoraire = 1;
+				$notifRemplacement = 1;
+				
+				
+				if(!isset($_POST['notifHoraire'])) {
+					$notifHoraire = 0;
+				}
+					
+				if(!isset($_POST['notifRemplacement'])) {
+					$notifRemplacement = 0;
+				}
+				
+				$this->load->model('modifierUtilisateur_model','modif');
+				$result = $this->modif->modifierUnutilisateur($_POST['nom'], $_POST['prenom'], $_POST['motPasse'] , $_SESSION['user']->getNom(), $_POST['numeroCiv'],  $_POST['rue'],  $_POST['ville'], $_POST['codepost'], $notifHoraire, $notifRemplacement);					
+			}	
+			$this->view->assign('menu', $this->view->fetch("menu"));
+			$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));
+			
+			$this->load->model('affichageUtilisateur_model','affiche');
+			//$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());					
+			
+			
 		
 		} else {
 			$this->view->display('view-connexion');
