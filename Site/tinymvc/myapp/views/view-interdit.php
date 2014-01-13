@@ -16,9 +16,6 @@
 		</style>
 	</head>
 	<body>
-		<div class="row off-canvas-wrap">
-				<?=$entete?>
-				  <div class="inner-wrap">
 
 				  	<div class="hide-for-medium-up top-bar">
 						<section class="left-small">
@@ -26,18 +23,7 @@
 				      	</section>
 				   	</div>
 
-				    <div class="medium-3 columns">
-					    <ul class="show-for-medium-up side-nav">
-						  <?=$menu?>
-						</ul>
-					</div>
-
-				    <!-- Off Canvas Menu -->
-				    <div class="left-off-canvas-menu">
-							<ul class="off-canvas-list">
-							  <?=$menu?>
-							</ul>
-				    </div>
+		
 				    
 
 				    <div class="contenu">

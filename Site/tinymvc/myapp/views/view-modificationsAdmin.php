@@ -1,4 +1,7 @@
 <div class="panel medium-12 columns">
+<?php if (isset($erreur)) { ?>
+		<?=$erreur?>
+<?php } ?>
 	<h3>Gestion du compte</h3>
 	<form data-abide action="<?=url?>/modificationsAdmin?courriel=<?=$courriel?>" method="POST">
 		<div class="row">

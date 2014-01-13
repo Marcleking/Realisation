@@ -1,9 +1,13 @@
 <div class="panel medium-12 columns">
+<?php if (isset($erreur)) { ?>
+		<?=$erreur?>
+<?php } ?>
 	<h3>Gestion du compte</h3>
 	<form data-abide action="<?=url?>/gestionCompte" method="POST">
 		<div class="row">
 			<div class="large-6 columns">
 			  <label>Nom(*)</label>
+			 <?echo $nom?>
 			  <input type="text" id="nom" name="nom" value="<?=$nom?>" placeholder="Nom" />
 			</div>
 			<div class="large-6 columns">
@@ -16,10 +20,7 @@
 			  <label>Mot de Passe(*)</label>
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
-			<div class="large-6 columns">
-			  <label>Retapez le mot de passe(*)</label>
-			  <input type="password" name="motdePasse1" placeholder="Mot de Passe" />
-			</div>
+		
 		</div>
 		
 	<div class="row">
