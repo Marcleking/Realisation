@@ -5,8 +5,6 @@ class Connexion_Controller extends TinyMVC_Controller
 
 	  function index()
 	  {
-	  echo "1";
-
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
 		$this->view->assign('accueil', '');
 		$this->view->assign('message', '');
@@ -20,7 +18,7 @@ class Connexion_Controller extends TinyMVC_Controller
 	  	if(isset($_POST['user']) && isset($_POST['pwd']))
 	  	{
 
-	  		$this->load->model('connexion_model','connexion');
+	  		$this->load->model('connexion_model', 'connexion');
 			$this->connexion->seConnecter($_POST['user'], $_POST['pwd']);
 
 			

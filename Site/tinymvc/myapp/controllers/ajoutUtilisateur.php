@@ -29,9 +29,13 @@ class ajoutUtilisateur_Controller extends TinyMVC_Controller
 		
 	 	if(isset($_SESSION['user']))
 	  	{
+	  		$this->view->assign('menu', $this->view->fetch("menu"));
+
 			if($_SESSION['user']->getType() == "Gestionnaire") {
+
 				//if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['motdePasse']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['motdePasse'])) {
 				if(isset($_POST['courriel']) && !empty($_POST['courriel'])) {
+
 					$cle = 1;
 					$formationVetement = 1;
 					$formationChaussure = 1;
@@ -60,17 +64,26 @@ class ajoutUtilisateur_Controller extends TinyMVC_Controller
 					
 					
 					$this->load->model('ajoutUtilisateur_model','ajout');
-					$test = $this->ajout->Ajoututilisateur($_POST['courriel'], $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);					
+
+					$result = $this->ajout->Ajoututilisateur($_POST['courriel'], $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);					
+			
+					if ($result != null) {
+						$this->view->assign("success", "");
+					} else {
+						$this->view->assign("fail", "");
+					}
+					
+
 						
 				}
 				
-					$this->view->assign('menu', $this->view->fetch("menu"));
-					$this->view->assign('contenu', $this->view->fetch("view-ajoutUtilisateur"));
+					
+				$this->view->assign('contenu', $this->view->fetch("view-ajoutUtilisateur"));
 				
 			}
 			else {
-				//Change view for error message
-				$this->view->display('view-connexion');
+				$this->view->display('view-interdit');
+				return;
 			}
 		} else {
 			$this->view->display('view-connexion');

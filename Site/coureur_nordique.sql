@@ -304,8 +304,6 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `possesseurCle` tinyint(1) NOT NULL DEFAULT '0',
   `typeEmploye` varchar(45) DEFAULT NULL,
   `indPriorite` int(11) DEFAULT NULL,
-  `nbHeureMinTravail` int(11) DEFAULT NULL,
-  `nbHeureMaxTravail` int(11) DEFAULT NULL,
   `formationVetement` tinyint(1) NOT NULL DEFAULT '0',
   `formationChaussure` tinyint(1) NOT NULL DEFAULT '0',
   `formationCaissier` tinyint(1) NOT NULL DEFAULT '0',
@@ -314,50 +312,50 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `notifRemplacement` tinyint(1) NOT NULL DEFAULT '0',
   `lastIp` varchar(20) DEFAULT NULL,
   `lastLogon` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`noEmploye`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+  PRIMARY KEY (`noEmploye`,`courriel`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Contenu de la table `employe`
 --
 
-INSERT INTO `employe` (`noEmploye`, `nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `nbHeureMinTravail`, `nbHeureMaxTravail`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-(1, 'Larsen', 'Fuller', sha1(concat(SHA1('qweqwe'),1)), 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 29, 45, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
-(2, 'Kelly', 'Jasper', sha1(concat(SHA1('qweqwe'),2)), 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 39, 43, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
-(3, 'Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 13, 28, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
-(4, 'Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 10, 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
-(5, 'Meadows', 'Vernon', 'MPX50RVW9DH', 'velit.eu.sem@urnaUttincidunt.ca', '418', 'Elementum, Chemin', 'Price', 'M7N 9L9', 0, 'Employe', 8, 14, 23, 0, 1, 0, 0, 0, 1, '466.547.216.098', '749.574.735.928'),
-(6, 'Morrison', 'Benedict', 'MDV72NUE3OQ', 'et@posuerecubilia.net', '785', 'Quam Av.', 'Rance', 'R0H 1B1', 0, 'Gestionnaire', 28, 40, 45, 0, 1, 1, 0, 0, 1, '973.279.066.201', '749.965.451.070'),
-(7, 'Shields', 'Garrett', 'KPI42ARF1KR', 'Mauris@vestibulum.co.uk', '887', 'Ultrices. Impasse', 'Coassolo Torinese', 'S6P 6B3', 0, 'Employe', 20, 16, 28, 1, 0, 0, 0, 1, 0, '733.805.959.239', '453.255.763.097'),
-(8, 'Zimmerman', 'Henry', 'GCZ25XLY8XL', 'libero@Vivamus.co.uk', '677', 'Non Impasse', 'Longchamps', 'S3L 4N4', 0, 'Gestionnaire', 23, 36, 35, 1, 1, 1, 0, 1, 0, '905.764.462.955', '568.878.374.532'),
-(9, 'Hill', 'Amos', 'EBM56SMG2AX', 'ac@justonec.com', '387', 'Quisque Avenue', 'Henis', 'B0B 5E8', 0, 'Gestionnaire', 9, 10, 39, 1, 1, 0, 1, 1, 0, '741.997.918.159', '209.942.023.975'),
-(10, 'Brady', 'Edward', 'VBB71WWS8BT', 'id.erat.Etiam@lobortis.edu', '522', 'Maecenas Rue', 'Episcopia', 'G5V 8A4', 0, 'Gestionnaire', 27, 7, 13, 0, 1, 1, 0, 1, 0, '701.220.636.840', '766.888.212.533'),
-(11, 'Schroeder', 'Chester', 'TBG33YEU0YK', 'lorem.tristique.aliquet@sed.co.uk', '451', 'Lorem Rd.', 'TorrejÃ³n de Ardoz', 'P3M 4H3', 0, 'Employe', 9, 12, 20, 1, 0, 0, 1, 1, 1, '892.828.246.473', '068.913.343.485'),
-(12, 'Henry', 'Igor', 'FQI50XZU2CM', 'libero@atnisiCum.org', '150', ' Amet Avenue', 'Hennigsdorf', 'N4R 4H5', 0, 'Employe', 2, 19, 25, 0, 0, 1, 0, 1, 1, '944.961.876.095', '422.389.027.231'),
-(13, 'Washington', 'Orlando', 'NOX33NMH1XN', 'primis@sitamet.com', '638', 'Accumsan Ave', 'Markkleeberg', 'H7X 5M0', 0, 'Employe', 10, 43, 45, 1, 0, 0, 1, 0, 1, '177.911.019.327', '267.530.419.318'),
-(14, 'Gates', 'Coby', 'YNJ96IJY1QP', 'euismod.mauris.eu@velit.net', '163', 'Sem Rue', 'Pï¿½ttlingen', 'T8X 2G7', 0, 'Employe', 4, 20, 30, 1, 0, 0, 1, 0, 0, '848.340.172.070', '898.677.460.913'),
-(15, 'Ramos', 'Arsenio', 'CED29KGR4CP', 'tristique@iderat.com', '47', ' Vestibulum Route', 'Meerle', 'V5N 6E3', 0, 'Employe', 3, 29, 39, 0, 1, 0, 1, 1, 1, '880.904.354.211', '351.521.794.340'),
-(16, 'House', 'Cole', 'GNR60DWH2GW', 'ipsum.dolor@mattis.ca', '45', 'Elit. Avenue', 'Rothesay', 'B9N 0N9', 0, 'Gestionnaire', 4, 23, 45, 1, 0, 1, 0, 1, 1, '410.096.855.943', '302.321.325.430'),
-(17, 'Cline', 'Kennan', 'ZCG86WTC2CE', 'molestie.tortor@ornareplacerat.co.uk', '737', 'Luctus Chemin', 'Pictou', 'R7L 1E7', 0, 'Employe', 1, 10, 15, 0, 1, 1, 1, 0, 0, '301.345.250.487', '058.317.806.768'),
-(18, 'Cole', 'Elliott', 'DQW41XWA6XO', 'Proin.nisl@anteipsumprimis.edu', '728', 'Gravida. Impasse', 'Somma Lombardo', 'A9M 5A4', 0, 'Employe', 8, 15, 30, 1, 1, 0, 1, 0, 0, '905.012.198.871', '070.497.807.900'),
-(19, 'Maynard', 'Kirk', 'NRV66RML8NG', 'sit.amet.consectetuer@non.co.uk', '215', 'Nulla Avenue', 'Haut-Ittre', 'S2P 4W5', 0, 'Employe', 3, 14, 25, 1, 1, 0, 1, 1, 1, '918.727.280.596', '604.494.676.199'),
-(20, 'Noble', 'Leonard', 'JZI68KDU0WV', 'eros.nec@Curabiturconsequatlectus.co.uk', '535', 'Hendrerit. Rue', 'GÃ¶tzis', 'L3X 2Y6', 0, 'Employe', 26, 35, 41, 0, 0, 0, 1, 1, 1, '749.061.701.439', '684.836.492.679'),
-(21, 'Moran', 'Thaddeus', 'QIB33EWS1OQ', 'quis.tristique@acipsumPhasellus.co.uk', '900', 'Quis Ave', 'Tontelange', 'V1C 0T3', 0, 'Gestionnaire', 15, 9, 34, 0, 1, 1, 0, 0, 1, '216.140.262.440', '368.365.718.549'),
-(22, 'Cash', 'Ethan', 'NQK73RHU6PK', 'Vestibulum.accumsan@Cras.ca', '178', 'Erat Chemin', 'Assiniboia', 'S7N 4Z8', 0, 'Gestionnaire', 7, 15, 26, 0, 1, 0, 1, 1, 0, '307.525.472.973', '074.147.026.979'),
-(23, 'Lowe', 'Murphy', 'LVH85OUJ9UD', 'dapibus.gravida@malesuadafames.edu', '810', 'Cum Impasse', 'Vance', 'Y7C 2L2', 0, 'Employe', 23, 24, 30, 0, 0, 0, 0, 0, 1, '158.255.045.617', '664.629.370.675'),
-(24, 'Rios', 'Drake', 'OJW58LFX2VP', 'ornare.sagittis.felis@sitametultricies.co.uk', '631', 'Lobortis, Ave', 'Latisana', 'H5K 0R9', 0, 'Employe', 21, 41, 44, 0, 0, 1, 0, 1, 0, '597.761.454.333', '861.174.042.291'),
-(25, 'Austin', 'Garrison', 'SRN12AMQ3JG', 'molestie.tortor@acfermentumvel.ca', '398', 'Duis Avenue', 'Santa Fiora', 'P6C 2K5', 1, 'Gestionnaire', 11, 37, 40, 1, 1, 1, 0, 1, 1, '420.907.439.394', '799.167.500.388'),
-(26, 'Leon', 'Harrison', 'NPD08CKU5ET', 'quam.vel@tempusrisus.co.uk', '400', 'Montes, Route', 'Bulzi', 'C1X 5B7', 1, 'Gestionnaire', 5, 30, 32, 1, 1, 0, 0, 0, 1, '851.471.020.196', '896.780.087.583'),
-(27, 'Benton', 'Chaim', 'EUJ20KKA0GZ', 'mauris.aliquam.eu@Donecluctusaliquet.edu', '674', ' Rutrum Ave', 'Dongelberg', 'K1W 1T5', 1, 'Gestionnaire', 20, 13, 23, 0, 0, 1, 1, 1, 1, '748.942.485.158', '420.617.251.743'),
-(28, 'Mclaughlin', 'Kareem', 'LCT99IAO2NV', 'ullamcorper@egetmetuseu.org', '554', 'Nec, Rue', 'Grand-Reng', 'H4Y 9S5', 0, 'Gestionnaire', 9, 10, 22, 1, 0, 0, 1, 1, 0, '639.395.171.382', '415.551.208.808'),
-(29, 'Glover', 'Lucius', 'YGE00ILV6YZ', 'Fusce@adlitora.net', '514', 'Non Ave', 'Palmerston North', 'T2B 7G8', 0, 'Employe', 3, 27, 32, 0, 1, 0, 0, 1, 1, '776.474.519.345', '126.271.482.578'),
-(30, 'Langley', 'Stuart', 'HGH93HFV8JC', 'sit.amet@etmagnisdis.edu', '734', 'Sollicitudin Ave', 'Baden-Baden', 'X5S 8K8', 0, 'Gestionnaire', 24, 5, 30, 0, 1, 1, 0, 1, 1, '169.214.598.713', '386.667.802.883'),
-(31, 'Langley', 'Erich', 'ASV56RIU9RQ', 'ridiculus.mus@Morbi.com', '259', ' Magnis Rue', 'Plancenoit', 'L9L 4B7', 0, 'Gestionnaire', 11, 6, 43, 1, 0, 1, 0, 1, 0, '281.928.304.755', '839.235.233.213'),
-(32, 'Duke', 'Cooper', 'SOD06NWD0SL', 'et@aliquetmetusurna.edu', '144', 'Mi, Rd.', 'Terni', 'Y2R 7H7', 0, 'Gestionnaire', 15, 10, 17, 1, 0, 1, 0, 1, 0, '180.206.814.596', '265.556.780.376'),
-(33, 'Macdonald', 'Dillon', 'AQY87JKT9PL', 'non.enim@eleifendnecmalesuada.co.uk', '856', ' Semper Chemin', 'San Fele', 'M8N 6B7', 0, 'Gestionnaire', 27, 10, 29, 1, 1, 0, 0, 0, 0, '268.993.065.092', '638.473.345.117'),
-(34, 'Forbes', 'Travis', 'SFG78UUS0LC', 'felis.eget.varius@InfaucibusMorbi.com', '363', 'Elit, Chemin', 'Vancouver', 'B4J 6X2', 0, 'Employe', 21, 18, 28, 1, 1, 0, 0, 1, 0, '926.157.075.034', '972.034.021.534'),
-(35, 'Schneider', 'Joel', 'KKH51VON3MH', 'blandit.mattis@tellusimperdiet.ca', '956', 'Orci. Route', 'Selkirk', 'A5V 1G9', 1, 'Gestionnaire', 27, 15, 19, 0, 1, 1, 0, 0, 1, '181.698.879.394', '566.607.750.520');
-
+INSERT INTO `employe` (`noEmploye`, `nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
+(1, 'Larsen', 'Fuller', '1f52d30ee3e518a70df77cca06ebb1749c17ce02', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
+(2, 'Kelly', 'Jasper', 'cec6273cc8b54eae748098fdb4652ae8feb21f48', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
+(3, 'Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
+(4, 'Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
+(5, 'Meadows', 'Vernon', 'MPX50RVW9DH', 'velit.eu.sem@urnaUttincidunt.ca', '418', 'Elementum, Chemin', 'Price', 'M7N 9L9', 0, 'Employe', 8, 0, 1, 0, 0, 0, 1, '466.547.216.098', '749.574.735.928'),
+(6, 'Morrison', 'Benedict', 'MDV72NUE3OQ', 'et@posuerecubilia.net', '785', 'Quam Av.', 'Rance', 'R0H 1B1', 0, 'Gestionnaire', 28, 0, 1, 1, 0, 0, 1, '973.279.066.201', '749.965.451.070'),
+(7, 'Shields', 'Garrett', 'KPI42ARF1KR', 'Mauris@vestibulum.co.uk', '887', 'Ultrices. Impasse', 'Coassolo Torinese', 'S6P 6B3', 0, 'Employe', 20, 1, 0, 0, 0, 1, 0, '733.805.959.239', '453.255.763.097'),
+(8, 'Zimmerman', 'Henry', 'GCZ25XLY8XL', 'libero@Vivamus.co.uk', '677', 'Non Impasse', 'Longchamps', 'S3L 4N4', 0, 'Gestionnaire', 23, 1, 1, 1, 0, 1, 0, '905.764.462.955', '568.878.374.532'),
+(9, 'Hill', 'Amos', 'EBM56SMG2AX', 'ac@justonec.com', '387', 'Quisque Avenue', 'Henis', 'B0B 5E8', 0, 'Gestionnaire', 9, 1, 1, 0, 1, 1, 0, '741.997.918.159', '209.942.023.975'),
+(10, 'Brady', 'Edward', 'VBB71WWS8BT', 'id.erat.Etiam@lobortis.edu', '522', 'Maecenas Rue', 'Episcopia', 'G5V 8A4', 0, 'Gestionnaire', 27, 0, 1, 1, 0, 1, 0, '701.220.636.840', '766.888.212.533'),
+(11, 'Schroeder', 'Chester', 'TBG33YEU0YK', 'lorem.tristique.aliquet@sed.co.uk', '451', 'Lorem Rd.', 'TorrejÃ³n de Ardoz', 'P3M 4H3', 0, 'Employe', 9, 1, 0, 0, 1, 1, 1, '892.828.246.473', '068.913.343.485'),
+(12, 'Henry', 'Igor', 'FQI50XZU2CM', 'libero@atnisiCum.org', '150', ' Amet Avenue', 'Hennigsdorf', 'N4R 4H5', 0, 'Employe', 2, 0, 0, 1, 0, 1, 1, '944.961.876.095', '422.389.027.231'),
+(13, 'Washington', 'Orlando', 'NOX33NMH1XN', 'primis@sitamet.com', '638', 'Accumsan Ave', 'Markkleeberg', 'H7X 5M0', 0, 'Employe', 10, 1, 0, 0, 1, 0, 1, '177.911.019.327', '267.530.419.318'),
+(14, 'Gates', 'Coby', 'YNJ96IJY1QP', 'euismod.mauris.eu@velit.net', '163', 'Sem Rue', 'Pï¿½ttlingen', 'T8X 2G7', 0, 'Employe', 4, 1, 0, 0, 1, 0, 0, '848.340.172.070', '898.677.460.913'),
+(15, 'Ramos', 'Arsenio', 'CED29KGR4CP', 'tristique@iderat.com', '47', ' Vestibulum Route', 'Meerle', 'V5N 6E3', 0, 'Employe', 3, 0, 1, 0, 1, 1, 1, '880.904.354.211', '351.521.794.340'),
+(16, 'House', 'Cole', 'GNR60DWH2GW', 'ipsum.dolor@mattis.ca', '45', 'Elit. Avenue', 'Rothesay', 'B9N 0N9', 0, 'Gestionnaire', 4, 1, 0, 1, 0, 1, 1, '410.096.855.943', '302.321.325.430'),
+(17, 'Cline', 'Kennan', 'ZCG86WTC2CE', 'molestie.tortor@ornareplacerat.co.uk', '737', 'Luctus Chemin', 'Pictou', 'R7L 1E7', 0, 'Employe', 1, 0, 1, 1, 1, 0, 0, '301.345.250.487', '058.317.806.768'),
+(18, 'Cole', 'Elliott', 'DQW41XWA6XO', 'Proin.nisl@anteipsumprimis.edu', '728', 'Gravida. Impasse', 'Somma Lombardo', 'A9M 5A4', 0, 'Employe', 8, 1, 1, 0, 1, 0, 0, '905.012.198.871', '070.497.807.900'),
+(19, 'Maynard', 'Kirk', 'NRV66RML8NG', 'sit.amet.consectetuer@non.co.uk', '215', 'Nulla Avenue', 'Haut-Ittre', 'S2P 4W5', 0, 'Employe', 3, 1, 1, 0, 1, 1, 1, '918.727.280.596', '604.494.676.199'),
+(20, 'Noble', 'Leonard', 'JZI68KDU0WV', 'eros.nec@Curabiturconsequatlectus.co.uk', '535', 'Hendrerit. Rue', 'GÃ¶tzis', 'L3X 2Y6', 0, 'Employe', 26, 0, 0, 0, 1, 1, 1, '749.061.701.439', '684.836.492.679'),
+(21, 'Moran', 'Thaddeus', 'QIB33EWS1OQ', 'quis.tristique@acipsumPhasellus.co.uk', '900', 'Quis Ave', 'Tontelange', 'V1C 0T3', 0, 'Gestionnaire', 15, 0, 1, 1, 0, 0, 1, '216.140.262.440', '368.365.718.549'),
+(22, 'Cash', 'Ethan', 'NQK73RHU6PK', 'Vestibulum.accumsan@Cras.ca', '178', 'Erat Chemin', 'Assiniboia', 'S7N 4Z8', 0, 'Gestionnaire', 7, 0, 1, 0, 1, 1, 0, '307.525.472.973', '074.147.026.979'),
+(23, 'Lowe', 'Murphy', 'LVH85OUJ9UD', 'dapibus.gravida@malesuadafames.edu', '810', 'Cum Impasse', 'Vance', 'Y7C 2L2', 0, 'Employe', 23, 0, 0, 0, 0, 0, 1, '158.255.045.617', '664.629.370.675'),
+(24, 'Rios', 'Drake', 'OJW58LFX2VP', 'ornare.sagittis.felis@sitametultricies.co.uk', '631', 'Lobortis, Ave', 'Latisana', 'H5K 0R9', 0, 'Employe', 21, 0, 0, 1, 0, 1, 0, '597.761.454.333', '861.174.042.291'),
+(25, 'Austin', 'Garrison', 'SRN12AMQ3JG', 'molestie.tortor@acfermentumvel.ca', '398', 'Duis Avenue', 'Santa Fiora', 'P6C 2K5', 1, 'Gestionnaire', 11, 1, 1, 1, 0, 1, 1, '420.907.439.394', '799.167.500.388'),
+(26, 'Leon', 'Harrison', 'NPD08CKU5ET', 'quam.vel@tempusrisus.co.uk', '400', 'Montes, Route', 'Bulzi', 'C1X 5B7', 1, 'Gestionnaire', 5, 1, 1, 0, 0, 0, 1, '851.471.020.196', '896.780.087.583'),
+(27, 'Benton', 'Chaim', 'EUJ20KKA0GZ', 'mauris.aliquam.eu@Donecluctusaliquet.edu', '674', ' Rutrum Ave', 'Dongelberg', 'K1W 1T5', 1, 'Gestionnaire', 20, 0, 0, 1, 1, 1, 1, '748.942.485.158', '420.617.251.743'),
+(28, 'Mclaughlin', 'Kareem', 'LCT99IAO2NV', 'ullamcorper@egetmetuseu.org', '554', 'Nec, Rue', 'Grand-Reng', 'H4Y 9S5', 0, 'Gestionnaire', 9, 1, 0, 0, 1, 1, 0, '639.395.171.382', '415.551.208.808'),
+(29, 'Glover', 'Lucius', 'YGE00ILV6YZ', 'Fusce@adlitora.net', '514', 'Non Ave', 'Palmerston North', 'T2B 7G8', 0, 'Employe', 3, 0, 1, 0, 0, 1, 1, '776.474.519.345', '126.271.482.578'),
+(30, 'Langley', 'Stuart', 'HGH93HFV8JC', 'sit.amet@etmagnisdis.edu', '734', 'Sollicitudin Ave', 'Baden-Baden', 'X5S 8K8', 0, 'Gestionnaire', 24, 0, 1, 1, 0, 1, 1, '169.214.598.713', '386.667.802.883'),
+(31, 'Langley', 'Erich', 'ASV56RIU9RQ', 'ridiculus.mus@Morbi.com', '259', ' Magnis Rue', 'Plancenoit', 'L9L 4B7', 0, 'Gestionnaire', 11, 1, 0, 1, 0, 1, 0, '281.928.304.755', '839.235.233.213'),
+(32, 'Duke', 'Cooper', 'SOD06NWD0SL', 'et@aliquetmetusurna.edu', '144', 'Mi, Rd.', 'Terni', 'Y2R 7H7', 0, 'Gestionnaire', 15, 1, 0, 1, 0, 1, 0, '180.206.814.596', '265.556.780.376'),
+(33, 'Macdonald', 'Dillon', 'AQY87JKT9PL', 'non.enim@eleifendnecmalesuada.co.uk', '856', ' Semper Chemin', 'San Fele', 'M8N 6B7', 0, 'Gestionnaire', 27, 1, 1, 0, 0, 0, 0, '268.993.065.092', '638.473.345.117'),
+(34, 'Forbes', 'Travis', 'SFG78UUS0LC', 'felis.eget.varius@InfaucibusMorbi.com', '363', 'Elit, Chemin', 'Vancouver', 'B4J 6X2', 0, 'Employe', 21, 1, 1, 0, 0, 1, 0, '926.157.075.034', '972.034.021.534'),
+(35, 'Schneider', 'Joel', 'KKH51VON3MH', 'blandit.mattis@tellusimperdiet.ca', '956', 'Orci. Route', 'Selkirk', 'A5V 1G9', 1, 'Gestionnaire', 27, 0, 1, 1, 0, 0, 1, '181.698.879.394', '566.607.750.520'),
+(38, '', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
 -- --------------------------------------------------------
 
 --
@@ -795,10 +793,10 @@ INSERT INTO `ressource` (`idBlocRessource`, `dateDuJour`, `heureDebut`, `heureFi
 --
 
 CREATE TABLE IF NOT EXISTS `telephone` (
-  `noTelphone` varchar(12) NOT NULL,
+  `noTelephone` varchar(12) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `noEmploye` int(11) NOT NULL,
-  PRIMARY KEY (`noTelphone`),
+  PRIMARY KEY (`noTelephone`),
   KEY `fk_Telephone_Employe1_idx` (`noEmploye`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -806,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `telephone` (
 -- Contenu de la table `telephone`
 --
 
-INSERT INTO `telephone` (`noTelphone`, `description`, `noEmploye`) VALUES
+INSERT INTO `telephone` (`noTelephone`, `description`, `noEmploye`) VALUES
 ('004-844-4278', 'Cellulaire', 1),
 ('006-181-6338', 'Cellulaire', 26),
 ('051-555-4823', 'Maison', 4),
@@ -986,30 +984,48 @@ DELIMITER $$
 USE Coureur_Nordique $$
 
 DROP PROCEDURE IF EXISTS Connexion $$
-CREATE PROCEDURE Connexion (in p_noEmploye INT, 
-                            in p_mdp varchar(40))
+CREATE PROCEDURE Connexion (in p_courriel varchar(60), 
+                            in p_mdp varchar(60))
+BEGIN
     SELECT nom, typeEmploye
     FROM employe 
-    where noEmploye = p_noEmploye
-    AND motDePasse = SHA1(concat(SHA1(p_mdp),p_noEmploye));
+    where courriel = p_courriel
+    AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+END
 $$
 
 DROP PROCEDURE IF EXISTS AjouterUtilisateur $$
-CREATE PROCEDURE AjouterUtilisateur(IN p_nom varchar(30), -- ++++++++++++tel
-                                    IN p_prenom varchar(30), 
-                                    IN p_motDePasse varchar(40), 
-                                    IN p_possesseurCle tinyint(1),                   
-                                    IN p_typeEmploye varchar(45),
-                                    IN p_formationVetement tinyint(1), 
-                                    IN p_formationChaussure tinyint(1), 
-                                    IN p_formationCaissier tinyint(1), 
-                                    IN p_respHoraireConflit tinyint(1))
+CREATE PROCEDURE AjouterUtilisateur(in p_courriel varchar(60))
 BEGIN
-  DECLARE id int(11);
-  Set id = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1) + 1;
-  INSERT INTO employe (nom, prenom, motDePasse, possesseurCle, typeEmploye, formationVetement, formationChaussure, formationCaissier, respHoraireConflit) 
-  VALUES (p_nom, p_prenom, sha1(concat(sha1(p_motDePasse), id)), p_possesseurCle, p_typeEmploye, p_formationVetement, p_formationChaussure, p_formationCaissier, p_respHoraireConflit);
-  SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
+  if not exists (SELECT * from employe where courriel = p_courriel) then
+    INSERT INTO employe (courriel, motDePasse) 
+      VALUES (p_courriel, sha1(concat(sha1(p_courriel), p_courriel)));
+    SELECT * FROM employe where noEmploye = (Select noEmploye FROM employe Order By noEmploye Desc Limit 1);
+  end if;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS AjoutTelephone $$
+CREATE PROCEDURE AjoutTelephone (in p_noTelephone varchar(12),
+                                  in p_description varchar(100),
+                                  in p_noEmploye int(11))
+BEGIN
+  if exists(Select * from employe where noEmploye = p_noEmploye) then
+    INSERT INTO telephone (noTelephone, description, noEmploye)
+      VALUES (p_noTelephone, p_description, p_noEmploye);
+    SELECT * FROM telephone WHERE noEmploye = p_noEmploye;
+  end if;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS AfficheTelephone $$
+CREATE PROCEDURE AfficheTelephone (p_noEmploye int(11))
+BEGIN
+  if exists(Select * from employe where noEmploye = p_noEmploye) then
+    SELECT * FROM telephone WHERE noEmploye = p_noEmploye;
+  end if;
 END
 
 $$
