@@ -3,17 +3,17 @@
 	<form data-abide action="<?=url?>/gestionCompte" method="POST">
 		<div class="row">
 			<div class="large-6 columns">
-			  <label>Nom(*)</label>
+			  <label>Nom</label>
 			  <input type="text" id="nom" name="nom" value="<?=$nom?>" placeholder="Nom" />
 			</div>
 			<div class="large-6 columns">
-			  <label>Prénom(*)</label>
+			  <label>Prénom</label>
 			  <input type="text" id="prenom" name="prenom" value="<?=$prenom?>" placeholder="Prénom" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="large-6 columns ">
-			  <label>Mot de Passe(*)</label>
+			  <label>Mot de Passe</label>
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
 			<div class="large-6 columns">
@@ -51,7 +51,7 @@
 			  <label>Type employé</label>
 			  <select name="typeEmp">
 				<option value="Employé">Employé</option>
-				<option value="Gestionnaire">Gestionnaire</option>
+				<option value="Gestionnaire" <?php if($typeEmploye == "Gestionnaire") echo "selected"; ?>>Gestionnaire</option>
 			  </select>
 		
 		</div>
