@@ -85,11 +85,13 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 				
 				$this->view->assign('contenu', $this->view->fetch("view-modificationsAdmin"));
 				} else {
-					$this->view->assign('contenu', $this->view->fetch("view-interdit"));
+					$this->view->assign('erreur', 'Vous devez avoir un courriel valide et disponible dans un des comptes des employés!');
+					$this->view->assign('contenu', $this->view->fetch("view-interditavecmessage"));
 				}
 			} else {
 				
-				$this->view->assign('contenu', $this->view->fetch("view-interdit"));
+				$this->view->assign('erreur', 'Vous devez avoir un courriel valide et disponible dans un des comptes des employés!');
+				$this->view->assign('contenu', $this->view->fetch("view-interditavecmessage"));
 			}
 
 			$this->view->assign('menu', $this->view->fetch("menu"));
