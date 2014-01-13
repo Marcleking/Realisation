@@ -35,8 +35,8 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			}
 
 
-			$this->load->model('affichageUtilisateur_model','affiche');
-			$result = $this->affiche->AfficherUtilisateur($_SESSION['user']->getNom());	
+			$this->load->model('affichageutilisateur_model','affiche');
+			$result = $this->affiche->afficherutilisateur($_SESSION['user']->getNom());	
 			$this->view->assign('nom', $result["nom"]);
 			$this->view->assign('prenom', $result["prenom"]);
 			$this->view->assign('numCivi', $result["numeroCivique"]);
@@ -53,7 +53,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			$this->load->model('affichageUtilisateur_model','affiche');
 			$result = $this->affiche->AfficherUtilisateur($_SESSION['user']->getNom());			
 			
-			//echo$_SESSION['user']->getNom();
+			//echo$_SESSION['user']->getNom();	
 		
 		} else {
 			$this->view->display('view-connexion');
