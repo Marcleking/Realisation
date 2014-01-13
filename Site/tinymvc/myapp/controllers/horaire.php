@@ -12,6 +12,7 @@ class Horaire_Controller extends TinyMVC_Controller
         $this->view->assign('horaire', 'class="active"');
         $this->view->assign('dispo', '');
         $this->view->assign('gestionCompte', '');
+		$this->view->assign('gestionComptes', '');
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{
