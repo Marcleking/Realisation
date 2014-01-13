@@ -1,12 +1,16 @@
 <?php
 	class supprimerUtilisateur_Model extends TinyMVC_Model
 	{
-		function supprimerUser($noEmploye) {
-			$row = $this->db->query_one('Call SupprimerUtilisateur(?)', array($noEmploye));
+		function supprimerUser($courriel) {
+			if ($courriel != $_SESSION['user']->getNom()) {
+				$row = $this->db->query_one('Call SupprimerUtilisateur(?)', array($noEmploye));
+				
+				if($row != null) {
+    				return true;
+    			}
+			}
 
-    		if($row != null && $row["courriel"] != $_SESSION['user']->getNom()) {
-    			return true;
-    		}
+    		
 
     		return false;
 		}

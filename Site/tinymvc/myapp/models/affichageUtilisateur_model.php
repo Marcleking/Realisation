@@ -6,6 +6,8 @@
 			
 			while($row = $this->db->next())
 				$results[] = $row;
+			
+
 			return $results;
 			
 		}
