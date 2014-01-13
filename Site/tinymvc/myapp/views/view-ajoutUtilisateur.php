@@ -1,5 +1,17 @@
 <div class="panel medium-12 columns">
 	<h3>Ajout d'un utilisateur</h3>
+
+	<?php  if (isset($success)) { ?>
+		<div data-alert class="alert-box success radius">
+		  L'employé à bien été ajouté.
+		  <a href="#" class="close">&times;</a>
+		</div>
+	<?php } else if (isset($fail)) { ?>
+		<div data-alert class="alert-box warning radius">
+		  Une erreur s'est produit lors de l'ajout.
+		  <a href="#" class="close">&times;</a>
+		</div> 
+	<?php } ?>
 	
 <form data-abide action="<?=url?>/ajoutUtilisateur" method="POST">
   <div class="row">
