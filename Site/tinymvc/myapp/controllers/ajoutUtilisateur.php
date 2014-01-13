@@ -65,7 +65,7 @@ class ajoutUtilisateur_Controller extends TinyMVC_Controller
 					
 					$this->load->model('ajoutUtilisateur_model','ajout');
 
-					$result = $this->ajout->Ajoututilisateur($_POST['courriel'], $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);					
+					$result = $this->ajout->Ajoututilisateur($_POST['courriel'], $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $cle, $respHoraireConflit);					
 			
 					if ($result != null) {
 						$this->view->assign("success", "");

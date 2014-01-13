@@ -17,8 +17,8 @@
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
 			<div class="large-6 columns">
-			  <label>Mot de Passe(*)</label>
-			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
+			  <label>Retapez le mot de passe(*)</label>
+			  <input type="password" name="motdePasse1" placeholder="Mot de Passe" />
 			</div>
 		</div>
 		
