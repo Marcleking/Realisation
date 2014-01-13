@@ -37,7 +37,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));
 			
 			$this->load->model('affichageUtilisateur_model','affiche');
-			//$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());					
+			$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());					
 			
 			
 		
