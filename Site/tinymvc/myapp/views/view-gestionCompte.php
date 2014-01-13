@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="large-6 columns">
 			  <label>Nom(*)</label>
-			  <input type="text" id="nom" name="nom"  placeholder="Nom" />
+			  <input type="text" id="nom" name="nom" value="<?=$nom?>" placeholder="Nom" />
 			</div>
 			<div class="large-6 columns">
 			  <label>Prénom(*)</label>

@@ -1,15 +1,14 @@
 <?php
 	class affichageUtilisateur_model extends TinyMVC_Model
 	{
-		function AfficherUtilisateurs($courriel) {
-			$row = $this->db->query('Call Utilisateur(?)', array($courriel));
+		function AfficherUtilisateur($courriel) {
+			$row = $this->db->query_one('Call Utilisateur(?)', array($courriel));
 			
+			if($row != null) {
+    			return $row;
+    		}
 			
-			while($row = $this->db->next())
-				$results[] = $row;
-				
-				echo $row['courriel'];
-			return $results;
+	
 			
 		}
 	}

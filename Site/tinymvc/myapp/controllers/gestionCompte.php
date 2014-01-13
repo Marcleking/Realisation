@@ -32,21 +32,23 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				
 				$this->load->model('modifierUtilisateur_model','modif');
 				$result = $this->modif->modifierUnutilisateur($_POST['nom'], $_POST['prenom'], $_POST['motPasse'] , $_SESSION['user']->getNom(), $_POST['numeroCiv'],  $_POST['rue'],  $_POST['ville'], $_POST['codepost'], $notifHoraire, $notifRemplacement);					
-			}	
+			}
+
+
+			$this->load->model('affichageUtilisateur_model','affiche');
+			$result = $this->affiche->AfficherUtilisateur($_SESSION['user']->getNom());	
+			$this->view->assign('nom', $result["nom"]);
+			$this->view->assign('prenom', $result["prenom"]);
+			$this->view->assign('numCivi', $result["numeroCivique"]);
+			
+			
+			
 			$this->view->assign('menu', $this->view->fetch("menu"));
 			$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));
 			
-			$this->load->model('affichageUtilisateur_model','affiche');
-			$result = $this->affiche->AfficherUtilisateurs($_SESSION['user']->getNom());	
 			
-			//$this->view->assign('nom', $result["nom"]);
-			//$this->view->assign('prenom', $result["prenom"]);
-			//$this->view->assign('numCivi', $result["numeroCivique"]);
-			//$this->view->assign('rue', $result["rue"]);
-			//$this->view->assign('ville', $result["ville"]);
-			//$this->view->assign('CP', $result["codePostal"]);
-			//$this->view->assign('notHor', $result["notifHoraire"]);
-			//$this->view->assign('notRem', $result["notifRemplacement"]);
+			
+			
 			
 			//echo$_SESSION['user']->getNom();
 		
