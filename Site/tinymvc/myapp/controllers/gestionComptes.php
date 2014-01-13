@@ -38,12 +38,12 @@ class gestionComptes_Controller extends TinyMVC_Controller
 				
 				$listHtml = '<dl class="accordion" data-accordion> ';
 				foreach($listEmploye as $x_value) {
-						$listHtml = $listHtml . '<dd><a href="#panel'.  $x_value["noEmploye"] .'">'. $x_value["noEmploye"] .' - '. $x_value["prenom"] ." ". $x_value["nom"] .'</a>';
-						$listHtml = $listHtml . '<div id="panel'.$x_value["noEmploye"] .'" class="content">';
+						$listHtml = $listHtml . '<dd><a href="#panel'.  strtr($x_value["courriel"], array("." => "", "@" => "")) .'">' . $x_value["prenom"] ." ". $x_value["nom"] . ' - ' . $x_value["courriel"] . '</a>';
+						$listHtml = $listHtml . '<div id="panel'. strtr($x_value["courriel"], array("." => "", "@" => "")) .'" class="content">';
 						$listHtml = $listHtml . '<div class="left"> Nom: '. $x_value["prenom"] ." ". $x_value["nom"]. '</div>';
 						$listHtml = $listHtml . '<div class="right"> Adresse: '. $x_value["numeroCivique"] .", ". $x_value["rue"]. '<br />'.$x_value["ville"]. ' '. $x_value["codePostal"] .'</div>';
 						$listHtml = $listHtml . '<br />Courriel: '.$x_value["courriel"];
-						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="'.url.'/gestionComptes?suppId='. $x_value["noEmploye"] .'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
+						$listHtml = $listHtml . '<br /><div class="right"><a href="#" class="button tiny">Modifier</a> <a href="'.url.'/gestionComptes?suppId='. $x_value["courriel"] .'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
 				}
 				
 

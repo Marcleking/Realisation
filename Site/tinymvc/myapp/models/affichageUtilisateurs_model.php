@@ -3,8 +3,14 @@
 	{
 		function AfficherUtilisateurs() {
 			$row = $this->db->query('Call Utilisateurs()');
-			while($row = $this->db->next())
-				$results[] = $row;
+			while($row = $this->db->next()) {
+				if ($row["courriel"] != $_SESSION['user']->getNom()) {
+					echo $row["courriel"];
+					echo "<br />";
+					echo $_SESSION['user']->getNom();
+					$results[] = $row;
+				}
+			}
 			return $results;
 			
 		}
