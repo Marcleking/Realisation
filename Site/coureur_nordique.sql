@@ -502,7 +502,7 @@
   CREATE PROCEDURE Connexion (in p_courriel varchar(60), 
                               in p_mdp varchar(60))
   BEGIN
-      SELECT nom, typeEmploye
+      SELECT courriel, typeEmploye
       FROM employe 
       where courriel = p_courriel
       AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
