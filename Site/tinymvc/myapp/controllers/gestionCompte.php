@@ -4,6 +4,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 {
 	  function index()
 	  {
+
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
 
 		$this->view->assign('accueil', '');
@@ -38,7 +39,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			
 			$this->load->model('affichageUtilisateur_model','affiche');
 			$result = $this->affiche->AfficherUtilisateur($_SESSION['user']->getNom());	
-			echo $result["courriel"];
+			
 			
 			//$this->view->assign('nom', $result["nom"]);
 			//$this->view->assign('prenom', $result["prenom"]);

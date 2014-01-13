@@ -19,8 +19,7 @@ class Connexion_Controller extends TinyMVC_Controller
 	  	{
 
 	  		$this->load->model('connexion_model', 'connexion');
-			$this->connexion->seConnecter($_POST['user'], $_POST['pwd'], 
-										$_SERVER["REMOTE_ADDR"], date('Y-m-d', strtotime(str_replace('-', '/', $date))));
+			$this->connexion->seConnecter($_POST['user'], $_POST['pwd'], $_SERVER["REMOTE_ADDR"]);
 
 			
 
