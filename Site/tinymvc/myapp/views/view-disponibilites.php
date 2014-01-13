@@ -121,6 +121,10 @@
 	</form>
 	
 	<script type="text/javascript">
+				
+		
+	
+	
 		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
 					   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
 						 
@@ -226,5 +230,6 @@
 		}
 		genererTableau();
 		remplirListeDate();
+		
 	</script>
 </div>
