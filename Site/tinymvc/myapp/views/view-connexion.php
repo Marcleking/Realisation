@@ -5,11 +5,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="<?=url?>/../css/foundation.css" />
-
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-		<script src="<?=url?>/../js/jquery.js"></script>
-		<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
+
 
 	</head>
 	<body>
@@ -30,24 +28,33 @@
 				      	</div>
 
 				      	<div>
-
 					      	<label for="pwd">Mot de passe</label>
 					      	<input type="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
 
 					      	<small class="error">Veuillez indiquez un mot de passe.</small>
 				      	</div>
+				      	<div>
+				      		<input type="submit" class="button"/>
+				      	</div>
+				      	<div>
+							<a href="<?=url?>/reinitMdp">Réinisialiser votre mot de passe</a>
+						</div>
 				      	
-				      	<input type="submit" class="button"/>
-						
 				      	<?php if (isset($erreur)) { ?>
-							<?=$erreur?>
+				      		<div data-alert class='alert-box warning'>
+								<?=$erreur?>
+								<a href="#" class="close">&times;</a>
+							</div>
 						<?php } ?>
 							
 			      	</div>
 			  	</form>
 			</div>
 	  	</div>
-	  	
+
+		<script src="<?=url?>/../js/jquery.js"></script>
+		<script src="<?=url?>/../js/foundation.min.js"></script>
+		<script src="<?=url?>/../js/foundation/foundation.alert.js"></script>
 	  	<script>
 		 	$(document).foundation();
 		</script>

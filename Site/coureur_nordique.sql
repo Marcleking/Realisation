@@ -667,10 +667,22 @@
   $$
 
   DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(noEmp int(11), noSemaine int(11), annee int(4))
+  CREATE PROCEDURE dispoChoisie(in noEmp int(11), 
+                                in noSemaine int(11), 
+                                in annee int(4))
   SELECT heureDebut, heureFin, jour
   FROM disponibilitejours
   WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
   											WHERE disponibilitesemaine.noEmploye = noEmp
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
+
+
+DROP PROCEDURE IF EXISTS reinitMdp $$
+CREATE PROCEDURE reinitMdp(in p_courriel varchar(60),
+                            in p_mdp varchar(40))
+BEGIN
+  UPDATE employe set
+    motDePasse = sha1(concat(sha1(p_mdp), courriel))
+    where courriel = p_courriel;
+END

@@ -4,7 +4,7 @@ class Default_Controller extends TinyMVC_Controller
 {
 	  function index()
 	  {
-	  	
+
 	  	$this->view->assign('entete', $this->view->fetch("entete"));
 
 		$this->view->assign('accueil', 'class="active"');
@@ -14,7 +14,6 @@ class Default_Controller extends TinyMVC_Controller
         $this->view->assign('dispo', '');
         $this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
-		$this->view->assign('erreur', '');
 
 	 	
 	 	if(isset($_SESSION['user']))
