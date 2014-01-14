@@ -222,7 +222,7 @@
   ('Larsen', 'Fuller', '1f52d30ee3e518a70df77cca06ebb1749c17ce02', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
   ('Kelly', 'Jasper', 'cec6273cc8b54eae748098fdb4652ae8feb21f48', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
   ('Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
-  ('Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
+  ('Wilkins', 'Reuben', sha1(concat(sha1('marc'), 'mollis@ornare.ca')), 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Gestionnaire', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
   ('Meadows', 'Vernon', 'MPX50RVW9DH', 'velit.eu.sem@urnaUttincidunt.ca', '418', 'Elementum, Chemin', 'Price', 'M7N 9L9', 0, 'Employe', 8, 0, 1, 0, 0, 0, 1, '466.547.216.098', '749.574.735.928'),
   ('Morrison', 'Benedict', 'MDV72NUE3OQ', 'et@posuerecubilia.net', '785', 'Quam Av.', 'Rance', 'R0H 1B1', 0, 'Gestionnaire', 28, 0, 1, 1, 0, 0, 1, '973.279.066.201', '749.965.451.070'),
   ('Shields', 'Garrett', 'KPI42ARF1KR', 'Mauris@vestibulum.co.uk', '887', 'Ultrices. Impasse', 'Coassolo Torinese', 'S6P 6B3', 0, 'Employe', 20, 1, 0, 0, 0, 1, 0, '733.805.959.239', '453.255.763.097'),
@@ -254,7 +254,7 @@
   ('Macdonald', 'Dillon', 'AQY87JKT9PL', 'non.enim@eleifendnecmalesuada.co.uk', '856', ' Semper Chemin', 'San Fele', 'M8N 6B7', 0, 'Gestionnaire', 27, 1, 1, 0, 0, 0, 0, '268.993.065.092', '638.473.345.117'),
   ('Forbes', 'Travis', 'SFG78UUS0LC', 'felis.eget.varius@InfaucibusMorbi.com', '363', 'Elit, Chemin', 'Vancouver', 'B4J 6X2', 0, 'Employe', 21, 1, 1, 0, 0, 1, 0, '926.157.075.034', '972.034.021.534'),
   ('Schneider', 'Joel', 'KKH51VON3MH', 'blandit.mattis@tellusimperdiet.ca', '956', 'Orci. Route', 'Selkirk', 'A5V 1G9', 1, 'Gestionnaire', 27, 0, 1, 1, 0, 0, 1, '181.698.879.394', '566.607.750.520'),
-  ('', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
+  ('', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
   -- --------------------------------------------------------
 
   --
