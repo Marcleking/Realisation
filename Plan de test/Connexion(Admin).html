@@ -4,27 +4,27 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://bouchardm.com/coureur/" />
-<title>Vérifier le mot de passe(Bon)</title>
+<title>Gestion du compte</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Vérifier le mot de passe(Bon)</td></tr>
+<tr><td rowspan="1" colspan="3">Gestion du compte</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/coureur/index.php/connexion</td>
+	<td>/Realisation/Site/coureur/</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=user</td>
-	<td>Marc</td>
+	<td>marc</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=pwd</td>
-	<td>Marc</td>
+	<td>marc</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -33,20 +33,14 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=Deconnexion</td>
-	<td>Deconnexion</td>
+	<td>link=Accueil (Gestionnaire)</td>
+	<td>Accueil (Gestionnaire)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Deconnexion</td>
 	<td></td>
 </tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.panel &gt; h1</td>
-	<td>Connexion</td>
-</tr>
-
 </tbody></table>
 </body>
 </html>
