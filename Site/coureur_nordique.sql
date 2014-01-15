@@ -105,13 +105,13 @@
   --
 
   CREATE TABLE IF NOT EXISTS `disponibilitesemaine` (
-    `idDispoSemaine` int(11) NOT NULL,
+    `idDispoSemaine` int(11) NOT NULL AUTO_INCREMENT,
     `noDispoSemaine` int(11) NOT NULL,
     `annee` int(11) NOT NULL,
     `nbHeureSouhaite` int(11) NOT NULL,
     `refIdSemaineACopier` int(11) DEFAULT '-1',
     `courriel` varchar(60) NOT NULL,
-    PRIMARY KEY (`idDispoSemaine`,`courriel`),
+    PRIMARY KEY (`idDispoSemaine`),
     KEY `fk_DisponibiliteSemaine_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -651,3 +651,86 @@
   											WHERE disponibilitesemaine.noEmploye = noEmp
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
+
+	$$
+	
+	DROP PROCEDURE IF EXISTS ajoutModifDisposSemaine $$
+	CREATE PROCEDURE ajoutModifDisposSemaine(
+										p_idDispoSemaine int(11), 
+										p_noDispoSemaine int(11), 
+										p_annee int(11), 
+										p_nbHeureSouhaite int(11), 
+										p_courriel varchar(60))
+	BEGIN
+		if exists (SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = p_idDispoSemaine) then
+			-- Mise à jour d'une disponibilité existante
+			UPDATE disponibilitesemaine
+			SET annee = p_annee,
+				nbHeureSouhaite = p_nbHeureSouhaite
+			WHERE courriel = p_courriel;
+			-- Supprime les blocs d'horaire déjà réservés
+			DELETE FROM disponibilitejours WHERE idDispoSemaine = p_idDispoSemaine;
+			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = p_idDispoSemaine;
+		else
+			INSERT INTO disponibilitesemaine (noDispoSemaine, annee, nbHeureSouhaite, courriel)
+			VALUES (p_noDispoSemaine, p_annee, p_nbHeureSouhaite, p_courriel);
+			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = (SELECT LAST_INSERT_ID() FROM disponibilitesemaine);
+		end if;
+		
+	END
+	
+	$$
+	
+	DROP PROCEDURE IF EXISTS ajoutDisposSemainesCopie $$
+	CREATE PROCEDURE ajoutDisposSemainesCopie(
+										p_refIdSemaineACopier int(11),
+										p_noDispoSemaine int(11),
+										p_annee int(11))
+	BEGIN
+		if exists(	SELECT * FROM disponibilitesemaine 
+					WHERE noDispoSemaine = p_noDispoSemaine 
+					AND courriel = (SELECT courriel FROM disponibilitesemaine 
+									WHERE idDispoSemaine = p_refIdSemaineACopier)) then
+			-- Met à jour une semaine existante pour qu'elle référence une autre semaine
+			UPDATE disponibilitesemaine
+			SET annee = p_annee,
+				nbHeureSouhaite = (SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier),
+				refIdSemaineACopier = p_refIdSemaineACopier
+			WHERE noDispoSemaine = p_noDispoSemaine
+			AND courriel = (SELECT courriel FROM disponibilitesemaine 
+							WHERE idDispoSemaine = p_refIdSemaineACopier);
+			
+			-- Supprime les blocs horaire de la semaine existante
+			DELETE FROM disponibilitejours 
+			WHERE idDispoSemaine = (SELECT idDispoSemaine FROM disponibilitesemaine 
+									WHERE noDispoSemaine = p_noDispoSemaine 
+									AND courriel = (SELECT courriel FROM disponibilitesemaine 
+													WHERE idDispoSemaine = p_refIdSemaineACopier));
+			-- Retourne la semaine modifiée										
+			SELECT * FROM disponibilitesemaine 
+			WHERE noDispoSemaine = p_noDispoSemaine 
+			AND courriel = (SELECT courriel FROM disponibilitesemaine 
+							WHERE idDispoSemaine = p_refIdSemaineACopier);
+		else
+			INSERT INTO disponibilitesemaine(noDispoSemaine, annee, nbHeureSouhaite, refIdSemaineACopier, courriel)
+			VALUES (p_noDispoSemaine, 
+					p_annee, 
+					(SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier), 
+					p_refIdSemaineACopier, 
+					(SELECT courriel FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier));
+			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = (SELECT LAST_INSERT_ID() FROM disponibilitesemaine);
+		end if;
+	END
+	$$
+	
+	DROP PROCEDURE IF EXISTS ajoutDispoBloc $$
+	CREATE PROCEDURE ajoutDispoBloc(
+									p_jour varchar(10),
+									p_heureDebut time,
+									p_heureFin time,
+									p_idDispoSemaine int(11))
+	BEGIN
+		INSERT INTO disponibilitejours (jour, heureDebut, heureFin, idDispoSemaine)
+		VALUES (p_jour, p_heureDebut, p_heureFin, p_idDispoSemaine);
+		SELECT * FROM disponibilitejours WHERE idDispoJours = (SELECT LAST_INSERT_ID() FROM disponibilitejours);
+	END
