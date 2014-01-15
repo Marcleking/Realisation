@@ -216,32 +216,32 @@
 				
 				
 				deleteTableau();
-				console.log(test);
+				//console.log();
 				for(var i = 0; i< test.length; i++)
 				{
 					
 					var ligneselect;
 					switch(test[i]['jour'])
 					{
-					case 'Dimanche':
+					case 'dimanche':
 					  ligneselect = document.getElementById('selectable0');
 					  break;
-					case 'Lundi':
+					case 'lundi':
 					  ligneselect = document.getElementById('selectable1');
 					  break;
-					case 'Mardi':
+					case 'mardi':
 					  ligneselect = document.getElementById('selectable2');
 					  break;
-					case 'Mercredi':
+					case 'mercredi':
 					  ligneselect = document.getElementById('selectable3');
 					  break;
-					case 'Jeudi':
+					case 'jeudi':
 					  ligneselect = document.getElementById('selectable4');
 					  break;
-					case 'Vendredi':
+					case 'vendredi':
 					  ligneselect = document.getElementById('selectable5');
 					  break;
-					case 'Samedi':
+					case 'samedi':
 					  ligneselect = document.getElementById('selectable6');
 					  break;
 					default:
