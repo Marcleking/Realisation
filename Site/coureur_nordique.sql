@@ -16,11 +16,11 @@
   /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
   /*!40101 SET NAMES utf8 */;
 
-  DROP DATABASE IF EXISTS Coureur_Nordique;
-  CREATE DATABASE Coureur_Nordique;
-  USE Coureur_Nordique;
+  DROP DATABASE IF EXISTS coureur_nordique;
+  CREATE DATABASE coureur_nordique;
+  USE coureur_nordique;
   grant usage on *.* to user_coureur@localhost identified by 'qweqwe';
-  grant all privileges on Coureur_Nordique.* to user_coureur@localhost ;
+  grant all privileges on coureur_nordique.* to user_coureur@localhost ;
   -- --------------------------------------------------------
 
   --
@@ -196,21 +196,22 @@
     `prenom` varchar(30) NOT NULL,
     `motDePasse` varchar(40) NOT NULL,
     `courriel` varchar(60) NOT NULL,
-    `numeroCivique` varchar(10) DEFAULT NULL,
-    `rue` varchar(50) DEFAULT NULL,
-    `ville` varchar(45) DEFAULT NULL,
-    `codePostal` varchar(7) DEFAULT NULL,
+    `numeroCivique` varchar(10) NOT NULL,
+    `rue` varchar(50) NOT NULL,
+    `ville` varchar(45) NOT NULL,
+    `codePostal` varchar(7) NOT NULL,
     `possesseurCle` tinyint(1) NOT NULL DEFAULT '0',
-    `typeEmploye` varchar(45) DEFAULT NULL,
-    `indPriorite` int(11) DEFAULT NULL,
+    `typeEmploye` varchar(45) NOT NULL,
+    `indPriorite` int(11) NOT NULL,
     `formationVetement` tinyint(1) NOT NULL DEFAULT '0',
     `formationChaussure` tinyint(1) NOT NULL DEFAULT '0',
     `formationCaissier` tinyint(1) NOT NULL DEFAULT '0',
     `respHoraireConflit` tinyint(1) NOT NULL DEFAULT '0',
     `notifHoraire` tinyint(1) NOT NULL DEFAULT '1',
     `notifRemplacement` tinyint(1) NOT NULL DEFAULT '0',
-    `lastIp` varchar(20) DEFAULT NULL,
-    `lastLogon` varchar(20) DEFAULT NULL,
+    `lastIp` varchar(20) NOT NULL,
+    `lastLogon` date NOT NULL,
+    `lienReinit` varchar(40) null,
     PRIMARY KEY (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
@@ -222,7 +223,7 @@
   ('Larsen', 'Fuller', '1f52d30ee3e518a70df77cca06ebb1749c17ce02', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
   ('Kelly', 'Jasper', 'cec6273cc8b54eae748098fdb4652ae8feb21f48', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
   ('Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
-  ('Wilkins', 'Reuben', 'VYT31YNS0XT', 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Employe', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
+  ('Wilkins', 'Reuben', sha1(concat(sha1('marc'), 'mollis@ornare.ca')), 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Gestionnaire', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
   ('Meadows', 'Vernon', 'MPX50RVW9DH', 'velit.eu.sem@urnaUttincidunt.ca', '418', 'Elementum, Chemin', 'Price', 'M7N 9L9', 0, 'Employe', 8, 0, 1, 0, 0, 0, 1, '466.547.216.098', '749.574.735.928'),
   ('Morrison', 'Benedict', 'MDV72NUE3OQ', 'et@posuerecubilia.net', '785', 'Quam Av.', 'Rance', 'R0H 1B1', 0, 'Gestionnaire', 28, 0, 1, 1, 0, 0, 1, '973.279.066.201', '749.965.451.070'),
   ('Shields', 'Garrett', 'KPI42ARF1KR', 'Mauris@vestibulum.co.uk', '887', 'Ultrices. Impasse', 'Coassolo Torinese', 'S6P 6B3', 0, 'Employe', 20, 1, 0, 0, 0, 1, 0, '733.805.959.239', '453.255.763.097'),
@@ -254,7 +255,7 @@
   ('Macdonald', 'Dillon', 'AQY87JKT9PL', 'non.enim@eleifendnecmalesuada.co.uk', '856', ' Semper Chemin', 'San Fele', 'M8N 6B7', 0, 'Gestionnaire', 27, 1, 1, 0, 0, 0, 0, '268.993.065.092', '638.473.345.117'),
   ('Forbes', 'Travis', 'SFG78UUS0LC', 'felis.eget.varius@InfaucibusMorbi.com', '363', 'Elit, Chemin', 'Vancouver', 'B4J 6X2', 0, 'Employe', 21, 1, 1, 0, 0, 1, 0, '926.157.075.034', '972.034.021.534'),
   ('Schneider', 'Joel', 'KKH51VON3MH', 'blandit.mattis@tellusimperdiet.ca', '956', 'Orci. Route', 'Selkirk', 'A5V 1G9', 1, 'Gestionnaire', 27, 0, 1, 1, 0, 0, 1, '181.698.879.394', '566.607.750.520'),
-  ('', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
+  ('', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
   -- --------------------------------------------------------
 
   --
@@ -496,16 +497,25 @@
 
   --PROCÉDURE
   DELIMITER $$
-  USE Coureur_Nordique $$
+  USE coureur_nordique $$
 
   DROP PROCEDURE IF EXISTS Connexion $$
   CREATE PROCEDURE Connexion (in p_courriel varchar(60), 
-                              in p_mdp varchar(60))
+                              in p_mdp varchar(60),
+                              in p_lastIp varchar(20),
+                              in p_lastLogon date)
   BEGIN
-      SELECT courriel, typeEmploye
-      FROM employe
-      where courriel = p_courriel
-      AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+      if exists (SELECT courriel, typeEmploye FROM employe WHERE courriel = p_courriel AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel))) then
+        UPDATE employe
+          set lastIp = p_lastIp,
+          lastLogon = p_lastLogon
+          where courriel = p_courriel;
+        
+        SELECT courriel, typeEmploye 
+          FROM employe 
+          WHERE courriel = p_courriel 
+          AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+      end if;
   END
   $$
 
@@ -583,31 +593,45 @@
                                         p_numeroCivique varchar(10), 
                                         p_rue varchar(50), p_ville varchar(45), 
                                         p_codePostal varchar(7), p_possesseurCle tinyint(1), 
-                                        p_typeEmploye varchar(45), p_indPriorite int(11),
+                                        p_typeEmploye varchar(45),
                                         p_formationVetement tinyint(1), p_formationChaussure tinyint(1), 
-                                        p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1), 
-                                        p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
+                                        p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      UPDATE employe
-      SET nom = p_nom,
-          prenom = p_prenom,
-          motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
-          courriel = p_courriel,
-          numeroCivique = p_numeroCivique,
-          rue = p_rue,
-          ville = p_ville,
-          codePostal = p_codePostal,
-          possesseurCle = p_possesseurCle,
-          typeEmploye = p_typeEmploye,
-          indPriorite = p_indPriorite,
-          formationVetement = p_formationVetement,
-          formationChaussure = p_formationChaussure,
-          formationCaissier = p_formationCaissier,
-          respHoraireConflit = p_respHoraireConflit,
-          notifHoraire = p_notifHoraire,
-          notifRemplacement = p_notifRemplacement
-      WHERE courriel = p_courriel;
+      if p_motDePasse != "" then
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            possesseurCle = p_possesseurCle,
+            typeEmploye = p_typeEmploye,
+            formationVetement = p_formationVetement,
+            formationChaussure = p_formationChaussure,
+            formationCaissier = p_formationCaissier,
+            respHoraireConflit = p_respHoraireConflit
+        WHERE courriel = p_courriel;
+      else
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            possesseurCle = p_possesseurCle,
+            typeEmploye = p_typeEmploye,
+            formationVetement = p_formationVetement,
+            formationChaussure = p_formationChaussure,
+            formationCaissier = p_formationCaissier,
+            respHoraireConflit = p_respHoraireConflit
+        WHERE courriel = p_courriel;
+      end if;
 
       Select * from employe where courriel = p_courriel;
     end if;
@@ -624,27 +648,45 @@
                                         p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      UPDATE employe
-      SET nom = p_nom,
-          prenom = p_prenom,
-          motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
-          courriel = p_courriel,
-          numeroCivique = p_numeroCivique,
-          rue = p_rue,
-          ville = p_ville,
-          codePostal = p_codePostal,
-          notifHoraire = p_notifHoraire,
-          notifRemplacement = p_notifRemplacement
-      WHERE courriel = p_courriel;
+      if p_motDePasse != "" then
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            notifHoraire = p_notifHoraire,
+            notifRemplacement = p_notifRemplacement
+        WHERE courriel = p_courriel;
 
-      Select * from employe where courriel = p_courriel;
+        Select * from employe where courriel = p_courriel;
+      else
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            notifHoraire = p_notifHoraire,
+            notifRemplacement = p_notifRemplacement
+        WHERE courriel = p_courriel;
+
+        Select * from employe where courriel = p_courriel;
+      end if;
     end if;
   END
 
   $$
 
   DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(noEmp int(11), noSemaine int(11), annee int(4))
+  CREATE PROCEDURE dispoChoisie(in noEmp int(11), 
+                                in noSemaine int(11), 
+                                in annee int(4))
   SELECT heureDebut, heureFin, jour
   FROM disponibilitejours
   WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
@@ -733,4 +775,32 @@
 		INSERT INTO disponibilitejours (jour, heureDebut, heureFin, idDispoSemaine)
 		VALUES (p_jour, p_heureDebut, p_heureFin, p_idDispoSemaine);
 		SELECT * FROM disponibilitejours WHERE idDispoJours = (SELECT LAST_INSERT_ID() FROM disponibilitejours);
+	END
+
+$$
+
+	DROP PROCEDURE IF EXISTS reinitMdp $$
+	CREATE PROCEDURE reinitMdp(in p_courriel varchar(60),
+                            in p_str varchar(40),
+                            in p_mdp varchar(40))
+	BEGIN
+		Select * from employe where courriel = p_courriel and lienReinit = p_str;
+  
+		UPDATE employe set
+			motDePasse = sha1(concat(sha1(p_mdp), courriel)),
+			lienReinit = null
+			where courriel = p_courriel
+			and lienReinit = p_str;
+	END
+
+$$
+
+	DROP PROCEDURE IF EXISTS demandeReinitMdp $$
+	CREATE PROCEDURE demandeReinitMdp(in p_courriel varchar(60), 
+                                  in p_random varchar(40))
+	BEGIN
+		Select * from employe where courriel = p_courriel;
+		UPDATE employe set
+		lienReinit = p_random
+		where courriel = p_courriel;
 	END

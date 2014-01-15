@@ -56,12 +56,7 @@
 	
 		window.addEventListener('submit',sendFormByJSON,false);
 		
-		Date.prototype.getWeekNumber = function(){
-			var d = new Date(+this);
-			d.setHours(0,0,0);
-			d.setDate(d.getDate()+4-(d.getDay()||7));
-			return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
-		};
+	
 		
 		function sendFormByJSON(event){
 			event.preventDefault();
@@ -198,17 +193,28 @@
 	
 	<script type="text/javascript">
 	
-		window.addEventListener('change', recuperationDisponibilite, false);
+	
 		
 		function recuperationDisponibilite()
 		{
+		
+			var date = document.getElementById('listeDate');
+			//alert(date.options[date.selectedIndex].value); 
 			$.ajax({
+				type: "POST",
 				url: "<?=url?>/../../tinymvc/myapp/models/fetch_dispos.php",
-				datatype:'json',
-				success:function(vctDisponibilite){
-					
+				data:{'date': date.options[date.selectedIndex].value},
+				dataType:"json",
+				error: function(){alert('Erreur');},
+				success:function(test){
+					console.log(test);
 				}
 			})
+			
+			
+			
+			
+			
 		}
 
 		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -238,6 +244,7 @@
 		function remplirListeDate()
 		{
 			var vecteurDateSemaine = [];
+			var vecteurDateSemaineSimple = [];
 			var uneListeDate = document.getElementById("formDispo");
 			var elementListe = document.createElement('select');
 			
@@ -245,6 +252,8 @@
 			{
 				var jours = new Date();
 				jours.setDate(jours.getDate() - 7 * i);
+				
+				vecteurDateSemaineSimple.push(jours);
 				vecteurDateSemaine.push(startAndEndOfWeek(jours));
 			}
 			
@@ -253,20 +262,40 @@
 
 				var jours = new Date();
 				jours.setDate(jours.getDate() + 7 * i);
+				vecteurDateSemaineSimple.push(jours);
 				vecteurDateSemaine.push(startAndEndOfWeek(jours));
 			}
 			
 			for(i = 0; i < vecteurDateSemaine.length; i++)
 			{
 				var option = document.createElement("option");
+				
+				option.value = getWeekNumber(vecteurDateSemaineSimple[i]);
 				option.text = vecteurDateSemaine[i][0] + " au " + vecteurDateSemaine[i][1];
 				elementListe.options.add(option);
 			}
-			
+			elementListe.id = "listeDate";
 			elementListe.options.selectedIndex = 5;
+				
 			
 			uneListeDate.appendChild(elementListe);
+			document.getElementById('listeDate').addEventListener('change', recuperationDisponibilite, false);
 		}
+		
+		function getWeekNumber(d) {
+		// Copy date so don't modify original
+		d = new Date(+d);
+		d.setHours(0,0,0);
+		// Set to nearest Thursday: current date + 4 - current day number
+		// Make Sunday's day number 7
+		d.setDate(d.getDate() + 4 - (d.getDay()||7));
+		// Get first day of year
+		var yearStart = new Date(d.getFullYear(),0,1);
+		// Calculate full weeks to nearest Thursday
+		var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+		// Return array of year and week number
+		return d.getFullYear()+ "/" + weekNo;
+	}
 		
 		function genererTableau()
 		{

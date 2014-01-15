@@ -19,9 +19,9 @@ class Connexion_Controller extends TinyMVC_Controller
 	  	{
 
 	  		$this->load->model('connexion_model', 'connexion');
-			$this->connexion->seConnecter($_POST['user'], $_POST['pwd']);
 
-			
+			$this->connexion->seConnecter($_POST['user'], $_POST['pwd'], $_SERVER["REMOTE_ADDR"]);
+
 
 	  		if (isset($_SESSION['user']))
 	  		{
@@ -31,7 +31,7 @@ class Connexion_Controller extends TinyMVC_Controller
 			  	return;
 	  		}
 	  	}
-		$this->view->assign('erreur', "<div data-alert class='alert-box warning round'>Numéro d'utilisateur ou mot de passe incorrect.</div>");
+		$this->view->assign('erreur', "Numéro d'utilisateur ou mot de passe incorrect.");
 	  	$this->view->display('view-connexion');
 		
 	  }
