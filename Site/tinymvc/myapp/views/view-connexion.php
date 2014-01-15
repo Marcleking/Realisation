@@ -37,7 +37,7 @@
 				      		<input type="submit" class="button"/>
 				      	</div>
 				      	<div>
-							<a href="<?=url?>/reinitMdp">Réinisialiser votre mot de passe</a>
+							<a href="<?=url?>/motDePasseOublie">Réinisialiser votre mot de passe</a>
 						</div>
 				      	
 				      	<?php if (isset($erreur)) { ?>

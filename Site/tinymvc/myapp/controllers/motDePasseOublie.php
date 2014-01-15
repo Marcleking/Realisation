@@ -1,6 +1,6 @@
 <?php
 
-class reinitMdp_Controller extends TinyMVC_Controller
+class motDePasseOublie_Controller extends TinyMVC_Controller
 {
 	  function index()
 	  {
