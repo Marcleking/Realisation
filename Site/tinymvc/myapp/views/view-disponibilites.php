@@ -66,6 +66,11 @@
 			
 			jsonForm = ConvertFormToJSON(form);
 			
+			if (jsonForm.repetition == null || jsonForm.repetition < 0)
+			{
+				jsonForm.repetition = 0;
+			}
+			
 			jsonForm.horaire = serializeSchedule();
 			
 			$.ajax({
@@ -125,7 +130,7 @@
 			//horaire.noSemaine = date.getWeekNumber() ou similaire
 			
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
-			var weekInfo = $('listeDate').options[$('listeDate').selectedIndex].value.split('/');
+			var weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
 			
 			horaire.noSemaine = weekInfo[1]
 			horaire.annee = weekInfo[0];
@@ -184,7 +189,7 @@
 	<form id="formDispo">
 		
 		<label for="repetition">Répéter pour</label>
-		<input type="number" id="repetition" name="repetition" />
+		<input type="number" id="repetition" name="repetition" value="0" />
 		<label for="repetition">semaines</label>
 		
 		<label for="nbDesire"> Nombres d'heures désirées : </label>
@@ -196,9 +201,7 @@
 	
 	<script type="text/javascript">
 	
-	
-		
-		function recuperationDisponibilite()
+	function recuperationDisponibilite()
 		{
 		
 			var date = document.getElementById('listeDate');
@@ -293,10 +296,6 @@
 					//console.log(test[0]['debut']);
 				}
 			})
-			
-			
-			
-			
 			
 		}
 

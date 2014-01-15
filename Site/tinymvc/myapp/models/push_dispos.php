@@ -1,4 +1,7 @@
 <?php 
+	header('Content-Type: application/json');
+	include 'user.php';
+	session_start();
 	
 	// Retourne du contenu en format JSON.
 	header("Content-type: text/html; charset=utf-8");
@@ -26,37 +29,35 @@
 	}
 	
 	try{
-		$valeurs = json_decode($_POST['jsonForm']);
-		
 		// Ajout de l'entrée pour disponibilitesemaine
 		$idDispoSemaine = -1;
-		$noDispoSemaine = $valeurs->horaire->noSemaine;
-		$annee = $valeurs->horaire->annee;
-		$nbHeureSouhaite = $valeur->nbDesire;
+		$noDispoSemaine = $_POST['horaire']['noSemaine'];
+		$annee = $_POST['horaire']['annee'];
+		$nbHeureSouhaite = $_POST['nbDesire'];
 		$courriel = $_SESSION['user']->getNom();
 		
-		$req = $bdd->prepare("Call ajoutModifDisposSemaine(?,?,?,?,?)");
-		$req->bindParam(1,$idDispoSemaine);
-		$req->bindParam(2,$noDispoSemaine);
-		$req->bindParam(3,$annee);
-		$req->bindParam(4,$nbHeureSouhaite);
-		$req->bindParam(5,$courriel);
+		$req = $bdd->prepare("Call ajoutModifDisposSemaine(?,?,?,?)");
+		$req->bindParam(1,$noDispoSemaine);
+		$req->bindParam(2,$annee);
+		$req->bindParam(3,$nbHeureSouhaite);
+		$req->bindParam(4,$courriel);
 		
 		$req->execute();
 		
 		// Récupère le no de la semaine
-		$valeurAjoute = $req->fetch();
-		$idDispoSemaine = $valeurAjoute['idDispoSemaine'];
+		$valeurAjoute = $req->fetch(PDO::FETCH_NUM);
+		
+		$idDispoSemaine = $valeurAjoute[0];
 		
 		// Ajout des entrées pour chaque disponibilitejour
 		
-		$disponibilites = $valeur->horaire->disponibilites;
-		foreach($disponibilites as $disponibilite){
+		$disponibilites = $_POST['horaire']['disponibilites'];
+		
+		for($i = 0; $i < count($disponibilites); $i++){
 			
-			$idDispoJours = -1;
-			$jour = $disponibilite->jour;
-			$heureDebut = $disponibilite->lowerTime[0]->hour . ":" . $disponibilite->lowerTime[0]->minutes;
-			$heureFin = $disponibilite->upperTime[0]->hour . ":" . $disponibilite->upeerTime[0]->minutes;
+			$jour = $disponibilites[$i]['jour'];
+			$heureDebut = $disponibilites[$i]['lowerTime'][0]['hour'] . ":" . $disponibilites[$i]['lowerTime'][0]['minutes'];
+			$heureFin = $disponibilites[$i]['upperTime'][0]['hour'] . ":" . $disponibilites[$i]['upperTime'][0]['minutes'];
 			
 			$req = $bdd->prepare("Call ajoutDispoBloc(?,?,?,?)");
 			$req->bindParam(1,$jour);
@@ -69,7 +70,7 @@
 		$req = $bdd->prepare("Call ajoutDisposSemainesCopie(?,?,?)");
 		
 		// Ajout des semaines copiées
-		for ($i = 1; $i <= $valeurs->repetition && $i <= 52; $i++){
+		for ($i = 1; $i <= $_POST['repetition'] && $i <= 52; $i++){
 			$req->bindParam(1,$idDispoSemaine);
 			
 			if(($noDispoSemaine + $i) <= 52){
