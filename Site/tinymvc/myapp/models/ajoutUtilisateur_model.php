@@ -14,7 +14,7 @@
     			//Envoie du courriel au nouveau membre
     			$sujet = "Votre compte – Le Coureur Nordique";
 				$message =  "<h3>Félicitation</h3>" .
-							"<p>Vous avez maintenant un compte sur site de gestion du Coureur Nordique</p>" .
+							"<p>Vous avez maintenant un compte sur le site de gestion du Coureur Nordique</p>" .
 		    				"<p>Voici les informations de votre compte : </p>" .
 		    				"<p><strong>Nom d'utilisateur</strong> : " . $courriel . "</p>" .
 		    				"<p><strong>Mot de passe : </strong>" . $courriel . "</p>";

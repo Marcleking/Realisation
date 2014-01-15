@@ -647,20 +647,36 @@
                                         p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      UPDATE employe
-      SET nom = p_nom,
-          prenom = p_prenom,
-          motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
-          courriel = p_courriel,
-          numeroCivique = p_numeroCivique,
-          rue = p_rue,
-          ville = p_ville,
-          codePostal = p_codePostal,
-          notifHoraire = p_notifHoraire,
-          notifRemplacement = p_notifRemplacement
-      WHERE courriel = p_courriel;
+      if p_motDePasse != "" then
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            notifHoraire = p_notifHoraire,
+            notifRemplacement = p_notifRemplacement
+        WHERE courriel = p_courriel;
 
-      Select * from employe where courriel = p_courriel;
+        Select * from employe where courriel = p_courriel;
+      else
+        UPDATE employe
+        SET nom = p_nom,
+            prenom = p_prenom,
+            courriel = p_courriel,
+            numeroCivique = p_numeroCivique,
+            rue = p_rue,
+            ville = p_ville,
+            codePostal = p_codePostal,
+            notifHoraire = p_notifHoraire,
+            notifRemplacement = p_notifRemplacement
+        WHERE courriel = p_courriel;
+
+        Select * from employe where courriel = p_courriel;
+      end if;
     end if;
   END
 
