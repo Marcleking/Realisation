@@ -1,3 +1,6 @@
+
+
+
 <div class="panel medium-12 columns">
 
 
@@ -57,23 +60,66 @@
 			<input type="text" name="codepost" value="<?=$codePostal?>" placeholder="Code postal" />
 		</div>
 	</div>
+
+	<div id="lesTels">
+		<div class="row" id="tel0">
+			<div class="large-4 columns">
+				<select name="typeTel0">
+				  <option value="Cellulaire" <?=$cell?>>Cellulaire</option>
+				  <option value="Domicile" <?=$domi?>>Domicile</option>
+				  <option value="École" <?=$ecole?>>École</option>
+				  <option value="Bureau" <?=$bureau?>>Bureau</option>
+				  <option value="Autre" <?=$autre?>>Autre</option>
+				</select>
+			</div>
+			<div class="large-4 columns">
+				<input type="text" value="<?=$notelephone?>" name="tel0" placeholder="Votre téléphone" />
+			</div>
+			<div class="large-4 columns">
+				<a href="#" id="telPlus"><i class="fa fa-plus"></i></a>
+			</div>
+		</div>
+		
+		<?=$resteTel?>
+		
+	</div>
 	<div class="row">
 		<div class="large-7 columns">
-			
 			<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire" <?php echo ($notHor==1 ? 'checked' : '');?>><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
 			<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" <?php echo ($notRem==1 ? 'checked' : '');?>><label for="notifRemplacement">Notifications pour tous les remplacements</label>
 		</div>
 		
 	</div>
-  
-
- 
  
 		<input type="submit" class="button"/>
   
 	</form>
 
 
-  
+  <script type="text/javascript">
+  	var i = 1;
+	(function(){
+		document.getElementById('telPlus').addEventListener('click', ajoutTel, false);
+	})();
+
+	function ajoutTel() {
+		$("#tel0").after("<div class='row' id='tel"+i+"'>"+
+			"<div class='large-4 columns'>"+
+				"<select name='typeTel"+i+"'>"+
+				  "<option value='Cellulaire'>Cellulaire</option>"+
+				  "<option value='Domicile'>Domicile</option>"+
+				  "<option value='École'>École</option>"+
+				  "<option value='Bureau'>Bureau</option>"+
+				  "<option value='Autre'>Autre</option>"+
+				"</select>"+
+			"</div>"+
+			"<div class='large-4 columns left'>"+
+				"<input type='text' name='tel"+i+"' placeholder='Votre téléphone' />"+
+			"</div>");
+
+		i++;
+	}
+</script>
 	
 </div>
+

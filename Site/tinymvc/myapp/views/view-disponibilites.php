@@ -80,6 +80,9 @@
 				dataType:"json"
 			});
 			
+			
+			
+			
 		}
 		
 		function ConvertFormToJSON(form){
@@ -210,7 +213,87 @@
 				dataType:"json",
 				error: function(){alert('Erreur');},
 				success:function(test){
-					console.log(test);
+				
+				
+				deleteTableau();
+				
+				for(var i = 0; i< test.length; i++)
+				{
+					
+					var ligneselect;
+					switch(test[i]['jour'])
+					{
+					case 'Dimanche':
+					  ligneselect = document.getElementById('selectable0');
+					  break;
+					case 'Lundi':
+					  ligneselect = document.getElementById('selectable1');
+					  break;
+					case 'Mardi':
+					  ligneselect = document.getElementById('selectable2');
+					  break;
+					case 'Mercredi':
+					  ligneselect = document.getElementById('selectable3');
+					  break;
+					case 'Jeudi':
+					  ligneselect = document.getElementById('selectable4');
+					  break;
+					case 'Vendredi':
+					  ligneselect = document.getElementById('selectable5');
+					  break;
+					case 'Samedi':
+					  ligneselect = document.getElementById('selectable6');
+					  break;
+					default:
+					  alert("erreur");
+					 }
+					  
+					  
+					
+
+					
+					var split = test[i]['debut'].split(":");
+					var heure = (split[0] - 9) * 2 + 1;
+					
+					var split = test[i]['fin'].split(":");
+					var heure1 = (split[0] - 9) * 2 + 1;
+					
+					
+					
+					if(split[1] == '30')
+					{
+					 heure++;
+					}
+			
+			
+					
+		
+						
+				
+					if(split[1] == '30')
+					{
+					 heure1++;
+					}
+					
+					
+			
+					var lesheures = heure1 - heure ;
+					
+					
+					for(var j = heure; j <= lesheures + heure - 1; j++)
+					{
+					var test1 = ligneselect.childNodes[j];
+					test1.className = test1.className + " ui-selected";
+					}
+				
+					
+			
+					
+				}
+				
+				
+				
+					//console.log(test[0]['debut']);
 				}
 			})
 			
@@ -238,6 +321,22 @@
 		  var dateSemaineFin = Samedi.getDate().toString() + " " + mois[Samedi.getMonth()] + " " + Samedi.getFullYear();
 		  // Return array of date objects
 		  return [dateSemaineDebut, dateSemaineFin];
+		}
+		
+		function deleteTableau()
+		{
+		
+			for(var i = 0; i <= 6; i++)
+				{
+				
+				var ligneselect  = document.getElementById('selectable' + i.toString());
+			
+				
+					for(var j = 1; j <= ligneselect.childNodes.length; j ++)
+					{
+						$(ligneselect.childNodes[j]).removeClass('ui-selected');
+					}
+				}
 		}
 		
 		function remplirListeDate()
@@ -309,7 +408,7 @@
 			var celluleVide = document.createElement("th");
 			ligne.appendChild(celluleVide);
 			
-			for (var i=0; i<13; i++)
+			for (var i=0; i<12; i++)
 			{
 			  var nouvRangee = document.createElement("th");
 			  nouvRangee.className = "en-tete";
@@ -334,7 +433,7 @@
 				
 				lesLignes.appendChild(lesJours);
 				
-				for (var j=0; j<26; j++)
+				for (var j=0; j<24; j++)
 				{
 					var lesCellules = document.createElement("td");
 					lesCellules.className = "ui-widget-content";

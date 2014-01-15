@@ -9,9 +9,9 @@
 					"nom"  => $row["nom"],
 					"prenom" => $row["prenom"]);
 				return $arrayUtil;
-    		
-			
-			
+		}
+
+		function ajoutTelephone($type, $numere) {
 			
 		}
 	}
