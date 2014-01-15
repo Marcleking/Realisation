@@ -71,7 +71,7 @@
 			$.ajax({
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
 				type:"POST",
-				data:JSON.stringify(jsonForm),
+				data:jsonForm,
 				dataType:"json"
 			});
 			
@@ -125,7 +125,10 @@
 			//horaire.noSemaine = date.getWeekNumber() ou similaire
 			
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
-			horaire.annee = "";
+			var weekInfo = $('listeDate').options[$('listeDate').selectedIndex].value.split('/');
+			
+			horaire.noSemaine = weekInfo[1]
+			horaire.annee = weekInfo[0];
 			
 			horaire.disponibilites = [];
 			var selectedElements = document.getElementsByClassName('ui-selected');
@@ -137,10 +140,10 @@
 				// Trouve la borne gauche de la période de temps
 				lowerTime.hour = Math.floor(9 + ((selectedElements[i].cellIndex - 1) * 0.5));
 				if ((selectedElements[i].cellIndex - 1) % 2 == 0){
-					lowerTime.minutes = 0;
+					lowerTime.minutes = "00";
 				}
 				else{
-					lowerTime.minutes = 30;
+					lowerTime.minutes = "30";
 				}
 				
 				// Parcours du bloc de temps jusqu'à la fin
@@ -170,18 +173,9 @@
 				});
 				
 			}
-			/*
-			alert (horaire.disponibilites[0].jour);
-			alert (horaire.disponibilites[1].jour);
-			alert (horaire.disponibilites[2].jour);
-			alert (horaire.disponibilites[3].jour);
-			alert (horaire.disponibilites[0].lowerTime[0].hour + " " + horaire.disponibilites[0].lowerTime[0].minutes);
-			alert (horaire.disponibilites[0].upperTime[0].hour + " " + horaire.disponibilites[0].upperTime[0].minutes);
-			*/
 			
 			return horaire;
 		}
-		
 		
 	</script>
 

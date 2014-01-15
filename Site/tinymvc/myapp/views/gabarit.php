@@ -48,6 +48,7 @@
 				margin-bottom: 10px;
 			}
 		</style>
+
 		<script src="<?=url?>/../js/vendor/jquery.js"></script>
 		<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
 		<script src="<?=url?>/../js/jquery.js"></script>
@@ -84,7 +85,6 @@
 
 				</div>
 	  	</div>
-
 
 		<script src="<?=url?>/../js/foundation.min.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
