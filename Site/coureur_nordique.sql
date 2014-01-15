@@ -684,13 +684,13 @@
   $$
 
   DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(in noEmp int(11), 
+  CREATE PROCEDURE dispoChoisie(in courriel varchar(60), 
                                 in noSemaine int(11), 
                                 in annee int(4))
   SELECT heureDebut, heureFin, jour
   FROM disponibilitejours
   WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
-  											WHERE disponibilitesemaine.noEmploye = noEmp
+  											WHERE disponibilitesemaine.courriel = courriel
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
 

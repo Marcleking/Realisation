@@ -87,10 +87,7 @@
 				</div>
 	  	</div>
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> 5f0d93ce9a3d497f09ee89253ed5e00cc8d0e2e0
+
 		<script src="<?=url?>/../js/foundation.min.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
