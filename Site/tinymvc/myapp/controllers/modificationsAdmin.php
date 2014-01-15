@@ -54,9 +54,8 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 						$this->load->model('modifierutilisateuradmin_model','modifie');
 						$result = $this->modifie->modifierUnutilisateurAdmin($_GET['courriel'], $_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $_POST['numeroCiv'], $_POST['rue'], $_POST['ville'], $_POST['codepost'],  $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
 						
-						
-						$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
-					} else 
+						$this->view->assign("success", "");
+					}
 		
 			
 			

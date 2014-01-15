@@ -694,11 +694,3 @@
   											AND disponibilitesemaine.annee = annee);
 
 
-DROP PROCEDURE IF EXISTS reinitMdp $$
-CREATE PROCEDURE reinitMdp(in p_courriel varchar(60),
-                            in p_mdp varchar(40))
-BEGIN
-  UPDATE employe set
-    motDePasse = sha1(concat(sha1(p_mdp), courriel))
-    where courriel = p_courriel;
-END
