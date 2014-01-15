@@ -35,6 +35,20 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				
 				$this->view->assign("success", "");
 				//$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
+				
+				$valCritique = false;
+				$i = 0;
+				while(!$valCritique) {
+					if(!isset($_POST['tel'.$i])) {
+						$valCritique = true;
+					} else {
+						echo $_POST['tel'.$i];
+					}
+					$i++;
+				}
+
+
+
 			} else if(isset($_POST['numeroCiv']) || isset($_POST['rue']) || isset($_POST['ville']) || isset($_POST['codepost']) ){
 				
 				//$this->view->assign('erreur', "<div data-alert class='alert-box warning round'></div>");
