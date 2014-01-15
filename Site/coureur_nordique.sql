@@ -537,17 +537,17 @@
 
   $$
 
-  DROP PROCEDURE IF EXISTS AjoutTelephone $$
-  CREATE PROCEDURE AjoutTelephone (in p_noTelephone varchar(12),
-                                    in p_description varchar(100),
-                                    in p_courriel varchar(60))
-  BEGIN
-    if exists(Select * from employe where noEmploye = p_noEmploye) then
-      INSERT INTO telephone (noTelephone, description, noEmploye)
-        VALUES (p_noTelephone, p_description, p_noEmploye);
-      SELECT * FROM telephone WHERE courriel = p_courriel;
-    end if;
-  END
+    DROP PROCEDURE IF EXISTS AjoutTelephone $$
+    CREATE PROCEDURE AjoutTelephone (in p_noTelephone varchar(12),
+                                      in p_description varchar(100),
+                                      in p_courriel varchar(60))
+    BEGIN
+      if exists(Select * from employe where courriel = p_courriel) then
+        INSERT INTO telephone (noTelephone, description, courriel)
+          VALUES (p_noTelephone, p_description, p_courriel);
+        SELECT * FROM telephone WHERE courriel = p_courriel;
+      end if;
+    END
 
   $$
 

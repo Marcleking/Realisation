@@ -38,11 +38,12 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				
 				$valCritique = false;
 				$i = 0;
+
 				while(!$valCritique) {
 					if(!isset($_POST['tel'.$i])) {
 						$valCritique = true;
 					} else {
-						echo $_POST['tel'.$i];
+						$this->modif->ajoutTelephone($_POST['typeTel'.$i], $_POST['tel'.$i]);
 					}
 					$i++;
 				}
