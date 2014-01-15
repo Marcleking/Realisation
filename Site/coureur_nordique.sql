@@ -211,6 +211,7 @@
     `notifRemplacement` tinyint(1) NOT NULL DEFAULT '0',
     `lastIp` varchar(20) NOT NULL,
     `lastLogon` date NOT NULL,
+    `lienReinit` varchar(40) null,
     PRIMARY KEY (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
@@ -693,4 +694,31 @@
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
 
+$$
 
+
+DROP PROCEDURE IF EXISTS reinitMdp $$
+CREATE PROCEDURE reinitMdp(in p_courriel varchar(60),
+                            in p_str varchar(40),
+                            in p_mdp varchar(40))
+BEGIN
+  Select * from employe where courriel = p_courriel and lienReinit = p_str;
+  
+  UPDATE employe set
+    motDePasse = sha1(concat(sha1(p_mdp), courriel)),
+    lienReinit = null
+    where courriel = p_courriel
+    and lienReinit = p_str;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS demandeReinitMdp $$
+CREATE PROCEDURE demandeReinitMdp(in p_courriel varchar(60), 
+                                  in p_random varchar(40))
+BEGIN
+  Select * from employe where courriel = p_courriel;
+  UPDATE employe set
+    lienReinit = p_random
+    where courriel = p_courriel;
+END
