@@ -1,7 +1,22 @@
 <div class="panel medium-12 columns">
-<?php if (isset($erreur)) { ?>
-		<?=$erreur?>
-<?php } ?>
+
+
+	<?php  if (isset($success)) { ?>
+		<div data-alert class="alert-box success radius">
+		  Modifications appliqué
+		  <a href="#" class="close">&times;</a>
+		</div>
+	<?php } else if (isset($fail)) { ?>
+		<div data-alert class="alert-box warning radius">
+		  Remplir les champs obligatoires
+		  <a href="#" class="close">&times;</a>
+		</div> 
+	<?php } ?>
+
+
+
+
+
 	<h3>Gestion du compte</h3>
 	<form data-abide action="<?=url?>/gestionCompte" method="POST">
 		<div class="row">
@@ -17,7 +32,7 @@
 		</div>
 		<div class="row">
 			<div class="large-6 columns ">
-			  <label>Mot de Passe(*)</label>
+			  <label>Nouveau mot de passe</label>
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
 		
