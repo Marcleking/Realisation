@@ -30,14 +30,12 @@
 				    	<div class="medium-9 columns">
 							<h3>Interdit</h3>
 					    	<div class="panel">
-							<div data-alert class="alert-box warning round">
 					    		Accès interdit <br /><br />
 								
 								<?php if (isset($erreur)) { ?>
 										<?=$erreur?>
 								<?php } ?>
 								</div>
-					    	</div>
 					    </div>
 				    </div>
 				  <!-- close the off-canvas menu -->
