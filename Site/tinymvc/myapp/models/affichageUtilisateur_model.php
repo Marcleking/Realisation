@@ -9,5 +9,16 @@
     		
 			
 		}
+		
+		function affichertelehpone($courriel) {
+			$row = $this->db->query('Call AfficheTelephone(?)', array($courriel));
+				
+				while($row = $this->db->next())
+					$result[] = $row;
+			
+    			return $result;
+    		
+			
+		}
 	}
 ?>

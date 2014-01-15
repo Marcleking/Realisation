@@ -65,20 +65,23 @@
 		<div class="row" id="tel0">
 			<div class="large-4 columns">
 				<select name="typeTel0">
-				  <option value="Cellulaire">Cellulaire</option>
-				  <option value="Domicile">Domicile</option>
-				  <option value="École">École</option>
-				  <option value="Bureau">Bureau</option>
-				  <option value="Autre">Autre</option>
+				  <option value="Cellulaire" <?=$cell?>>Cellulaire</option>
+				  <option value="Domicile" <?=$domi?>>Domicile</option>
+				  <option value="École" <?=$ecole?>>École</option>
+				  <option value="Bureau" <?=$bureau?>>Bureau</option>
+				  <option value="Autre" <?=$autre?>>Autre</option>
 				</select>
 			</div>
 			<div class="large-4 columns">
-				<input type="text" name="tel0" placeholder="Votre téléphone" />
+				<input type="text" value="<?=$notelephone?>" name="tel0" placeholder="Votre téléphone" />
 			</div>
 			<div class="large-4 columns">
 				<a href="#" id="telPlus"><i class="fa fa-plus"></i></a>
 			</div>
 		</div>
+		
+		<?=$resteTel?>
+		
 	</div>
 	<div class="row">
 		<div class="large-7 columns">
