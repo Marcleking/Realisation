@@ -56,12 +56,7 @@
 	
 		window.addEventListener('submit',sendFormByJSON,false);
 		
-		Date.prototype.getWeekNumber = function(){
-			var d = new Date(+this);
-			d.setHours(0,0,0);
-			d.setDate(d.getDate()+4-(d.getDay()||7));
-			return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
-		};
+	
 		
 		function sendFormByJSON(event){
 			event.preventDefault();
@@ -76,9 +71,12 @@
 			$.ajax({
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
 				type:"POST",
-				data:JSON.stringify(jsonForm),
+				data:jsonForm,
 				dataType:"json"
 			});
+			
+			
+			
 			
 		}
 		
@@ -127,7 +125,10 @@
 			//horaire.noSemaine = date.getWeekNumber() ou similaire
 			
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
-			horaire.annee = "";
+			var weekInfo = $('listeDate').options[$('listeDate').selectedIndex].value.split('/');
+			
+			horaire.noSemaine = weekInfo[1]
+			horaire.annee = weekInfo[0];
 			
 			horaire.disponibilites = [];
 			var selectedElements = document.getElementsByClassName('ui-selected');
@@ -139,10 +140,10 @@
 				// Trouve la borne gauche de la période de temps
 				lowerTime.hour = Math.floor(9 + ((selectedElements[i].cellIndex - 1) * 0.5));
 				if ((selectedElements[i].cellIndex - 1) % 2 == 0){
-					lowerTime.minutes = 0;
+					lowerTime.minutes = "00";
 				}
 				else{
-					lowerTime.minutes = 30;
+					lowerTime.minutes = "30";
 				}
 				
 				// Parcours du bloc de temps jusqu'à la fin
@@ -172,18 +173,9 @@
 				});
 				
 			}
-			/*
-			alert (horaire.disponibilites[0].jour);
-			alert (horaire.disponibilites[1].jour);
-			alert (horaire.disponibilites[2].jour);
-			alert (horaire.disponibilites[3].jour);
-			alert (horaire.disponibilites[0].lowerTime[0].hour + " " + horaire.disponibilites[0].lowerTime[0].minutes);
-			alert (horaire.disponibilites[0].upperTime[0].hour + " " + horaire.disponibilites[0].upperTime[0].minutes);
-			*/
 			
 			return horaire;
 		}
-		
 		
 	</script>
 
@@ -204,17 +196,108 @@
 	
 	<script type="text/javascript">
 	
-		window.addEventListener('change', recuperationDisponibilite, false);
+	
 		
 		function recuperationDisponibilite()
 		{
+		
+			var date = document.getElementById('listeDate');
+			//alert(date.options[date.selectedIndex].value); 
 			$.ajax({
+				type: "POST",
 				url: "<?=url?>/../../tinymvc/myapp/models/fetch_dispos.php",
-				datatype:'json',
-				success:function(vctDisponibilite){
+				data:{'date': date.options[date.selectedIndex].value},
+				dataType:"json",
+				error: function(){alert('Erreur');},
+				success:function(test){
+				
+				
+				deleteTableau();
+				
+				for(var i = 0; i< test.length; i++)
+				{
+					
+					var ligneselect;
+					switch(test[i]['jour'])
+					{
+					case 'Dimanche':
+					  ligneselect = document.getElementById('selectable0');
+					  break;
+					case 'Lundi':
+					  ligneselect = document.getElementById('selectable1');
+					  break;
+					case 'Mardi':
+					  ligneselect = document.getElementById('selectable2');
+					  break;
+					case 'Mercredi':
+					  ligneselect = document.getElementById('selectable3');
+					  break;
+					case 'Jeudi':
+					  ligneselect = document.getElementById('selectable4');
+					  break;
+					case 'Vendredi':
+					  ligneselect = document.getElementById('selectable5');
+					  break;
+					case 'Samedi':
+					  ligneselect = document.getElementById('selectable6');
+					  break;
+					default:
+					  alert("erreur");
+					 }
+					  
+					  
+					
+
+					
+					var split = test[i]['debut'].split(":");
+					var heure = (split[0] - 9) * 2 + 1;
+					
+					var split = test[i]['fin'].split(":");
+					var heure1 = (split[0] - 9) * 2 + 1;
+					
+					
+					
+					if(split[1] == '30')
+					{
+					 heure++;
+					}
+			
+			
+					
+		
+						
+				
+					if(split[1] == '30')
+					{
+					 heure1++;
+					}
+					
+					
+			
+					var lesheures = heure1 - heure ;
+					
+					
+					for(var j = heure; j <= lesheures + heure - 1; j++)
+					{
+					var test1 = ligneselect.childNodes[j];
+					test1.className = test1.className + " ui-selected";
+					}
+				
+					
+			
 					
 				}
+				
+				
+				
+					//console.log(test[0]['debut']);
+				}
 			})
+			
+			
+			
+			
+			
 		}
 
 		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -241,9 +324,26 @@
 		  return [dateSemaineDebut, dateSemaineFin];
 		}
 		
+		function deleteTableau()
+		{
+		
+			for(var i = 0; i <= 6; i++)
+				{
+				
+				var ligneselect  = document.getElementById('selectable' + i.toString());
+			
+				
+					for(var j = 1; j <= ligneselect.childNodes.length; j ++)
+					{
+						$(ligneselect.childNodes[j]).removeClass('ui-selected');
+					}
+				}
+		}
+		
 		function remplirListeDate()
 		{
 			var vecteurDateSemaine = [];
+			var vecteurDateSemaineSimple = [];
 			var uneListeDate = document.getElementById("formDispo");
 			var elementListe = document.createElement('select');
 			
@@ -251,6 +351,8 @@
 			{
 				var jours = new Date();
 				jours.setDate(jours.getDate() - 7 * i);
+				
+				vecteurDateSemaineSimple.push(jours);
 				vecteurDateSemaine.push(startAndEndOfWeek(jours));
 			}
 			
@@ -259,20 +361,40 @@
 
 				var jours = new Date();
 				jours.setDate(jours.getDate() + 7 * i);
+				vecteurDateSemaineSimple.push(jours);
 				vecteurDateSemaine.push(startAndEndOfWeek(jours));
 			}
 			
 			for(i = 0; i < vecteurDateSemaine.length; i++)
 			{
 				var option = document.createElement("option");
+				
+				option.value = getWeekNumber(vecteurDateSemaineSimple[i]);
 				option.text = vecteurDateSemaine[i][0] + " au " + vecteurDateSemaine[i][1];
 				elementListe.options.add(option);
 			}
-			
+			elementListe.id = "listeDate";
 			elementListe.options.selectedIndex = 5;
+				
 			
 			uneListeDate.appendChild(elementListe);
+			document.getElementById('listeDate').addEventListener('change', recuperationDisponibilite, false);
 		}
+		
+		function getWeekNumber(d) {
+		// Copy date so don't modify original
+		d = new Date(+d);
+		d.setHours(0,0,0);
+		// Set to nearest Thursday: current date + 4 - current day number
+		// Make Sunday's day number 7
+		d.setDate(d.getDate() + 4 - (d.getDay()||7));
+		// Get first day of year
+		var yearStart = new Date(d.getFullYear(),0,1);
+		// Calculate full weeks to nearest Thursday
+		var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+		// Return array of year and week number
+		return d.getFullYear()+ "/" + weekNo;
+	}
 		
 		function genererTableau()
 		{
@@ -287,7 +409,7 @@
 			var celluleVide = document.createElement("th");
 			ligne.appendChild(celluleVide);
 			
-			for (var i=0; i<13; i++)
+			for (var i=0; i<12; i++)
 			{
 			  var nouvRangee = document.createElement("th");
 			  nouvRangee.className = "en-tete";
@@ -312,7 +434,7 @@
 				
 				lesLignes.appendChild(lesJours);
 				
-				for (var j=0; j<26; j++)
+				for (var j=0; j<24; j++)
 				{
 					var lesCellules = document.createElement("td");
 					lesCellules.className = "ui-widget-content";

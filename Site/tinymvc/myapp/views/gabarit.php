@@ -48,9 +48,12 @@
 				margin-bottom: 10px;
 			}
 		</style>
+
 		<script src="<?=url?>/../js/vendor/jquery.js"></script>
 		<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
 		<script src="<?=url?>/../js/jquery.js"></script>
+		<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
+		
 	</head>
 	<body>
 		<div class="row off-canvas-wrap">
@@ -84,7 +87,10 @@
 				</div>
 	  	</div>
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 5f0d93ce9a3d497f09ee89253ed5e00cc8d0e2e0
 		<script src="<?=url?>/../js/foundation.min.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>

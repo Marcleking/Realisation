@@ -1,7 +1,15 @@
 <div class="panel medium-12 columns">
-<?php if (isset($erreur)) { ?>
-		<?=$erreur?>
-<?php } ?>
+	<?php  if (isset($success)) { ?>
+		<div data-alert class="alert-box success radius">
+		  Modifications appliqué
+		  <a href="#" class="close">&times;</a>
+		</div>
+	<?php } else if (isset($fail)) { ?>
+		<div data-alert class="alert-box warning radius">
+		  Vous devez avoir un courriel valide et disponible dans un des comptes des employés!
+		  <a href="#" class="close">&times;</a>
+		</div> 
+	<?php } ?>
 	<h3>Gestion du compte</h3>
 	<form data-abide action="<?=url?>/modificationsAdmin?courriel=<?=$courriel?>" method="POST">
 		<div class="row">
