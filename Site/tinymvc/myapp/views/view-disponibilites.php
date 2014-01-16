@@ -134,7 +134,7 @@
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
 			var weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
 			
-			horaire.noSemaine = weekInfo[1]
+			horaire.noSemaine = weekInfo[1];
 			horaire.annee = weekInfo[0];
 			
 			horaire.disponibilites = [];
