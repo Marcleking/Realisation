@@ -97,12 +97,21 @@
 
 
   <script type="text/javascript">
-  	var i = 1;
+  	var i;
 	(function(){
 		document.getElementById('telPlus').addEventListener('click', ajoutTel, false);
 	})();
 
 	function ajoutTel() {
+		var valCritique = false;
+		i=0;
+		while (!valCritique) {
+			i++;
+			if($("#tel"+i).html() == null) {
+				valCritique = true;
+			}
+		}
+
 		$("#tel0").after("<div class='row' id='tel"+i+"'>"+
 			"<div class='large-4 columns'>"+
 				"<select name='typeTel"+i+"'>"+

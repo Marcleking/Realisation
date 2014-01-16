@@ -542,10 +542,11 @@
                                       in p_description varchar(100),
                                       in p_courriel varchar(60))
     BEGIN
-      if exists(Select * from employe where courriel = p_courriel) then
-        INSERT INTO telephone (noTelephone, description, courriel)
-          VALUES (p_noTelephone, p_description, p_courriel);
-        SELECT * FROM telephone WHERE courriel = p_courriel;
+      if (exists(Select * from employe where courriel = p_courriel) 
+        and not exists (Select * from telephone where noTelephone = p_noTelephone)) then
+          INSERT INTO telephone (noTelephone, description, courriel)
+            VALUES (p_noTelephone, p_description, p_courriel);
+          SELECT * FROM telephone WHERE courriel = p_courriel;
       end if;
     END
 
@@ -554,7 +555,7 @@
   DROP PROCEDURE IF EXISTS AfficheTelephone $$
   CREATE PROCEDURE AfficheTelephone (in p_courriel varchar(60))
   BEGIN
-    if exists(Select * from employe where noEmploye = p_noEmploye) then
+    if exists(Select * from employe where courriel = p_courriel) then
       SELECT * FROM telephone WHERE courriel = p_courriel;
     end if;
   END
