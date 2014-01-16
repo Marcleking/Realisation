@@ -50,6 +50,8 @@
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
 		});
+		
+		
 	</script>
 
 	<script type="text/javascript">
@@ -446,6 +448,6 @@
 		}
 		genererTableau();
 		remplirListeDate();
-		
+		recuperationDisponibilite();
 	</script>
 </div>

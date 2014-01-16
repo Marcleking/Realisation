@@ -498,7 +498,7 @@
   DROP PROCEDURE IF EXISTS AfficheTelephone $$
   CREATE PROCEDURE AfficheTelephone (in p_courriel varchar(60))
   BEGIN
-    if exists(Select * from employe where noEmploye = p_noEmploye) then
+    if exists(Select * from employe where courriel = p_courriel) then
       SELECT * FROM telephone WHERE courriel = p_courriel;
     end if;
   END
