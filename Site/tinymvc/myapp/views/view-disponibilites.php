@@ -281,13 +281,7 @@
 					test1.className = test1.className + " ui-selected";
 					}
 				
-					
-			
-					
 				}
-				
-				
-				
 					//console.log(test[0]['debut']);
 				}
 			})
@@ -352,7 +346,6 @@
 			
 			for(i = 0; i <= 10; i++)
 			{
-
 				var jours = new Date();
 				jours.setDate(jours.getDate() + 7 * i);
 				vecteurDateSemaineSimple.push(jours);
