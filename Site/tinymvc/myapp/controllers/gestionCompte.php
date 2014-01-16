@@ -31,7 +31,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				}
 				
 				$this->load->model('modifierUtilisateur_model','modif');
-				$result = $this->modif->modifierUnutilisateur($_POST['nom'], $_POST['prenom'], $_POST['motdePasse'] , $_SESSION['user']->getNom(), $_POST['numeroCiv'],  $_POST['rue'],  $_POST['ville'], $_POST['codepost'], $notifHoraire, $notifRemplacement);	
+				$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), $_POST['motdePasse'] , $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);	
 				
 				$this->view->assign("success", "");
 				//$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
@@ -42,7 +42,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 					if(!isset($_POST['tel'.$i])) {
 						$valCritique = true;
 					} else {
-						echo $_POST['tel'.$i];
+					
 					}
 					$i++;
 				}

@@ -17,7 +17,7 @@
 	  <div class="row">
 		<div class="large-6 columns <?=$erreurCourriel?>">
 	      <label>Courriel</label>
-	      <input type="text" name="courriel" placeholder="Courriel" />
+	      <input type="email" name="courriel" placeholder="Courriel" />
 	    </div>
 		<div class="large-6 columns">
 			  <label>Type employé</label>
