@@ -250,15 +250,17 @@
 					var split = test[i]['debut'].split(":");
 					var heure = (split[0] - 9) * 2 + 1;
 					
+					if(split[1] == '30')
+					{
+					 heure++;
+					}
+					
 					var split = test[i]['fin'].split(":");
 					var heure1 = (split[0] - 9) * 2 + 1;
 					
 					
 					
-					if(split[1] == '30')
-					{
-					 heure++;
-					}
+					
 			
 			
 					
@@ -321,7 +323,7 @@
 				var ligneselect  = document.getElementById('selectable' + i.toString());
 			
 				
-					for(var j = 1; j <= ligneselect.childNodes.length; j ++)
+					for(var j = 0; j <= ligneselect.childNodes.length; j ++)
 					{
 						$(ligneselect.childNodes[j]).removeClass('ui-selected');
 					}
