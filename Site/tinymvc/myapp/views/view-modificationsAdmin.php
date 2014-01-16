@@ -50,7 +50,7 @@
 		</div>
 		<div class="large-6 columns">
 			<label>Code postal</label>
-			<input type="text" name="codepost" value="<?=$codePostal?>" placeholder="Code postal" />
+			<input type="text" name="codepost" value="<?=$codePostal?>" pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]" placeholder="Code postal" />
 		</div>
 	</div>
 	<div class="row">
