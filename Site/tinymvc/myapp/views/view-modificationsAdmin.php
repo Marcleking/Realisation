@@ -29,7 +29,7 @@
 			</div>
 			<div class="large-6 columns">
 			  <label>Courriel</label>
-			  <input type="text" name="motdePasse1" value="<?=$_GET['courriel']?>" placeholder="Courriel" />
+			  <input type="text" name="motdePasse1" value="<?=$_GET['courriel']?>" placeholder="Courriel" disabled/>
 			</div>
 		</div>
 		
@@ -50,14 +50,14 @@
 		</div>
 		<div class="large-6 columns">
 			<label>Code postal</label>
-			<input type="text" name="codepost" value="<?=$codePostal?>" placeholder="Code postal" />
+			<input type="text" name="codepost" value="<?=$codePostal?>" pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]" placeholder="Code postal" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="large-7 columns">
 			
-			<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire" <?php echo ($notHor==1 ? 'checked' : '');?>><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
-			<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" <?php echo ($notRem==1 ? 'checked' : '');?>><label for="notifRemplacement">Notifications pour tous les remplacements</label>
+			<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire" <?php echo ($notHor==1 ? 'checked' : '');?> disabled="disabled"><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
+			<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" <?php echo ($notRem==1 ? 'checked' : '');?> disabled="disabled"><label for="notifRemplacement">Notifications pour tous les remplacements</label>
 					
 			  <label>Type employé</label>
 			  <select name="typeEmp">
