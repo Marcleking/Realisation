@@ -52,7 +52,7 @@ class modificationsAdmin_Controller extends TinyMVC_Controller
 					}
 					
 						$this->load->model('modifierutilisateuradmin_model','modifie');
-						$result = $this->modifie->modifierUnutilisateurAdmin($_GET['courriel'], $_POST['nom'], $_POST['prenom'], $_POST['motdePasse'], $_POST['numeroCiv'], $_POST['rue'], $_POST['ville'], $_POST['codepost'],  $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
+						$result = $this->modifie->modifierUnutilisateurAdmin(trim($_GET['courriel']), trim($_POST['nom']), trim($_POST['prenom']), trim($_POST['motdePasse']), trim($_POST['numeroCiv']), trim($_POST['rue']), trim($_POST['ville']), trim($_POST['codepost']),  $cle, $_POST['typeEmp'], $formationVetement, $formationChaussure, $formationCaissier, $respHoraireConflit);
 						
 						$this->view->assign("success", "");
 					}

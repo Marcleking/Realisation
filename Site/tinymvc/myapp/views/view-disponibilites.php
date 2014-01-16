@@ -190,16 +190,10 @@
 	
 	<form id="formDispo">
 		
-		<label for="repetition">Répéter pour</label>
-		<input type="number" id="repetition" name="repetition" value="0" />
-		<label for="repetition">semaines</label>
 		
-		<label for="nbDesire"> Nombres d'heures désirées : </label>
-		<input type="number" id="nbDesire" name="nbDesire" />
 		
-		<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
 		
-	</form>
+		
 	
 	<script type="text/javascript">
 	
@@ -287,13 +281,7 @@
 					test1.className = test1.className + " ui-selected";
 					}
 				
-					
-			
-					
 				}
-				
-				
-				
 					//console.log(test[0]['debut']);
 				}
 			})
@@ -358,7 +346,6 @@
 			
 			for(i = 0; i <= 10; i++)
 			{
-
 				var jours = new Date();
 				jours.setDate(jours.getDate() + 7 * i);
 				vecteurDateSemaineSimple.push(jours);
@@ -449,4 +436,15 @@
 		remplirListeDate();
 		recuperationDisponibilite();
 	</script>
+	<label for="nbDesire"> Nombres d'heures désirées : </label>
+		<input type="number" id="nbDesire" name="nbDesire" />
+		
+		
+		<label for="repetition">Répéter pour</label>
+		<input type="number" id="repetition" name="repetition" value="0" />
+		<label for="repetition">semaines</label>
+		
+	<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
+		
+	</form>
 </div>
