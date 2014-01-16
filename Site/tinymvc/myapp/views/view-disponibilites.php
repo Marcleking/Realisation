@@ -50,6 +50,8 @@
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
 		});
+		
+		
 	</script>
 
 	<script type="text/javascript">
@@ -215,7 +217,7 @@
 				
 				
 				deleteTableau();
-				
+				//console.log();
 				for(var i = 0; i< test.length; i++)
 				{
 					
@@ -445,6 +447,6 @@
 		}
 		genererTableau();
 		remplirListeDate();
-		
+		recuperationDisponibilite();
 	</script>
 </div>

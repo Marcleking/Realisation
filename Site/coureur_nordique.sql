@@ -498,7 +498,7 @@
   DROP PROCEDURE IF EXISTS AfficheTelephone $$
   CREATE PROCEDURE AfficheTelephone (in p_courriel varchar(60))
   BEGIN
-    if exists(Select * from employe where noEmploye = p_noEmploye) then
+    if exists(Select * from employe where courriel = p_courriel) then
       SELECT * FROM telephone WHERE courriel = p_courriel;
     end if;
   END
@@ -628,13 +628,16 @@
   $$
 
   DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(in noEmp varchar(60), 
+  CREATE PROCEDURE dispoChoisie(in courriel varchar(60), 
+
                                 in noSemaine int(11), 
                                 in annee int(11))
   SELECT heureDebut, heureFin, jour
   FROM disponibilitejours
-  WHERE disponibilitejours.idDispoSemaine = (SELECT idDispoSemaine FROM disponibilitesemaine
-  											WHERE disponibilitesemaine.noEmploye = noEmp
+
+  WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
+  											WHERE disponibilitesemaine.courriel = courriel
+
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
 

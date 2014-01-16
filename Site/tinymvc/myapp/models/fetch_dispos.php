@@ -25,4 +25,5 @@
 	}
 	
 	echo json_encode($json);
+	//echo json_encode(array("jour" => count($red))) ;
 ?>
