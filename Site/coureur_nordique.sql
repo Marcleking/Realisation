@@ -638,20 +638,29 @@
 
   $$
 
-  DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(in courriel varchar(60), 
-
-                                in noSemaine int(11), 
-                                in annee int(11))
-  SELECT heureDebut, heureFin, jour
-  FROM disponibilitejours
-
-  WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
-  											WHERE disponibilitesemaine.courriel = courriel
-
-  											AND disponibilitesemaine.noDispoSemaine = noSemaine
-  											AND disponibilitesemaine.annee = annee);
-
+	DROP PROCEDURE IF EXISTS dispoChoisie $$
+	CREATE PROCEDURE dispoChoisie(	in p_courriel varchar(60), 
+									in p_noSemaine int(11), 
+									in p_annee int(11))
+	BEGIN
+	
+	DECLARE idSemaine int(11);
+	
+	if(-1 = (SELECT refIdSemaineACopier FROM disponibilitesemaine WHERE noDispoSemaine = p_noSemaine AND annee = p_annee AND courriel = p_courriel )) then
+		SET idSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine 
+							WHERE disponibilitesemaine.courriel = p_courriel 
+							AND disponibilitesemaine.noDispoSemaine = p_noSemaine
+  							AND disponibilitesemaine.annee = p_annee);
+	else
+		SET idSemaine = (	SELECT refIdSemaineACopier FROM disponibilitesemaine 
+							WHERE noDispoSemaine = p_noSemaine 
+							AND annee = p_annee 
+							AND courriel = p_courriel );
+	end if;
+	SELECT heureDebut, heureFin, jour
+	FROM disponibilitejours
+	WHERE disponibilitejours.idDispoSemaine = idSemaine;
+	END
 	$$
 	
 	DROP PROCEDURE IF EXISTS ajoutModifDisposSemaine $$
@@ -661,12 +670,16 @@
 										p_nbHeureSouhaite int(11), 
 										p_courriel varchar(60))
 	BEGIN
-		if exists (SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND courriel = p_courriel) then
+		if exists (SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND courriel = p_courriel AND annee = p_annee) then
+			
 			-- Mise à jour d'une disponibilité existante
 			UPDATE disponibilitesemaine
 			SET annee = p_annee,
-				nbHeureSouhaite = p_nbHeureSouhaite
-			WHERE courriel = p_courriel;
+				nbHeureSouhaite = p_nbHeureSouhaite,
+				refIdSemaineACopier = -1
+				WHERE courriel = p_courriel
+				AND annee = p_annee
+				AND noDispoSemaine = p_noDispoSemaine;
 			-- Supprime les blocs d'horaire déjà réservés
 			DELETE FROM disponibilitejours WHERE idDispoSemaine = 
 				(SELECT idDispoSemaine FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee AND courriel = p_courriel);
@@ -687,18 +700,23 @@
 										p_noDispoSemaine int(11),
 										p_annee int(11))
 	BEGIN
+		DECLARE	v_nbHeureSouhaite int(11);
+		DECLARE v_courriel varchar(60);
+	
+		SET v_nbHeureSouhaite = (SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier);
+		SET v_courriel = (SELECT courriel FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier);
+	
 		if exists(	SELECT * FROM disponibilitesemaine 
 					WHERE noDispoSemaine = p_noDispoSemaine 
 					AND courriel = (SELECT courriel FROM disponibilitesemaine 
 									WHERE idDispoSemaine = p_refIdSemaineACopier)) then
 			-- Met à jour une semaine existante pour qu'elle référence une autre semaine
+			
 			UPDATE disponibilitesemaine
-			SET annee = p_annee,
-				nbHeureSouhaite = (SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier),
+			SET nbHeureSouhaite = v_nbHeureSouhaite,
 				refIdSemaineACopier = p_refIdSemaineACopier
 			WHERE noDispoSemaine = p_noDispoSemaine
-			AND courriel = (SELECT courriel FROM disponibilitesemaine 
-							WHERE idDispoSemaine = p_refIdSemaineACopier)
+			AND courriel = v_courriel
 			AND annee = p_annee;
 			
 			-- Supprime les blocs horaire de la semaine existante
@@ -718,9 +736,9 @@
 			INSERT INTO disponibilitesemaine(noDispoSemaine, annee, nbHeureSouhaite, refIdSemaineACopier, courriel)
 			VALUES (p_noDispoSemaine, 
 					p_annee, 
-					(SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier), 
+					v_nbHeureSouhaite, 
 					p_refIdSemaineACopier, 
-					(SELECT courriel FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier));
+					v_courriel);
 			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = LAST_INSERT_ID();
 		end if;
 	END

@@ -49,6 +49,9 @@
 						
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
+			
+			remplirListeDate();
+		recuperationDisponibilite();
 		});
 		
 		
@@ -134,7 +137,7 @@
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
 			var weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
 			
-			horaire.noSemaine = weekInfo[1]
+			horaire.noSemaine = weekInfo[1];
 			horaire.annee = weekInfo[0];
 			
 			horaire.disponibilites = [];
@@ -190,22 +193,15 @@
 	
 	<form id="formDispo">
 		
-		<label for="repetition">Répéter pour</label>
-		<input type="number" id="repetition" name="repetition" value="0" />
-		<label for="repetition">semaines</label>
 		
-		<label for="nbDesire"> Nombres d'heures désirées : </label>
-		<input type="number" id="nbDesire" name="nbDesire" />
 		
-		<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
 		
-	</form>
+		
 	
 	<script type="text/javascript">
 	
 	function recuperationDisponibilite()
 		{
-		
 			var date = document.getElementById('listeDate');
 			//alert(date.options[date.selectedIndex].value); 
 			$.ajax({
@@ -216,8 +212,8 @@
 				error: function(){alert('Erreur');},
 				success:function(test){
 				
-				
 				deleteTableau();
+				
 				//console.log();
 				for(var i = 0; i< test.length; i++)
 				{
@@ -257,15 +253,17 @@
 					var split = test[i]['debut'].split(":");
 					var heure = (split[0] - 9) * 2 + 1;
 					
+					if(split[1] == '30')
+					{
+					 heure++;
+					}
+					
 					var split = test[i]['fin'].split(":");
 					var heure1 = (split[0] - 9) * 2 + 1;
 					
 					
 					
-					if(split[1] == '30')
-					{
-					 heure++;
-					}
+					
 			
 			
 					
@@ -288,12 +286,7 @@
 					test1.className = test1.className + " ui-selected";
 					}
 				
-					
-			
-					
 				}
-				
-				
 				
 					//console.log(test[0]['debut']);
 				}
@@ -359,7 +352,6 @@
 			
 			for(i = 0; i <= 10; i++)
 			{
-
 				var jours = new Date();
 				jours.setDate(jours.getDate() + 7 * i);
 				vecteurDateSemaineSimple.push(jours);
@@ -446,8 +438,21 @@
 			tableau.appendChild(bodyTableau);
 			document.getElementById("formDispo").appendChild(tableau);
 		}
+		
 		genererTableau();
-		remplirListeDate();
-		recuperationDisponibilite();
+		
+		
+		
 	</script>
+	<label for="nbDesire"> Nombres d'heures désirées : </label>
+		<input type="number" id="nbDesire" name="nbDesire" />
+		
+		
+		<label for="repetition">Répéter pour</label>
+		<input type="number" id="repetition" name="repetition" value="0" />
+		<label for="repetition">semaines</label>
+		
+	<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
+		
+	</form>
 </div>

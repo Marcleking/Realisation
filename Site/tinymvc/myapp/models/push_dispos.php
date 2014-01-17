@@ -30,7 +30,6 @@
 	
 	try{
 		// Ajout de l'entrée pour disponibilitesemaine
-		$idDispoSemaine = -1;
 		$noDispoSemaine = $_POST['horaire']['noSemaine'];
 		$annee = $_POST['horaire']['annee'];
 		$nbHeureSouhaite = $_POST['nbDesire'];
@@ -48,7 +47,6 @@
 		$valeurAjoute = $req->fetch(PDO::FETCH_NUM);
 		
 		$idDispoSemaine = $valeurAjoute[0];
-		
 		// Ajout des entrées pour chaque disponibilitejour
 		
 		$disponibilites = $_POST['horaire']['disponibilites'];
@@ -67,21 +65,27 @@
 			$req->execute();
 		}
 		
-		$req = $bdd->prepare("Call ajoutDisposSemainesCopie(?,?,?)");
-		
 		// Ajout des semaines copiées
 		for ($i = 1; $i <= $_POST['repetition'] && $i <= 52; $i++){
+			
+			$noSemaine = 0;
+			$val_annee = 0;
+			
+			$req = $bdd->prepare("Call ajoutDisposSemainesCopie(?,?,?)");
 			$req->bindParam(1,$idDispoSemaine);
 			
 			if(($noDispoSemaine + $i) <= 52){
-				$req->bindParam(2,$noDispoSemaine + $i);
-				$req->bindParam(3,$annee);
+				$noSemaine = $noDispoSemaine + $i;
+				$val_annee = $annee;
 			}
-			else
-			{
-				$req->bindParam(2,$i);
-				$req->bindParam(3,$annee + 1);
+			else {
+				$noSemaine = $i;
+				$val_annee = $annee + 1;
 			}
+			
+			$req->bindParam(2,$noSemaine);
+			$req->bindParam(3,$val_annee);
+			
 			$req->execute();
 		}
 		
