@@ -13,8 +13,6 @@
 	$prep = $dbh->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 	$prep->execute(array(':cour' =>  $_SESSION['user']->getNom() , ':noSem' => $dateDiviser[1], ':annee' => $dateDiviser[0]));
 	
-	//$prep->execute(array(':cour' => 'marc', ':noSem' => 1, ':annee' => 2014));
-
 	$red = $prep->fetchAll();
 	$json = array();
 	
@@ -25,5 +23,4 @@
 	}
 	
 	echo json_encode($json);
-	//echo json_encode(array("jour" => count($red))) ;
 ?>
