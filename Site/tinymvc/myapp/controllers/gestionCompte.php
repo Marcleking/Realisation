@@ -57,14 +57,10 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				$this->view->assign("fail", "");
 			}
 
-			
-			
 			$this->load->model('affichageutilisateur_model','affiche');
 			$result = $this->affiche->afficherutilisateur($_SESSION['user']->getNom());	
 			$this->load->model('affichageutilisateur_model','tel');
 			$result1 = $this->tel->affichertelehpone($_SESSION['user']->getNom());	
-			
-		
 			
 			if(count($result1) == 0) {
 				//$this->view->assign('type', '');
