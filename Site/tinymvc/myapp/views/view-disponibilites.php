@@ -1,4 +1,4 @@
-<div class="medium-12 columns">
+<div id="contenu" class="medium-12 columns">
 	<style>
 		#feedback { font-size: 1.4em; }
 		.selectable .ui-selecting { background: #FECA40; }
@@ -61,8 +61,12 @@
 	
 		window.addEventListener('submit',sendFormByJSON,false);
 		
+		var selectPreValue = null;
+		
 		function sendFormByJSON(event){
 			event.preventDefault();
+			
+			var sender = (event && event.target) || (window.event && window.event.srcElement);
 			
 			var form = document.getElementById('formDispo');
 			var jsonForm = {};
@@ -74,7 +78,7 @@
 				jsonForm.repetition = 0;
 			}
 			
-			jsonForm.horaire = serializeSchedule();
+			jsonForm.horaire = serializeSchedule(sender.id);
 			
 			$.ajax({
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
@@ -82,12 +86,61 @@
 				data:jsonForm,
 				dataType:"text",
 				error:function (text){
-					alert(text);
+					ShowMessage(text, "error");
 				},
 				success:function(text){
-					alert(text);
+					ShowMessage(text, "success");
 				}
 			});
+		}
+		
+		function ShowMessage(text, status){
+			
+			var message = null;
+			
+			if (document.getElementById('error') != null)
+			{
+				message = document.getElementById('error');
+			}else if (document.getElementById('success') != null){
+				message = document.getElementById('success');
+			}
+			
+			if(text != "vide")
+			{
+				if (message == null){
+					var message = document.createElement('div');
+					message.className = "alert-box radius";
+					
+					if (status == "error"){
+						message.className = message.className + " warning";
+					}
+					else if (status == "success"){
+						message.className = message.className + "success"
+					}
+					
+					message.id = status;
+					message.innerHTML = text;
+					/*
+					var link = document.createElement('a');
+					link.href = "#";
+					link.className = "close";
+					link.innerHTML = "&times;";
+					
+					message.appendChild(link);
+					*/
+					document.getElementById('contenu').insertBefore(message, document.getElementById('formDispo'));
+				}
+				else{
+					message.id = status;
+					message.innerHTML = text;
+				}
+			}
+			else
+			{
+				if (message != null){
+					message.parentNode.removeChild(message);
+				}
+			}
 		}
 		
 		function ConvertFormToJSON(form){
@@ -102,7 +155,7 @@
 		}
 		
 
-		function serializeSchedule(){
+		function serializeSchedule(senderId){
 			var tableauHoraire = document.getElementById('horaire');
 			var horaire = {};
 			
@@ -135,7 +188,15 @@
 			//horaire.noSemaine = date.getWeekNumber() ou similaire
 			
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
-			var weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
+			var weekInfo;
+			if (senderId == "formDispo"){
+				weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
+			}
+			else if(senderId == "listeDate") {
+				weekInfo = document.getElementById('listeDate').options[selectPreValue].value.split('/');
+			}
+			
+			
 			
 			horaire.noSemaine = weekInfo[1];
 			horaire.annee = weekInfo[0];
@@ -189,7 +250,7 @@
 		
 	</script>
 
-	<h3>Saisie des disponibilités</h3>
+	<h2>Saisie des disponibilités</h2>
 	
 	<form id="formDispo">
 	</form>	
@@ -199,7 +260,7 @@
 		function recuperationDisponibilite()
 		{
 			var date = document.getElementById('listeDate');
-			//alert(date.options[date.selectedIndex].value); 
+			
 			$.ajax({
 				type: "POST",
 				url: "<?=url?>/../../tinymvc/myapp/models/fetch_dispos.php",
@@ -210,10 +271,8 @@
 				
 					deleteTableau();
 					
-					//console.log();
 					for(var i = 0; i< test.length; i++)
 					{
-						
 						var ligneselect;
 						switch(test[i]['jour'])
 						{
@@ -348,7 +407,17 @@
 				
 			
 			uneListeDate.appendChild(elementListe);
-			document.getElementById('listeDate').addEventListener('change', recuperationDisponibilite, false);
+			
+			selectPreValue = document.getElementById('listeDate').selectedIndex;
+			
+			document.getElementById('listeDate').addEventListener('change',beforeChange, false);
+			
+		}
+		
+		function beforeChange(event){
+			sendFormByJSON(event);
+			recuperationDisponibilite();
+			selectPreValue = document.getElementById('listeDate').selectedIndex;
 		}
 		
 		function getWeekNumber(d) {
