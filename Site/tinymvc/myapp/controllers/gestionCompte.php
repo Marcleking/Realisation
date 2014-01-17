@@ -39,6 +39,8 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				$valCritique = false;
 				$i = 0;
 
+				$this->modif->supprimerTelephone();
+
 				while(!$valCritique) {
 					if(!isset($_POST['tel'.$i])) {
 						$valCritique = true;
@@ -97,68 +99,56 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				
 				
 				
-				
-			if(count($result1) > 1)
-			{
+			
 
 				$lestel ="";
-				for($i = 1; $i < count($result1); ++$i)
+				for($i = 0; $i < count($result1); $i++)
 				{
-				
-			
-				$tel = "<div class='row' id='tel".$i."'>";
-				$tel = $tel. "<div class='large-4 columns'>";
-				$tel = $tel. 	"<select name='typeTel".$i."'>";
-				
-				
-				
-				
-				if($result1[$i]['description'] == "Cellulaire")
-				$tel = $tel. 	  "<option value='Cellulaire' selected>Cellulaire</option>";
-				else
-				$tel = $tel. 	  "<option value='Cellulaire'>Cellulaire</option>";
-				
-				
-				if($result1[$i]['description'] == "Maison")
-					$tel = $tel. 	  "<option value='Domicile' selected>Domicile</option>";
-				else
-					$tel = $tel. 	  "<option value='Domicile'>Domicile</option>";
+					$tel = "<div class='row' id='tel".$i."'>";
+					$tel = $tel. "<div class='large-4 columns'>";
+					$tel = $tel. 	"<select id='typeTel".$i."' name='typeTel".$i."'>";
 					
-				if($result1[$i]['description'] == "École")
-					$tel = $tel. 	  "<option value='École' selected>École</option>";
-				else
-					$tel = $tel. 	  "<option value='École'>École</option>";
-				
-				if($result1[$i]['description'] == "Bureau")
-					$tel = $tel. 	  "<option value='Bureau' selected>Bureau</option>";
-				else
-					$tel = $tel. 	  "<option value='Bureau'>Bureau</option>";
-				
-				if($result1[$i]['description'] == "Autre")
-					$tel = $tel. 	  "<option value='Autre' selected>Autre</option>";
-				else
-					$tel = $tel. 	  "<option value='Autre'>Autre</option>";
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				$tel = $tel. 	"</select>";
-				$tel = $tel.  "</div>";
-				$tel = $tel. "<div class='large-4 columns left'>";
-				$tel = $tel. 	"<input type='text' name='tel".$i."' value='".$result1[$i]['noTelephone']."' placeholder='Votre téléphone' />";
-				$tel = $tel . "</div>";
-				$tel = $tel . "</div>";
-				
-				$lestel = $lestel . $tel;
+					if($result1[$i]['description'] == "Cellulaire")
+						$tel = $tel. 	  "<option value='Cellulaire' selected>Cellulaire</option>";
+					else
+						$tel = $tel. 	  "<option value='Cellulaire'>Cellulaire</option>";
+					
+					
+					if($result1[$i]['description'] == "Maison")
+						$tel = $tel. 	  "<option value='Domicile' selected>Domicile</option>";
+					else
+						$tel = $tel. 	  "<option value='Domicile'>Domicile</option>";
+						
+					if($result1[$i]['description'] == "École")
+						$tel = $tel. 	  "<option value='École' selected>École</option>";
+					else
+						$tel = $tel. 	  "<option value='École'>École</option>";
+					
+					if($result1[$i]['description'] == "Bureau")
+						$tel = $tel. 	  "<option value='Bureau' selected>Bureau</option>";
+					else
+						$tel = $tel. 	  "<option value='Bureau'>Bureau</option>";
+					
+					if($result1[$i]['description'] == "Autre")
+						$tel = $tel. 	  "<option value='Autre' selected>Autre</option>";
+					else
+						$tel = $tel. 	  "<option value='Autre'>Autre</option>";
+					
+					$tel .= 	"</select>";
+					$tel .=  "</div>";
+					$tel .= "<div class='large-4 columns left'>";
+					$tel .= 	"<input type='text' id='tel".$i."' name='tel".$i."' value='".$result1[$i]['noTelephone']."' placeholder='Votre téléphone' />";
+					$tel .= "</div>";
+					$tel .= "<div class='large-4 columns left'>";
+					$tel .=		"<a id='telMoins".$i."' class='button small' onClick='suppTel(".$i.")'><i class='fa fa-minus'></i></a>";
+					$tel .=	"</div>";
+					$tel .= "</div>";
+					
+					$lestel = $lestel . $tel;
 				}
 				$this->view->assign('resteTel', $lestel);
 				
-			}
+			
 			
 			
 			

@@ -86,7 +86,7 @@
 
 				</div>
 	  	</div>
-
+	  	
 		<script src="<?=url?>/../js/foundation.min.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>

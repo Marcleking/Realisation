@@ -12,8 +12,13 @@
 		}
 
 		function ajoutTelephone($type, $numero) {
+			
 			$row = $this->db->query_one('Call AjoutTelephone(?, ?, ?)', array($numero, $type, $_SESSION['user']->getNom()));
 			return $row;
+		}
+
+		function supprimerTelephone() {
+			$this->db->query_one('Call SupprimerTelephone(?)', array($_SESSION['user']->getNom()));
 		}
 	}
 ?>

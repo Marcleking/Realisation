@@ -85,19 +85,6 @@
     KEY `fk_DisponibiliteJours_DisponibiliteSemaine_idx` (`idDispoSemaine`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
-  --
-  -- Contenu de la table `disponibilitejours`
-  --
-
-  INSERT INTO `disponibilitejours` (`idDispoJours`, `jour`, `heureDebut`, `heureFin`, `idDispoSemaine`) VALUES
-  (1, 'lundi', '09:00:00', '12:00:00', 1),
-  (2, 'mardi', '13:00:00', '18:00:00', 1),
-  (3, 'Mercredi', '09:00:00', '16:00:00', 2),
-  (4, 'Jeudi', '09:00:00', '16:00:00', 2),
-  (5, 'Vendredi', '09:00:00', '16:00:00', 2),
-  (6, 'Samedi', '09:00:00', '16:00:00', 2),
-  (7, 'Dimanche', '09:00:00', '16:00:00', 2);
-
   -- --------------------------------------------------------
 
   --
@@ -115,50 +102,7 @@
     KEY `fk_DisponibiliteSemaine_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  --
-  -- Contenu de la table `disponibilitesemaine`
-  --
-
-  INSERT INTO `disponibilitesemaine` (`idDispoSemaine`, `noDispoSemaine`, `annee`, `nbHeureSouhaite`, `refIdSemaineACopier`, `courriel`) VALUES
-  (1, 1, 2013, 21, -1, 'marc'),
-  (2, 2, 2013, 43, -1, 'marc'),
-  (3, 2, 2013, 44, -1, 'marc'),
-  (4, 2, 2013, 41, -1, 'marc'),
-  (5, 2, 2013, 19, -1, 'marc'),
-  (6, 3, 2013, 23, -1, 'marc'),
-  (7, 4, 2013, 40, -1, 'marc'),
-  (8, 4, 2013, 20, -1, 'marc'),
-  (9, 4, 2013, 35, -1, 'marc'),
-  (10, 4, 2013, 17, -1, 'marc'),
-  (11, 4, 2013, 43, -1, 'marc'),
-  (12, 4, 2013, 26, -1, 'marc'),
-  (13, 5, 2013, 42, -1, 'marc'),
-  (14, 5, 2013, 38, -1, 'marc'),
-  (15, 6, 2013, 37, -1, 'marc'),
-  (16, 6, 2013, 20, -1, 'marc'),
-  (17, 6, 2013, 45, -1, 'marc'),
-  (18, 6, 2013, 16, -1, 'marc'),
-  (19, 9, 2013, 25, -1, 'marc'),
-  (20, 10, 2013, 42, -1, 'marc'),
-  (21, 11, 2013, 33, -1, 'marc'),
-  (22, 12, 2013, 31, -1, 'marc'),
-  (23, 13, 2013, 43, -1, 'marc'),
-  (24, 13, 2013, 17, -1, 'marc'),
-  (25, 15, 2013, 29, -1, 'marc'),
-  (26, 15, 2013, 21, -1, 'marc'),
-  (27, 15, 2013, 31, -1, 'marc'),
-  (28, 15, 2013, 34, -1, 'marc'),
-  (29, 15, 2013, 31, -1, 'marc'),
-  (30, 24, 2013, 28, -1, 'marc'),
-  (31, 24, 2013, 23, -1, 'marc'),
-  (32, 25, 2013, 22, -1, 'marc'),
-  (33, 26, 2013, 35, -1, 'marc'),
-  (34, 27, 2013, 21, -1, 'marc'),
-  (35, 28, 2013, 21, -1, 'marc'),
-  (36, 29, 2013, 29, 1,'marc'),
-  (37, 30, 2013, 22, -1,'marc'),
-  (38, 52, 2013, 37, 2,'marc');
-
+  
   -- --------------------------------------------------------
 
   --
@@ -562,6 +506,16 @@
 
   $$
 
+    DROP PROCEDURE IF EXISTS SupprimerTelephone $$
+    CREATE PROCEDURE SupprimerTelephone (in p_courriel varchar(60))
+    BEGIN
+      if exists(Select * from employe where courriel = p_courriel) then
+        DELETE FROM telephone WHERE courriel = p_courriel;
+      end if;
+    END
+
+  $$
+
   DROP PROCEDURE IF EXISTS Utilisateur $$
   CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
       SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
@@ -685,13 +639,16 @@
   $$
 
   DROP PROCEDURE IF EXISTS dispoChoisie $$
-  CREATE PROCEDURE dispoChoisie(in noEmp int(11), 
+  CREATE PROCEDURE dispoChoisie(in courriel varchar(60), 
+
                                 in noSemaine int(11), 
-                                in annee int(4))
+                                in annee int(11))
   SELECT heureDebut, heureFin, jour
   FROM disponibilitejours
+
   WHERE disponibilitejours.idDispoSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
-  											WHERE disponibilitesemaine.noEmploye = noEmp
+  											WHERE disponibilitesemaine.courriel = courriel
+
   											AND disponibilitesemaine.noDispoSemaine = noSemaine
   											AND disponibilitesemaine.annee = annee);
 
@@ -699,25 +656,25 @@
 	
 	DROP PROCEDURE IF EXISTS ajoutModifDisposSemaine $$
 	CREATE PROCEDURE ajoutModifDisposSemaine(
-										p_idDispoSemaine int(11), 
 										p_noDispoSemaine int(11), 
 										p_annee int(11), 
 										p_nbHeureSouhaite int(11), 
 										p_courriel varchar(60))
 	BEGIN
-		if exists (SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = p_idDispoSemaine) then
+		if exists (SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND courriel = p_courriel) then
 			-- Mise à jour d'une disponibilité existante
 			UPDATE disponibilitesemaine
 			SET annee = p_annee,
 				nbHeureSouhaite = p_nbHeureSouhaite
 			WHERE courriel = p_courriel;
 			-- Supprime les blocs d'horaire déjà réservés
-			DELETE FROM disponibilitejours WHERE idDispoSemaine = p_idDispoSemaine;
-			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = p_idDispoSemaine;
+			DELETE FROM disponibilitejours WHERE idDispoSemaine = 
+				(SELECT idDispoSemaine FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee AND courriel = p_courriel);
+			SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee AND courriel = p_courriel;
 		else
 			INSERT INTO disponibilitesemaine (noDispoSemaine, annee, nbHeureSouhaite, courriel)
 			VALUES (p_noDispoSemaine, p_annee, p_nbHeureSouhaite, p_courriel);
-			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = (SELECT LAST_INSERT_ID() FROM disponibilitesemaine);
+			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = LAST_INSERT_ID();
 		end if;
 		
 	END
@@ -741,19 +698,22 @@
 				refIdSemaineACopier = p_refIdSemaineACopier
 			WHERE noDispoSemaine = p_noDispoSemaine
 			AND courriel = (SELECT courriel FROM disponibilitesemaine 
-							WHERE idDispoSemaine = p_refIdSemaineACopier);
+							WHERE idDispoSemaine = p_refIdSemaineACopier)
+			AND annee = p_annee;
 			
 			-- Supprime les blocs horaire de la semaine existante
 			DELETE FROM disponibilitejours 
 			WHERE idDispoSemaine = (SELECT idDispoSemaine FROM disponibilitesemaine 
 									WHERE noDispoSemaine = p_noDispoSemaine 
 									AND courriel = (SELECT courriel FROM disponibilitesemaine 
-													WHERE idDispoSemaine = p_refIdSemaineACopier));
+													WHERE idDispoSemaine = p_refIdSemaineACopier)
+									AND annee = p_annee);
 			-- Retourne la semaine modifiée										
 			SELECT * FROM disponibilitesemaine 
 			WHERE noDispoSemaine = p_noDispoSemaine 
 			AND courriel = (SELECT courriel FROM disponibilitesemaine 
-							WHERE idDispoSemaine = p_refIdSemaineACopier);
+							WHERE idDispoSemaine = p_refIdSemaineACopier)
+			AND annee = p_annee;
 		else
 			INSERT INTO disponibilitesemaine(noDispoSemaine, annee, nbHeureSouhaite, refIdSemaineACopier, courriel)
 			VALUES (p_noDispoSemaine, 
@@ -761,7 +721,7 @@
 					(SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier), 
 					p_refIdSemaineACopier, 
 					(SELECT courriel FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier));
-			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = (SELECT LAST_INSERT_ID() FROM disponibilitesemaine);
+			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = LAST_INSERT_ID();
 		end if;
 	END
 	$$
@@ -775,7 +735,7 @@
 	BEGIN
 		INSERT INTO disponibilitejours (jour, heureDebut, heureFin, idDispoSemaine)
 		VALUES (p_jour, p_heureDebut, p_heureFin, p_idDispoSemaine);
-		SELECT * FROM disponibilitejours WHERE idDispoJours = (SELECT LAST_INSERT_ID() FROM disponibilitejours);
+		SELECT * FROM disponibilitejours WHERE idDispoJours = LAST_INSERT_ID();
 	END
 
 $$

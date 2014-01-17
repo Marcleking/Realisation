@@ -50,6 +50,8 @@
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
 		});
+		
+		
 	</script>
 
 	<script type="text/javascript">
@@ -65,6 +67,11 @@
 			var jsonForm = {};
 			
 			jsonForm = ConvertFormToJSON(form);
+			
+			if (jsonForm.repetition == null || jsonForm.repetition < 0)
+			{
+				jsonForm.repetition = 0;
+			}
 			
 			jsonForm.horaire = serializeSchedule();
 			
@@ -125,7 +132,7 @@
 			//horaire.noSemaine = date.getWeekNumber() ou similaire
 			
 			// Trouver l'année de la semaine en cours selon la semaine sélectionnée
-			var weekInfo = $('listeDate').options[$('listeDate').selectedIndex].value.split('/');
+			var weekInfo = document.getElementById('listeDate').options[document.getElementById('listeDate').selectedIndex].value.split('/');
 			
 			horaire.noSemaine = weekInfo[1]
 			horaire.annee = weekInfo[0];
@@ -184,7 +191,7 @@
 	<form id="formDispo">
 		
 		<label for="repetition">Répéter pour</label>
-		<input type="number" id="repetition" name="repetition" />
+		<input type="number" id="repetition" name="repetition" value="0" />
 		<label for="repetition">semaines</label>
 		
 		<label for="nbDesire"> Nombres d'heures désirées : </label>
@@ -196,9 +203,7 @@
 	
 	<script type="text/javascript">
 	
-	
-		
-		function recuperationDisponibilite()
+	function recuperationDisponibilite()
 		{
 		
 			var date = document.getElementById('listeDate');
@@ -213,32 +218,32 @@
 				
 				
 				deleteTableau();
-				
+				//console.log();
 				for(var i = 0; i< test.length; i++)
 				{
 					
 					var ligneselect;
 					switch(test[i]['jour'])
 					{
-					case 'Dimanche':
+					case 'dimanche':
 					  ligneselect = document.getElementById('selectable0');
 					  break;
-					case 'Lundi':
+					case 'lundi':
 					  ligneselect = document.getElementById('selectable1');
 					  break;
-					case 'Mardi':
+					case 'mardi':
 					  ligneselect = document.getElementById('selectable2');
 					  break;
-					case 'Mercredi':
+					case 'mercredi':
 					  ligneselect = document.getElementById('selectable3');
 					  break;
-					case 'Jeudi':
+					case 'jeudi':
 					  ligneselect = document.getElementById('selectable4');
 					  break;
-					case 'Vendredi':
+					case 'vendredi':
 					  ligneselect = document.getElementById('selectable5');
 					  break;
-					case 'Samedi':
+					case 'samedi':
 					  ligneselect = document.getElementById('selectable6');
 					  break;
 					default:
@@ -293,10 +298,6 @@
 					//console.log(test[0]['debut']);
 				}
 			})
-			
-			
-			
-			
 			
 		}
 
@@ -447,6 +448,6 @@
 		}
 		genererTableau();
 		remplirListeDate();
-		
+		recuperationDisponibilite();
 	</script>
 </div>

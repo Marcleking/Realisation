@@ -62,25 +62,17 @@
 	</div>
 
 	<div id="lesTels">
-		<div class="row" id="tel0">
-			<div class="large-4 columns">
-				<select name="typeTel0">
-				  <option value="Cellulaire" <?=$cell?>>Cellulaire</option>
-				  <option value="Domicile" <?=$domi?>>Domicile</option>
-				  <option value="École" <?=$ecole?>>École</option>
-				  <option value="Bureau" <?=$bureau?>>Bureau</option>
-				  <option value="Autre" <?=$autre?>>Autre</option>
-				</select>
-			</div>
-			<div class="large-4 columns">
-				<input type="text" value="<?=$notelephone?>" name="tel0" placeholder="Votre téléphone" />
-			</div>
-			<div class="large-4 columns">
-				<a href="#" id="telPlus"><i class="fa fa-plus"></i></a>
-			</div>
+		<?php 
+			if (isset($resteTel)) {
+				echo $resteTel;
+			}
+		?>
+
+		<div class"row" id="finTel">
+			<a class="button small" id="telPlus"><i class="fa fa-plus"></i></a>
 		</div>
+
 		
-		<?=$resteTel?>
 		
 	</div>
 	<div class="row">
@@ -100,11 +92,12 @@
   	var i;
 	(function(){
 		document.getElementById('telPlus').addEventListener('click', ajoutTel, false);
+
 	})();
 
 	function ajoutTel() {
 		var valCritique = false;
-		i=0;
+		i=-1;
 		while (!valCritique) {
 			i++;
 			if($("#tel"+i).html() == null) {
@@ -112,9 +105,9 @@
 			}
 		}
 
-		$("#tel0").after("<div class='row' id='tel"+i+"'>"+
+		$("#finTel").before("<div class='row' id='tel"+i+"'>"+
 			"<div class='large-4 columns'>"+
-				"<select name='typeTel"+i+"'>"+
+				"<select id='typeTel"+i+"' name='typeTel"+i+"'>"+
 				  "<option value='Cellulaire'>Cellulaire</option>"+
 				  "<option value='Domicile'>Domicile</option>"+
 				  "<option value='École'>École</option>"+
@@ -123,10 +116,27 @@
 				"</select>"+
 			"</div>"+
 			"<div class='large-4 columns left'>"+
-				"<input type='text' name='tel"+i+"' placeholder='Votre téléphone' />"+
+				"<input type='text' id='tel"+i+"' name='tel"+i+"' placeholder='Votre téléphone' />"+
+			"</div>" +
+			"<div class='large-4 columns left'>" +
+				"<a id='telMoins"+i+"' class='button small' onClick='suppTel("+i+")'><i class='fa fa-minus'></i></a>" +
 			"</div>");
-
 		i++;
+	}
+
+	function suppTel(e) {
+		var i = parseInt(e);
+		$("#tel"+i).remove();
+
+		while ($("#tel"+(i+1)).html() != null) {
+			$("#tel"+(i+1)).attr('id', "tel"+i);
+			$("#typeTel"+(i+1)).attr('name', 'typeTel'+i);
+			$("#typeTel"+(i+1)).attr('id', 'typeTel'+i);
+			$("#tel"+(i+1)).attr('name', 'tel'+i);
+			$("#tel"+(i+1)).attr('id', 'tel'+i);
+			$("#telMoins"+(i+1)).attr('id', "telMoins"+i);
+			i++;
+		}
 	}
 </script>
 	
