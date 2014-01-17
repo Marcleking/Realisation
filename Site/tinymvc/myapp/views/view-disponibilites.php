@@ -50,7 +50,7 @@
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
 			
-			remplirListeDate();
+			
 		recuperationDisponibilite();
 		});
 		
@@ -60,8 +60,6 @@
 	<script type="text/javascript">
 	
 		window.addEventListener('submit',sendFormByJSON,false);
-		
-	
 		
 		function sendFormByJSON(event){
 			event.preventDefault();
@@ -82,12 +80,14 @@
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
 				type:"POST",
 				data:jsonForm,
-				dataType:"json"
+				dataType:"text",
+				error:function (text){
+					alert(text);
+				},
+				success:function(text){
+					alert(text);
+				}
 			});
-			
-			
-			
-			
 		}
 		
 		function ConvertFormToJSON(form){
@@ -192,15 +192,11 @@
 	<h3>Saisie des disponibilités</h3>
 	
 	<form id="formDispo">
-		
-		
-		
-		
-		
+	</form>	
 	
 	<script type="text/javascript">
 	
-	function recuperationDisponibilite()
+		function recuperationDisponibilite()
 		{
 			var date = document.getElementById('listeDate');
 			//alert(date.options[date.selectedIndex].value); 
@@ -212,93 +208,74 @@
 				error: function(){alert('Erreur');},
 				success:function(test){
 				
-				deleteTableau();
-				
-				//console.log();
-				for(var i = 0; i< test.length; i++)
-				{
+					deleteTableau();
 					
-					var ligneselect;
-					switch(test[i]['jour'])
+					//console.log();
+					for(var i = 0; i< test.length; i++)
 					{
-					case 'dimanche':
-					  ligneselect = document.getElementById('selectable0');
-					  break;
-					case 'lundi':
-					  ligneselect = document.getElementById('selectable1');
-					  break;
-					case 'mardi':
-					  ligneselect = document.getElementById('selectable2');
-					  break;
-					case 'mercredi':
-					  ligneselect = document.getElementById('selectable3');
-					  break;
-					case 'jeudi':
-					  ligneselect = document.getElementById('selectable4');
-					  break;
-					case 'vendredi':
-					  ligneselect = document.getElementById('selectable5');
-					  break;
-					case 'samedi':
-					  ligneselect = document.getElementById('selectable6');
-					  break;
-					default:
-					  alert("erreur");
-					 }
-					  
-					  
-					
-
-					
-					var split = test[i]['debut'].split(":");
-					var heure = (split[0] - 9) * 2 + 1;
-					
-					if(split[1] == '30')
-					{
-					 heure++;
-					}
-					
-					var split = test[i]['fin'].split(":");
-					var heure1 = (split[0] - 9) * 2 + 1;
-					
-					
-					
-					
-			
-			
-					
-		
 						
-				
-					if(split[1] == '30')
-					{
-					 heure1++;
+						var ligneselect;
+						switch(test[i]['jour'])
+						{
+						case 'dimanche':
+						  ligneselect = document.getElementById('selectable0');
+						  break;
+						case 'lundi':
+						  ligneselect = document.getElementById('selectable1');
+						  break;
+						case 'mardi':
+						  ligneselect = document.getElementById('selectable2');
+						  break;
+						case 'mercredi':
+						  ligneselect = document.getElementById('selectable3');
+						  break;
+						case 'jeudi':
+						  ligneselect = document.getElementById('selectable4');
+						  break;
+						case 'vendredi':
+						  ligneselect = document.getElementById('selectable5');
+						  break;
+						case 'samedi':
+						  ligneselect = document.getElementById('selectable6');
+						  break;
+						default:
+						  alert("erreur");
+						 }
+						
+						var split = test[i]['debut'].split(":");
+						var heure = (split[0] - 9) * 2 + 1;
+						
+						if(split[1] == '30')
+						{
+						 heure++;
+						}
+						
+						var split = test[i]['fin'].split(":");
+						var heure1 = (split[0] - 9) * 2 + 1;
+						
+						if(split[1] == '30')
+						{
+						 heure1++;
+						}
+						
+						var lesheures = heure1 - heure ;
+						
+						for(var j = heure; j <= lesheures + heure - 1; j++)
+						{
+						var test1 = ligneselect.childNodes[j];
+						test1.className = test1.className + " ui-selected";
+						}
+					
 					}
-					
-					
-			
-					var lesheures = heure1 - heure ;
-					
-					
-					for(var j = heure; j <= lesheures + heure - 1; j++)
-					{
-					var test1 = ligneselect.childNodes[j];
-					test1.className = test1.className + " ui-selected";
-					}
-				
 				}
-				
-					//console.log(test[0]['debut']);
-				}
-			})
-			
+			});
 		}
 
-		var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-						"Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
-						 
 		function startAndEndOfWeek(date)
 		{
+			var mois = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+						"Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
+		
 		  // If no date object supplied, use current date
 		  // Copy date so don't modify supplied date
 		  var now = date? new Date(date) : new Date();
@@ -375,19 +352,19 @@
 		}
 		
 		function getWeekNumber(d) {
-		// Copy date so don't modify original
-		d = new Date(+d);
-		d.setHours(0,0,0);
-		// Set to nearest Thursday: current date + 4 - current day number
-		// Make Sunday's day number 7
-		d.setDate(d.getDate() + 4 - (d.getDay()||7));
-		// Get first day of year
-		var yearStart = new Date(d.getFullYear(),0,1);
-		// Calculate full weeks to nearest Thursday
-		var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
-		// Return array of year and week number
-		return d.getFullYear()+ "/" + weekNo;
-	}
+			// Copy date so don't modify original
+			d = new Date(+d);
+			d.setHours(0,0,0);
+			// Set to nearest Thursday: current date + 4 - current day number
+			// Make Sunday's day number 7
+			d.setDate(d.getDate() + 4 - (d.getDay()||7));
+			// Get first day of year
+			var yearStart = new Date(d.getFullYear(),0,1);
+			// Calculate full weeks to nearest Thursday
+			var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+			// Return array of year and week number
+			return d.getFullYear()+ "/" + weekNo;
+		}
 		
 		function genererTableau()
 		{
@@ -439,20 +416,53 @@
 			document.getElementById("formDispo").appendChild(tableau);
 		}
 		
-		genererTableau();
+		function genererForm(){
+			
+			genererTableau();
+			remplirListeDate();
+			
+			var label = document.createElement("label");
+			label.htmlFor = "nbDesire";
+			label.innerHTML = "Nombre d'heures désirées : ";
+			document.getElementById("formDispo").appendChild(label);
+			
+			var input = document.createElement("input");
+			input.type = "number";
+			input.id = "nbDesire";
+			input.name = "nbDesire"
+			document.getElementById("formDispo").appendChild(input);
+			
+			var label2 = document.createElement("label");
+			label2.htmlFor = "repetition";
+			label2.innerHTML = "Répéter pour";
+			document.getElementById("formDispo").appendChild(label2);
+			
+			var input2 = document.createElement("input");
+			input2.type = "number";
+			input2.id = "repetition";
+			input2.name = "repetition";
+			input2.value = "0";
+			document.getElementById("formDispo").appendChild(input2);
+			
+			var label3 = document.createElement("label");
+			label3.htmlFor = "repetition"
+			label3.innerHTML = "semaines"
+			document.getElementById("formDispo").appendChild(label3);
+			
+			var input3 = document.createElement("input");
+			input3.type = "submit";
+			input3.id = "btnSubmit";
+			input3.value = "Envoyer";
+			input3.className = "button right radius";
+			document.getElementById("formDispo").appendChild(input3);
+			
+			
+		}
 		
+		genererForm();
 		
 		
 	</script>
-	<label for="nbDesire"> Nombres d'heures désirées : </label>
-		<input type="number" id="nbDesire" name="nbDesire" />
 		
-		
-		<label for="repetition">Répéter pour</label>
-		<input type="number" id="repetition" name="repetition" value="0" />
-		<label for="repetition">semaines</label>
-		
-	<input id="btnSubmit" type="submit" value="Envoyer" class="button right radius" />
-		
-	</form>
+	
 </div>
