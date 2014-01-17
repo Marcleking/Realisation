@@ -49,6 +49,9 @@
 						
 					}).selectable({	filter: ":not(.en-tete)"});
 			}
+			
+			remplirListeDate();
+		recuperationDisponibilite();
 		});
 		
 		
@@ -209,8 +212,8 @@
 				error: function(){alert('Erreur');},
 				success:function(test){
 				
-				
 				deleteTableau();
+				
 				//console.log();
 				for(var i = 0; i< test.length; i++)
 				{
@@ -284,6 +287,7 @@
 					}
 				
 				}
+				
 					//console.log(test[0]['debut']);
 				}
 			})
@@ -323,7 +327,7 @@
 				var ligneselect  = document.getElementById('selectable' + i.toString());
 			
 				
-					for(var j = 0; j <= ligneselect.childNodes.length; j ++)
+					for(var j = 1; j <= ligneselect.childNodes.length; j ++)
 					{
 						$(ligneselect.childNodes[j]).removeClass('ui-selected');
 					}
@@ -434,9 +438,11 @@
 			tableau.appendChild(bodyTableau);
 			document.getElementById("formDispo").appendChild(tableau);
 		}
+		
 		genererTableau();
-		remplirListeDate();
-		recuperationDisponibilite();
+		
+		
+		
 	</script>
 	<label for="nbDesire"> Nombres d'heures désirées : </label>
 		<input type="number" id="nbDesire" name="nbDesire" />
