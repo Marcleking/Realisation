@@ -37,7 +37,10 @@
 			  <label>Nouveau mot de passe</label>
 			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
-		
+			<div class="large-6 columns ">
+			  <label>Ancien mot de passe</label>
+			  <input type="password" name="ancienMotdePasse" placeholder="Mot de Passe" />
+			</div>
 		</div>
 		
 	<div class="row">
@@ -57,7 +60,8 @@
 		</div>
 		<div class="large-6 columns">
 			<label>Code postal</label>
-			<input type="text" name="codepost" value="<?=$codePostal?>" pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]" placeholder="Code postal" />
+			<input type="text" name="codepost" value="<?=$codePostal?>" pattern="^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$" placeholder="Code postal" />
+			<small class="error">Ajouter un code postal valide!</small> 
 		</div>
 	</div>
 

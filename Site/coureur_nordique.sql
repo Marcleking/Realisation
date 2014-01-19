@@ -147,6 +147,8 @@
     `possesseurCle` tinyint(1) NOT NULL DEFAULT '0',
     `typeEmploye` varchar(45) NOT NULL,
     `indPriorite` int(11) NOT NULL,
+	`hrsMin` int(11) NOT NULL,
+	`hrsMax` int(11) NOT NULL,
     `formationVetement` tinyint(1) NOT NULL DEFAULT '0',
     `formationChaussure` tinyint(1) NOT NULL DEFAULT '0',
     `formationCaissier` tinyint(1) NOT NULL DEFAULT '0',
@@ -518,7 +520,7 @@
 
   DROP PROCEDURE IF EXISTS Utilisateur $$
   CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
-      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, hrsMin, hrsMax, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
       FROM employe 
       where courriel = p_courriel;
   $$
@@ -544,34 +546,17 @@
 
   DROP PROCEDURE IF EXISTS ModifierUtilisateurAdmin $$
   CREATE PROCEDURE ModifierUtilisateurAdmin (p_courriel varchar(60), p_nom varchar(30), 
-                                        p_prenom varchar(30), p_motDePasse varchar(40),
+                                        p_prenom varchar(30), 
                                         p_numeroCivique varchar(10), 
                                         p_rue varchar(50), p_ville varchar(45), 
                                         p_codePostal varchar(7), p_possesseurCle tinyint(1), 
-                                        p_typeEmploye varchar(45),
+                                        p_typeEmploye varchar(45), p_indPriorite int(11),
+										p_hrsMin int(11), p_hrsMax int(11),
                                         p_formationVetement tinyint(1), p_formationChaussure tinyint(1), 
                                         p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      if p_motDePasse != "" then
-        UPDATE employe
-        SET nom = p_nom,
-            prenom = p_prenom,
-            motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
-            courriel = p_courriel,
-            numeroCivique = p_numeroCivique,
-            rue = p_rue,
-            ville = p_ville,
-            codePostal = p_codePostal,
-            possesseurCle = p_possesseurCle,
-            typeEmploye = p_typeEmploye,
-            formationVetement = p_formationVetement,
-            formationChaussure = p_formationChaussure,
-            formationCaissier = p_formationCaissier,
-            respHoraireConflit = p_respHoraireConflit
-        WHERE courriel = p_courriel;
-      else
-        UPDATE employe
+             UPDATE employe
         SET nom = p_nom,
             prenom = p_prenom,
             courriel = p_courriel,
@@ -581,12 +566,14 @@
             codePostal = p_codePostal,
             possesseurCle = p_possesseurCle,
             typeEmploye = p_typeEmploye,
+			indPriorite =  p_indPriorite,
+			hrsMin = p_hrsMin,
+			hrsMax = p_hrsMax,
             formationVetement = p_formationVetement,
             formationChaussure = p_formationChaussure,
             formationCaissier = p_formationCaissier,
             respHoraireConflit = p_respHoraireConflit
         WHERE courriel = p_courriel;
-      end if;
 
       Select * from employe where courriel = p_courriel;
     end if;
@@ -596,18 +583,18 @@
 
   DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
   CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
-                                        p_prenom varchar(30), p_motDePasse varchar(40),
+                                        p_prenom varchar(30), p_motDePassePast varchar(40),  p_motDePasseNew varchar(40),
                                         p_numeroCivique varchar(10), 
                                         p_rue varchar(50), p_ville varchar(45), 
                                         p_codePostal varchar(7),
                                         p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      if p_motDePasse != "" then
+      if p_motDePassePast != "" then
         UPDATE employe
         SET nom = p_nom,
             prenom = p_prenom,
-            motDePasse = sha1(concat(sha1(p_motDePasse), p_courriel)),
+            motDePasse = sha1(concat(sha1(p_motDePasseNew), p_courriel)),
             courriel = p_courriel,
             numeroCivique = p_numeroCivique,
             rue = p_rue,
