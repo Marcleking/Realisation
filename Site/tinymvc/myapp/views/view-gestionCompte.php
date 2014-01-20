@@ -139,6 +139,7 @@
 			$("#tel"+(i+1)).attr('name', 'tel'+i);
 			$("#tel"+(i+1)).attr('id', 'tel'+i);
 			$("#telMoins"+(i+1)).attr('id', "telMoins"+i);
+			$("#telMoins"+(i)).attr('onClick', "suppTel("+i+")");
 			i++;
 		}
 	}

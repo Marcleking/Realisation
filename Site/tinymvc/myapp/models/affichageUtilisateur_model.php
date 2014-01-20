@@ -13,11 +13,15 @@
 		function affichertelehpone($courriel) {
 			$row = $this->db->query('Call AfficheTelephone(?)', array($courriel));
 				
+				
 				while($row = $this->db->next())
+				{
 					$result[] = $row;
-			
-    			return $result;
-    		
+				}
+				
+				
+				if(count($row) != 0)
+				return $result;
 			
 		}
 	}
