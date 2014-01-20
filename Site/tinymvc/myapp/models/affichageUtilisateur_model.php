@@ -19,8 +19,8 @@
 					$result[] = $row;
 				}
 				
-				
-				if(count($row) != 0)
+		
+				if(!empty($result))
 				return $result;
 			
 		}
