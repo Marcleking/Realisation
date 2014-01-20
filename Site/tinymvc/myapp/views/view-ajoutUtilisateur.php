@@ -18,6 +18,7 @@
 		<div class="large-6 columns <?=$erreurCourriel?>">
 	      <label>Courriel</label>
 	      <input type="email" name="courriel" placeholder="Courriel" />
+		  <small class="error">Ajouter un adresse courriel valide!</small> 
 	    </div>
 		<div class="large-6 columns">
 			  <label>Type employé</label>
