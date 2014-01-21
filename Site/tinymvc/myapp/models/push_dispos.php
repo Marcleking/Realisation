@@ -116,6 +116,7 @@
 		$valid = true;
 		$totalTimelapse = 0;
 		$i = 0;
+		
 		while($i < count($disponibilites) && $valid){
 			
 			$timelapse = $disponibilites[$i]['upperTime'][0]['hour'] - $disponibilites[$i]['lowerTime'][0]['hour'];
@@ -140,10 +141,27 @@
 			$i++;
 		}
 		
-		if($totalTimelapse < 10){
+		$différent = false;
+		for($j = 0; $j < count($disponibilites); $j++) {
+			if($j == 0) {
+				$jour = $disponibilites[$j]['jour'];
+			}
+			
+			if($j != 0 && $jour != $disponibilites[$j]['jour']) 
+				$différent = true;
+			
+		}
+		
+		if($différent == false) {
 			$valid = false;
 		}
 		
+		if($totalTimelapse < 10){
+			$valid = false;
+		}
+		if($i < 2){
+			$valid = false;
+		}
 		return $valid;
 	}
 ?>

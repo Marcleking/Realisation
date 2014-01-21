@@ -77,7 +77,7 @@
 			}
 			
 			jsonForm.horaire = serializeSchedule(sender.id);
-			
+			console.log(jsonForm);
 			$.ajax({
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
 				type:"POST",
