@@ -492,12 +492,26 @@
 			label3.innerHTML = "semaines"
 			document.getElementById("formDispo").appendChild(label3);
 			
+			
+			var input3 = document.createElement("input");
+			input3.type = "button";
+			input3.id = "btnReset";
+			input3.value = "Vider";
+			input3.className = "button right radius alert";
+			input3.onclick = function() { deleteTableau();};
+			document.getElementById("formDispo").appendChild(input3);
+			
 			var input3 = document.createElement("input");
 			input3.type = "submit";
 			input3.id = "btnSubmit";
 			input3.value = "Envoyer";
 			input3.className = "button right radius";
 			document.getElementById("formDispo").appendChild(input3);
+			
+			
+			
+			
+			
 			
 			
 		}
