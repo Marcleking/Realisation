@@ -34,12 +34,12 @@
 		</div>
 		<div class="row">
 			<div class="large-6 columns ">
-			  <label>Nouveau mot de passe</label>
-			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
-			</div>
-			<div class="large-6 columns ">
 			  <label>Ancien mot de passe</label>
 			  <input type="password" name="ancienMotdePasse" placeholder="Mot de Passe" />
+			</div>
+			<div class="large-6 columns ">
+			  <label>Nouveau mot de passe</label>
+			  <input type="password" name="motdePasse" placeholder="Mot de Passe" />
 			</div>
 		</div>
 		

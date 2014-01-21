@@ -583,14 +583,14 @@
 
   DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
   CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
-                                        p_prenom varchar(30), p_motDePassePast varchar(40),  p_motDePasseNew varchar(40),
+                                        p_prenom varchar(30), p_motDePasseNew varchar(40),  p_motDePassePast varchar(40),
                                         p_numeroCivique varchar(10), 
                                         p_rue varchar(50), p_ville varchar(45), 
                                         p_codePostal varchar(7),
                                         p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
-      if p_motDePassePast != "" then
+      if (sha1(concat(sha1(p_motDePassePast), p_courriel)) = (Select motDePasse from employe where courriel = p_courriel) AND p_motDePasseNew != "") then
         UPDATE employe
         SET nom = p_nom,
             prenom = p_prenom,
@@ -618,7 +618,8 @@
             notifRemplacement = p_notifRemplacement
         WHERE courriel = p_courriel;
 
-        Select * from employe where courriel = p_courriel;
+        Select nom, prenom, courriel, numeroCivique, rue, ville, codePostal, notifHoraire, notifRemplacement
+         from employe where courriel = p_courriel;
       end if;
     end if;
   END
