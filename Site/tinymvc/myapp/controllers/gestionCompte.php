@@ -16,7 +16,8 @@ class gestionCompte_Controller extends TinyMVC_Controller
 	 	
 	 	if(isset($_SESSION['user']))
 	  	{
-			if(isset($_POST['nom']) && isset($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['prenom'])) {
+			if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['motdePasse']) && isset($_POST['ancienMotdePasse']) &&
+				!empty($_POST['nom']) && !empty($_POST['prenom'])) {
 				$notifHoraire = 1;
 				$notifRemplacement = 1;
 				
@@ -30,10 +31,24 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				}
 				
 				$this->load->model('modifierUtilisateur_model','modif');
-				$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), $_POST['motdePasse'] , $_POST['ancienMotdePasse'], $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);	
-				
-				$this->view->assign("success", "");
-				//$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
+
+
+				if(empty($_POST['motdePasse']) && empty($_POST['ancienMotdePasse'])) {
+					$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), null, null, $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);
+					if (isset($result)) {
+						$this->view->assign("success", "");
+					}
+				} else if (!empty($_POST['motdePasse']) && !empty($_POST['ancienMotdePasse'])){
+					$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), $_POST['motdePasse'] , $_POST['ancienMotdePasse'], $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);
+
+					if (isset($result['motDePasse'])){
+						$this->view->assign("success", "");
+					} else {
+						$this->view->assign("fail", "");
+					}
+				} else {
+					$this->view->assign("fail", "");
+				}
 				
 				$valCritique = false;
 				$i = 0;

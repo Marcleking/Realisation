@@ -4,11 +4,7 @@
 		function modifierUnutilisateur($nom, $prenom, $motPasse, $motDePasseAncien, $courriel, $numerocivique, $rue, $ville, $codePostal, $notifHoraire, $notifRemplacement) {
 
 			$row = $this->db->query_one('Call ModifierUtilisateur( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($courriel, $nom, $prenom, $motPasse, $motDePasseAncien, $numerocivique, $rue, $ville, $codePostal, $notifHoraire, $notifRemplacement));
-		
-    			$arrayUtil = array (
-					"nom"  => $row["nom"],
-					"prenom" => $row["prenom"]);
-				return $arrayUtil;
+			return $row;
 		}
 
 		function ajoutTelephone($type, $numero) {
