@@ -61,8 +61,6 @@
 	
 		window.addEventListener('submit',sendFormByJSON,false);
 		
-		var selectPreValue = null;
-		
 		function sendFormByJSON(event){
 			event.preventDefault();
 			
@@ -96,51 +94,33 @@
 		
 		function ShowMessage(text, status){
 			
-			var message = null;
-			
-			if (document.getElementById('error') != null)
-			{
-				message = document.getElementById('error');
-			}else if (document.getElementById('success') != null){
-				message = document.getElementById('success');
-			}
-			
 			if(text != "vide")
 			{
-				if (message == null){
-					var message = document.createElement('div');
-					message.className = "alert-box radius";
-					
-					if (status == "error"){
-						message.className = message.className + " warning";
-					}
-					else if (status == "success"){
-						message.className = message.className + "success"
-					}
-					
-					message.id = status;
-					message.innerHTML = text;
-					/*
-					var link = document.createElement('a');
-					link.href = "#";
-					link.className = "close";
-					link.innerHTML = "&times;";
-					
-					message.appendChild(link);
-					*/
-					document.getElementById('contenu').insertBefore(message, document.getElementById('formDispo'));
+				var message = document.createElement("div");
+			
+				//div.innerHTML = "<div data-alert id='message'></div>"
+				message.setAttribute("data-alert","");
+				message.id = "message";
+				message.className = "alert-box radius"
+				
+				if (status == "error"){
+					message.className = message.className + " warning";
 				}
-				else{
-					message.id = status;
-					message.innerHTML = text;
+				else if (status == "success"){
+					message.className = message.className + "success"
 				}
+				
+				message.innerHTML = text;
+				var link = document.createElement('a');
+				link.href = "#";
+				link.className = "close";
+				link.innerHTML = "&times;";
+				
+				message.appendChild(link);
+				
+				document.getElementById('contenu').insertBefore(message,document.getElementById('formDispo'));
 			}
-			else
-			{
-				if (message != null){
-					message.parentNode.removeChild(message);
-				}
-			}
+			
 		}
 		
 		function ConvertFormToJSON(form){
@@ -410,14 +390,8 @@
 			
 			selectPreValue = document.getElementById('listeDate').selectedIndex;
 			
-			document.getElementById('listeDate').addEventListener('change',beforeChange, false);
+			document.getElementById('listeDate').addEventListener('change',recuperationDisponibilite, false);
 			
-		}
-		
-		function beforeChange(event){
-			sendFormByJSON(event);
-			recuperationDisponibilite();
-			selectPreValue = document.getElementById('listeDate').selectedIndex;
 		}
 		
 		function getWeekNumber(d) {
