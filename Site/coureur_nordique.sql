@@ -770,3 +770,12 @@ $$
 		lienReinit = p_random
 		where courriel = p_courriel;
 	END
+
+DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
+CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
+                                    in p_str varchar(60))
+BEGIN
+  SELECT * FROM employe 
+    where courriel = p_courriel
+    and lienReinit = p_str;
+END

@@ -123,10 +123,13 @@
 				"<input type='text' id='tel"+i+"' name='tel"+i+"' placeholder='Votre téléphone' />"+
 			"</div>" +
 			"<div class='large-4 columns left'>" +
-				"<a id='telMoins"+i+"' class='button small' onClick='suppTel("+i+")'><i class='fa fa-minus'></i></a>" +
+				"<a id='telMoins"+i+"' class='button small' onclick='suppTel("+i+")'><i class='fa fa-minus'></i></a>" +
 			"</div>");
 		i++;
 	}
+
+
+
 
 	function suppTel(e) {
 		var i = parseInt(e);
@@ -138,8 +141,8 @@
 			$("#typeTel"+(i+1)).attr('id', 'typeTel'+i);
 			$("#tel"+(i+1)).attr('name', 'tel'+i);
 			$("#tel"+(i+1)).attr('id', 'tel'+i);
+			$("#telMoins"+(i+1)).attr('onclick', "suppTel("+i+")");
 			$("#telMoins"+(i+1)).attr('id', "telMoins"+i);
-			$("#telMoins"+(i)).attr('onClick', "suppTel("+i+")");
 			i++;
 		}
 	}

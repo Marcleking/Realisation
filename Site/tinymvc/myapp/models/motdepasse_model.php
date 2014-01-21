@@ -35,27 +35,22 @@
 
 			return false;
 		}
+		function bonneDemande($courriel, $str) {
+			$row = $this->db->query_one('Call bonneDemandeReinit(?, ?)', array($courriel, $str));
 
+			if ($row != null) {
+				return true;
+			}
 
-		function reinit($courriel, $str) {
-			$newMdp = $this->randstring(10);
+			return false;
+		}
+
+		function reinitialisation($courriel, $str, $newMdp) {
 
 			$row = $this->db->query_one('Call reinitMdp(?, ?, ?)', array($courriel, $str, $newMdp));
-    		$sujet = "Votre compte – Le Coureur Nordique";
-			$message =  "<h3>Réinisialisation</h3>" .
-						"<p>Votre mot de passe à été réinisialisé</p>" .
-	    				"<p>Voici les nouvelles informations de votre compte : </p>" .
-	    				"<p><strong>Nom d'utilisateur</strong> : " . $courriel . "</p>" .
-	    				"<p><strong>Mot de passe : </strong>" . $newMdp . "</p>";
-
-			$headers = "From: \"Le Coureur Nordique\"<noreply@bouchardm.com>\n";
-			$headers .= "Reply-To: noreply@bouchardm.com\n";
-			$headers .= "Content-Type: text/html; charset=\"iso-8859-1\"";
 			
 			if ($row != null) {
-				if (mail($courriel,$sujet,$message,$headers)){
-					return true;
-				}
+				return true;
 			}
 
 			return false;

@@ -17,31 +17,32 @@
 		<div class="row">
 			<div class="medium-5 medium-centered columns">
 				<!-- Formulaire de réinisialisation du mot de passe -->
-				<form data-abide action="<?=url?>/motDePasse" method="POST">
+				<form data-abide action="<?=url?>/motDePasse/reinitMdp" method="POST">
 					<div class="panel">
 						<h1>Réinisialisation du mot de passe</h1>
 		
 						<div>
-						  	<label for="user">Numéro d'utilisateur</label>
-					      	<input type="text" id="user" name="user" placeholder="Entrez votre nom d'utilisateur..." required />
-					      	<small class="error">Veuillez indiquez votre nom d'utilisateur.</small>
+						  	<label for="user">Nouveau mot de passe</label>
+					      	<input type="password" id="pwd" name="pwd" placeholder="Entrez votre mot de passe..." required />
+					      	<small class="error">Veuillez indiquez votre mot de passe.</small>
 				      	</div>
+
+				      	<div>
+						  	<label for="user">Confirmation</label>
+					      	<input type="password" id="pwd2" name="pwd2" placeholder="Encore..." required />
+					      	<small class="error">Veuillez indiquez la confirmation de votre mot de passe.</small>
+				      	</div>
+
+				      	<?php if (isset($courriel) && isset($str)) { ?>
+				      		<input type="hidden" name="courriel" value="<?=$courriel?>" />
+				      		<input type="hidden" name="str" value="<?=$str?>" />
+				      	<?php } ?>
 
 				      	<div>
 							<input type="submit" class="button" value="Réinisialiser votre mot de passe" />
 						</div>
 				      	
-				      	<?php if (isset($success)) { ?>
-				      		<div data-alert class='alert-box success'>
-								La demande de réinisialisation à bien été fait. Allez voir vos courriel pour la suite des étapes à suivre.
-								<a href="#" class="close">&times;</a>
-							</div>
-						<?php } else if (isset($fail)) { ?>
-							<div data-alert class='alert-box warning'>
-								Le nom d'utilisateur entré n'existe pas.
-								<a href="#" class="close">&times;</a>
-							</div>
-						<?php } ?>
+				      	
 							
 			      	</div>
 			  	</form>

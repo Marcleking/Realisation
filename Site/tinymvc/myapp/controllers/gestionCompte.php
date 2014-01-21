@@ -91,61 +91,52 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				
 			if($result1[0]['description'] == "Autre")
 				$this->view->assign('autre', 'selected');
-				
-				
-				
-			
 
-				$lestel ="";
-				for($i = 0; $i < count($result1); $i++)
-				{
-					$tel = "<div class='row' id='tel".$i."'>";
-					$tel = $tel. "<div class='large-4 columns'>";
-					$tel = $tel. 	"<select id='typeTel".$i."' name='typeTel".$i."'>";
-					
-					if($result1[$i]['description'] == "Cellulaire")
-						$tel = $tel. 	  "<option value='Cellulaire' selected>Cellulaire</option>";
-					else
-						$tel = $tel. 	  "<option value='Cellulaire'>Cellulaire</option>";
-					
-					
-					if($result1[$i]['description'] == "Maison")
-						$tel = $tel. 	  "<option value='Domicile' selected>Domicile</option>";
-					else
-						$tel = $tel. 	  "<option value='Domicile'>Domicile</option>";
-						
-					if($result1[$i]['description'] == "École")
-						$tel = $tel. 	  "<option value='École' selected>École</option>";
-					else
-						$tel = $tel. 	  "<option value='École'>École</option>";
-					
-					if($result1[$i]['description'] == "Bureau")
-						$tel = $tel. 	  "<option value='Bureau' selected>Bureau</option>";
-					else
-						$tel = $tel. 	  "<option value='Bureau'>Bureau</option>";
-					
-					if($result1[$i]['description'] == "Autre")
-						$tel = $tel. 	  "<option value='Autre' selected>Autre</option>";
-					else
-						$tel = $tel. 	  "<option value='Autre'>Autre</option>";
-					
-					$tel .= 	"</select>";
-					$tel .=  "</div>";
-					$tel .= "<div class='large-4 columns left'>";
-					$tel .= 	"<input type='text' id='tel".$i."' name='tel".$i."' value='".$result1[$i]['noTelephone']."' placeholder='Votre téléphone' />";
-					$tel .= "</div>";
-					$tel .= "<div class='large-4 columns left'>";
-					$tel .=		"<a id='telMoins".$i."' class='button small' onClick='suppTel(".$i.")'><i class='fa fa-minus'></i></a>";
-					$tel .=	"</div>";
-					$tel .= "</div>";
-					
-					$lestel = $lestel . $tel;
-				}
-				$this->view->assign('resteTel', $lestel);
+			$lestel ="";
+			for($i = 0; $i < count($result1); $i++)
+			{
+				$tel = "<div class='row' id='tel".$i."'>";
+				$tel .= "<div class='large-4 columns'>";
+				$tel .= 	"<select id='typeTel".$i."' name='typeTel".$i."'>";
 				
-			
-			
-			
+				if($result1[$i]['description'] == "Cellulaire")
+					$tel .= "<option value='Cellulaire' selected>Cellulaire</option>";
+				else
+					$tel .= "<option value='Cellulaire'>Cellulaire</option>";
+				
+				if($result1[$i]['description'] == "Maison")
+					$tel .= "<option value='Domicile' selected>Domicile</option>";
+				else
+					$tel .= "<option value='Domicile'>Domicile</option>";
+					
+				if($result1[$i]['description'] == "École")
+					$tel .= "<option value='École' selected>École</option>";
+				else
+					$tel .= "<option value='École'>École</option>";
+				
+				if($result1[$i]['description'] == "Bureau")
+					$tel .= "<option value='Bureau' selected>Bureau</option>";
+				else
+					$tel .= "<option value='Bureau'>Bureau</option>";
+				
+				if($result1[$i]['description'] == "Autre")
+					$tel .= "<option value='Autre' selected>Autre</option>";
+				else
+					$tel .= "<option value='Autre'>Autre</option>";
+				
+				$tel .= 	"</select>";
+				$tel .=  "</div>";
+				$tel .= "<div class='large-4 columns left'>";
+				$tel .= 	"<input type='text' id='tel".$i."' name='tel".$i."' value='".$result1[$i]['noTelephone']."' placeholder='Votre téléphone' />";
+				$tel .= "</div>";
+				$tel .= "<div class='large-4 columns left'>";
+				$tel .=		"<a id='telMoins".$i."' class='button small' onClick='suppTel(".$i.")'><i class='fa fa-minus'></i></a>";
+				$tel .=	"</div>";
+				$tel .= "</div>";
+				
+				$lestel .= $tel;
+			}
+			$this->view->assign('resteTel', $lestel);
 			
 			$this->view->assign('nom', $result["nom"]);
 			$this->view->assign('prenom', $result["prenom"]);
@@ -159,10 +150,6 @@ class gestionCompte_Controller extends TinyMVC_Controller
 			
 			$this->view->assign('menu', $this->view->fetch("menu"));
 			$this->view->assign('contenu', $this->view->fetch("view-gestionCompte"));
-			
-			
-			//echo$_SESSION['user']->getNom();	
-		
 		} else {
 			$this->view->display('view-connexion');
 	  		return;
