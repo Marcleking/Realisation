@@ -38,7 +38,7 @@ class gestionComptes_Controller extends TinyMVC_Controller
 				
 				$listHtml = '<dl class="accordion" data-accordion> ';
 				foreach($listEmploye as $x_value) {
-						$listHtml = $listHtml . '<dd><a href="#panel'.  strtr($x_value["courriel"], array("." => "", "@" => "")) .'">';
+						$listHtml = $listHtml . '<hr><dd><a href="#panel'.  strtr($x_value["courriel"], array("." => "", "@" => "")) .'">';
 						
 						
 						$listHtml = $listHtml .  $x_value["prenom"] ." ". $x_value["nom"];

@@ -30,7 +30,7 @@ class gestionCompte_Controller extends TinyMVC_Controller
 				}
 				
 				$this->load->model('modifierUtilisateur_model','modif');
-				$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), $_POST['motdePasse'] , $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);	
+				$result = $this->modif->modifierUnutilisateur(trim($_POST['nom']), trim($_POST['prenom']), $_POST['motdePasse'] , $_POST['ancienMotdePasse'], $_SESSION['user']->getNom(), trim($_POST['numeroCiv']),  trim($_POST['rue']),  trim($_POST['ville']), trim($_POST['codepost']), $notifHoraire, $notifRemplacement);	
 				
 				$this->view->assign("success", "");
 				//$this->view->assign('erreur', "<div data-alert class='alert-box success round'>Modifications appliqué</div>");
