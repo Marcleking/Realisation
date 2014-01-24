@@ -25,11 +25,11 @@ define('TMVC_ERROR_HANDLING',1);
 if(!defined('DS'))
   define('DS',DIRECTORY_SEPARATOR);
 
-require_once('..'. DS .'tinymvc/myapp/models/user.php');
+require_once('tinymvc/myapp/models/user.php');
 
 /* set the base directory */
 if(!defined('TMVC_BASEDIR'))
-  define('TMVC_BASEDIR', dirname(__FILE__) . DS . '..' . DS .  'tinymvc' . DS);
+  define('TMVC_BASEDIR', dirname(__FILE__) . DS . DS .  'tinymvc' . DS);
 
 if(!defined('url'))
 	define('url', 'http://bouchardm.com/coureur/index.php');
