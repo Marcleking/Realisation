@@ -1,57 +1,79 @@
 <?php
-
-date_default_timezone_set('UTC');
-
-$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');
-
-$sql = 'Call Utilisateurs()';
-$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-$prep->execute();
-
-$listUtilisateur = $prep->fetchAll();
+print_r(lstUtilHoraire());
 
 
+/**
+ * lstUtilHoraire permet d'avoir accès aux informations utile à la génération d'une 
+ * horaire
+ * 
+ * @return Array des informations utile pour gênérer un horaire 
+ */
+function lstUtilHoraire() {
+	date_default_timezone_set('UTC');
 
-$sql = 'Call listeDispoSemaine(:cour)';
-$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-$prep->execute(array(':cour' =>  intval(date("W"))));
-	
-$listeDispoSemaine = $prep->fetchAll();
-$listeModifie = array();	
+	//Numero de la semaine que nous sommes présentement
+	$semaine = intval(date("W"));
 
-for($i = 0;$i < count($listUtilisateur); $i++) {
-	$DispoSem = null;
-	for($j = 0;$j < count($listeDispoSemaine); $j++) {
-		if($listeDispoSemaine[$j]['courriel'] == $listUtilisateur[$i]['courriel']) {
-			$DispoSem = $listeDispoSemaine[$j];
-			
+	//Connexion a la BD(à changer de place)
+	$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');
+
+	//Information sur un Utilisateurs
+	$sql = 'Call Utilisateurs()';
+	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+	$prep->execute();
+
+	//Array des utilisateurs
+	$listUtilisateur = $prep->fetchAll();
+
+
+	//Information sur les disponibilités d'une semaine selon le critère
+	$sql = 'Call listeDispoSemaine(:cour)';
+	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+	$prep->execute(array(':cour' =>  $semaine ));
+		
+	//Array des dispoSemaines selectionnés
+	$listeDispoSemaine = $prep->fetchAll();
+
+
+	//Array des Utilisateurs joint avec les dispoSemaines selectionnés
+	$listeModifie = array();	
+
+
+
+	for($i = 0;$i < count($listUtilisateur); $i++) {
+
+		//DispoSemaine pour le bon utilisateur
+		$DispoSem = null;
+		
+		for($j = 0;$j < count($listeDispoSemaine); $j++) {
+			if($listeDispoSemaine[$j]['courriel'] == $listUtilisateur[$i]['courriel']) {
+				$DispoSem = $listeDispoSemaine[$j];
+			}
+		}
+		
+		if($DispoSem != null) {
+		
+		//Information sur les disponibilités des jours selon ID de la semaine
+		$sql = 'Call listeDispoJours(:id)';
+		$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$prep->execute(array(':id' =>  $DispoSem['idDispoSemaine']));
+		
+		//Array des dispo des jours
+		$listeDispoJours = $prep->fetchAll(PDO::FETCH_ASSOC);
+		
+
+		
+		array_push($listeModifie, array("courriel" =>$listUtilisateur[$i]['courriel'], "indPriorite" => $listUtilisateur[$i]['indPriorite'], "hrsMin" => $listUtilisateur[$i]['hrsMin']
+										, "hrsMax" => $listUtilisateur[$i]['hrsMax'], "possesseurCle" => $listUtilisateur[$i]['possesseurCle'], "formationChaussure" => $listUtilisateur[$i]['formationChaussure']
+										, "formationCaissier" => $listUtilisateur[$i]['formationCaissier'], "formationVetement" => $listUtilisateur[$i]['formationVetement']
+										, "nbHeureSouhaite" => $DispoSem['nbHeureSouhaite'], "idDispoSemaine" => $DispoSem['idDispoSemaine'], "refIdSemaineACopier" => $DispoSem['refIdSemaineACopier'], "listeDispoSemaine" => $listeDispoJours));
+		} else {
+		array_push($listeModifie, array("courriel" =>$listUtilisateur[$i]['courriel'], "indPriorite" => $listUtilisateur[$i]['indPriorite'], "hrsMin" => $listUtilisateur[$i]['hrsMin']
+										, "hrsMax" => $listUtilisateur[$i]['hrsMax'], "possesseurCle" => $listUtilisateur[$i]['possesseurCle'], "formationChaussure" => $listUtilisateur[$i]['formationChaussure']
+										, "formationCaissier" => $listUtilisateur[$i]['formationCaissier'], "formationVetement" => $listUtilisateur[$i]['formationVetement']));
 		}
 	}
-	
-	if($DispoSem != null) {
-	
-	$sql = 'Call listeDispoJours(:id)';
-	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-	$prep->execute(array(':id' =>  $DispoSem['idDispoSemaine']));
-		
-	$listeDispoJours = $prep->fetchAll(PDO::FETCH_ASSOC);
-	
 
-	
-	array_push($listeModifie, array("courriel" =>$listUtilisateur[$i]['courriel'], "indPriorite" => $listUtilisateur[$i]['indPriorite'], "hrsMin" => $listUtilisateur[$i]['hrsMin']
-									, "hrsMax" => $listUtilisateur[$i]['hrsMax'], "possesseurCle" => $listUtilisateur[$i]['possesseurCle'], "formationChaussure" => $listUtilisateur[$i]['formationChaussure']
-									, "formationCaissier" => $listUtilisateur[$i]['formationCaissier'], "formationVetement" => $listUtilisateur[$i]['formationVetement']
-									, "nbHeureSouhaite" => $DispoSem['nbHeureSouhaite'], "idDispoSemaine" => $DispoSem['idDispoSemaine'], "refIdSemaineACopier" => $DispoSem['refIdSemaineACopier'], "listeDispoSemaine" => $listeDispoJours));
-	} else {
-	array_push($listeModifie, array("courriel" =>$listUtilisateur[$i]['courriel'], "indPriorite" => $listUtilisateur[$i]['indPriorite'], "hrsMin" => $listUtilisateur[$i]['hrsMin']
-									, "hrsMax" => $listUtilisateur[$i]['hrsMax'], "possesseurCle" => $listUtilisateur[$i]['possesseurCle'], "formationChaussure" => $listUtilisateur[$i]['formationChaussure']
-									, "formationCaissier" => $listUtilisateur[$i]['formationCaissier'], "formationVetement" => $listUtilisateur[$i]['formationVetement']));
-	}
+	return $listeModifie;
 }
-
-for($h = 0; $h < count($listeModifie); $h++) {
-	print_r($listeModifie[$h]);
-	echo "<br /><br />";
-	}
-
 ?>
