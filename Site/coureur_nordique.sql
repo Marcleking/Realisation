@@ -527,7 +527,7 @@
 
   DROP PROCEDURE IF EXISTS Utilisateurs $$
   CREATE PROCEDURE Utilisateurs ()
-      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT *
       FROM employe;
   $$
 
@@ -771,7 +771,7 @@ $$
 		lienReinit = p_random
 		where courriel = p_courriel;
 	END
-
+$$
 DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
                                     in p_str varchar(60))
@@ -780,3 +780,22 @@ BEGIN
     where courriel = p_courriel
     and lienReinit = p_str;
 END
+
+
+$$
+
+DROP PROCEDURE IF EXISTS listeDispoJours $$
+	CREATE PROCEDURE listeDispoJours(in p_idDispoSemaine INT(11))
+	BEGIN
+		SELECT * FROM disponibilitejours WHERE idDispoSemaine = p_idDispoSemaine;
+	END
+	
+	
+$$
+
+DROP PROCEDURE IF EXISTS listeDispoSemaine $$
+	CREATE PROCEDURE listeDispoSemaine(in p_noDispoSemaine INT(11))
+	BEGIN
+		SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine;
+	END
+
