@@ -1,5 +1,5 @@
 <?php
-print_r(lstUtilHoraire());
+print_r(arraySemaine());
 
 
 /**
@@ -114,6 +114,30 @@ function lstRessource() {
 
 	return $listeDispoSemaine;
 	
+}
+
+/**
+ * arraySemaine permet de generer le array des ratios de chaque case
+ * 
+ * @return Array avec un ratio de 1 à toute les cases 
+ */
+function arrayRatioSemaine() {
+	$arraySemaine = array();
+
+	for($i = 0; $i < 7; $i++) {
+	
+		$arrayJour = array();
+		
+		for($j = 0; $j < 24 ; $j++) {
+		$arrayJour[$j] = 1;
+		}
+		$arraySemaine[$i] = $arrayJour;
+		
+		
+	}
+
+
+	return $arraySemaine;
 }
 
 
