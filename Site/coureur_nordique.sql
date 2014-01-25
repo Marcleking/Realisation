@@ -771,6 +771,7 @@ $$
 		lienReinit = p_random
 		where courriel = p_courriel;
 	END
+	
 
 DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
@@ -780,3 +781,18 @@ BEGIN
     where courriel = p_courriel
     and lienReinit = p_str;
 END
+
+
+$$
+
+DROP PROCEDURE IF EXISTS AjouterMessage $$
+CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
+								in p_message varchar(1000),
+							    in p_courriel varchar(60))
+  BEGIN
+	  INSERT INTO message (titre, message, courriel)
+	  VALUES (p_titre, p_message, p_courriel);
+  END
+
+
+

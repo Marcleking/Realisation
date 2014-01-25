@@ -9,6 +9,7 @@ class Default_Controller extends TinyMVC_Controller
 
 		$this->view->assign('accueil', 'class="active"');
 		$this->view->assign('message', '');
+		$this->view->assign('envoyerMessage', '');
         $this->view->assign('documents', '');
         $this->view->assign('horaire', '');
         $this->view->assign('dispo', '');
