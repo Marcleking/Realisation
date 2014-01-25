@@ -40,12 +40,8 @@
   -- Contenu de la table `ancienhoraire`
   --
 
-  INSERT INTO `ancienhoraire` (`idAncienHoraire`, `courriel`, `nbHeuresTravaille`, `nbHeuresAssigne`) VALUES
-  (1, 'marc', 15, 30),
-  (2, 'marc', 30, 30),
-  (3, 'marc', 25, 20),
-  (4, 'marc', 20, 20),
-  (5, 'marc', 30, 30);
+
+  -- ---------À faire
 
   -- --------------------------------------------------------
 
@@ -166,42 +162,14 @@
   --
 
   INSERT INTO `employe` (`nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-  ('Larsen', 'Fuller', '1f52d30ee3e518a70df77cca06ebb1749c17ce02', 'ut@idnuncinterdum.edu', '740', 'Id Rd.', 'Castelbianco', 'C8T 2K5', 0, 'Employe', 1, 0, 0, 0, 1, 0, 1, '721.525.305.844', '520.114.441.397'),
-  ('Kelly', 'Jasper', 'cec6273cc8b54eae748098fdb4652ae8feb21f48', 'dolor@nullaDonec.org', '127', ' Tempus Avenue', 'Gent', 'R9S 7X7', 0, 'Gestionnaire', 14, 0, 1, 1, 1, 0, 1, '060.360.293.212', '447.114.661.659'),
-  ('Hobbs', 'Walter', 'BBA30KQG6AR', 'tempor.augue@loremeumetus.co.uk', '503', 'Leo. Ave', 'Peterhead', 'P9R 6X4', 0, 'Gestionnaire', 19, 1, 1, 0, 0, 0, 1, '739.499.421.251', '309.332.325.298'),
-  ('Wilkins', 'Reuben', sha1(concat(sha1('marc'), 'mollis@ornare.ca')), 'mollis@ornare.ca', '369', 'In Avenue', 'Saltcoats', 'E9H 5A3', 0, 'Gestionnaire', 10, 0, 1, 0, 1, 0, 0, '009.199.147.283', '349.650.854.625'),
-  ('Meadows', 'Vernon', 'MPX50RVW9DH', 'velit.eu.sem@urnaUttincidunt.ca', '418', 'Elementum, Chemin', 'Price', 'M7N 9L9', 0, 'Employe', 8, 0, 1, 0, 0, 0, 1, '466.547.216.098', '749.574.735.928'),
-  ('Morrison', 'Benedict', 'MDV72NUE3OQ', 'et@posuerecubilia.net', '785', 'Quam Av.', 'Rance', 'R0H 1B1', 0, 'Gestionnaire', 28, 0, 1, 1, 0, 0, 1, '973.279.066.201', '749.965.451.070'),
-  ('Shields', 'Garrett', 'KPI42ARF1KR', 'Mauris@vestibulum.co.uk', '887', 'Ultrices. Impasse', 'Coassolo Torinese', 'S6P 6B3', 0, 'Employe', 20, 1, 0, 0, 0, 1, 0, '733.805.959.239', '453.255.763.097'),
-  ('Zimmerman', 'Henry', 'GCZ25XLY8XL', 'libero@Vivamus.co.uk', '677', 'Non Impasse', 'Longchamps', 'S3L 4N4', 0, 'Gestionnaire', 23, 1, 1, 1, 0, 1, 0, '905.764.462.955', '568.878.374.532'),
-  ('Hill', 'Amos', 'EBM56SMG2AX', 'ac@justonec.com', '387', 'Quisque Avenue', 'Henis', 'B0B 5E8', 0, 'Gestionnaire', 9, 1, 1, 0, 1, 1, 0, '741.997.918.159', '209.942.023.975'),
-  ('Brady', 'Edward', 'VBB71WWS8BT', 'id.erat.Etiam@lobortis.edu', '522', 'Maecenas Rue', 'Episcopia', 'G5V 8A4', 0, 'Gestionnaire', 27, 0, 1, 1, 0, 1, 0, '701.220.636.840', '766.888.212.533'),
-  ('Schroeder', 'Chester', 'TBG33YEU0YK', 'lorem.tristique.aliquet@sed.co.uk', '451', 'Lorem Rd.', 'TorrejÃ³n de Ardoz', 'P3M 4H3', 0, 'Employe', 9, 1, 0, 0, 1, 1, 1, '892.828.246.473', '068.913.343.485'),
-  ('Henry', 'Igor', 'FQI50XZU2CM', 'libero@atnisiCum.org', '150', ' Amet Avenue', 'Hennigsdorf', 'N4R 4H5', 0, 'Employe', 2, 0, 0, 1, 0, 1, 1, '944.961.876.095', '422.389.027.231'),
-  ('Washington', 'Orlando', 'NOX33NMH1XN', 'primis@sitamet.com', '638', 'Accumsan Ave', 'Markkleeberg', 'H7X 5M0', 0, 'Employe', 10, 1, 0, 0, 1, 0, 1, '177.911.019.327', '267.530.419.318'),
-  ('Gates', 'Coby', 'YNJ96IJY1QP', 'euismod.mauris.eu@velit.net', '163', 'Sem Rue', 'Pï¿½ttlingen', 'T8X 2G7', 0, 'Employe', 4, 1, 0, 0, 1, 0, 0, '848.340.172.070', '898.677.460.913'),
-  ('Ramos', 'Arsenio', 'CED29KGR4CP', 'tristique@iderat.com', '47', ' Vestibulum Route', 'Meerle', 'V5N 6E3', 0, 'Employe', 3, 0, 1, 0, 1, 1, 1, '880.904.354.211', '351.521.794.340'),
-  ('House', 'Cole', 'GNR60DWH2GW', 'ipsum.dolor@mattis.ca', '45', 'Elit. Avenue', 'Rothesay', 'B9N 0N9', 0, 'Gestionnaire', 4, 1, 0, 1, 0, 1, 1, '410.096.855.943', '302.321.325.430'),
-  ('Cline', 'Kennan', 'ZCG86WTC2CE', 'molestie.tortor@ornareplacerat.co.uk', '737', 'Luctus Chemin', 'Pictou', 'R7L 1E7', 0, 'Employe', 1, 0, 1, 1, 1, 0, 0, '301.345.250.487', '058.317.806.768'),
-  ('Cole', 'Elliott', 'DQW41XWA6XO', 'Proin.nisl@anteipsumprimis.edu', '728', 'Gravida. Impasse', 'Somma Lombardo', 'A9M 5A4', 0, 'Employe', 8, 1, 1, 0, 1, 0, 0, '905.012.198.871', '070.497.807.900'),
-  ('Maynard', 'Kirk', 'NRV66RML8NG', 'sit.amet.consectetuer@non.co.uk', '215', 'Nulla Avenue', 'Haut-Ittre', 'S2P 4W5', 0, 'Employe', 3, 1, 1, 0, 1, 1, 1, '918.727.280.596', '604.494.676.199'),
-  ('Noble', 'Leonard', 'JZI68KDU0WV', 'eros.nec@Curabiturconsequatlectus.co.uk', '535', 'Hendrerit. Rue', 'GÃ¶tzis', 'L3X 2Y6', 0, 'Employe', 26, 0, 0, 0, 1, 1, 1, '749.061.701.439', '684.836.492.679'),
-  ('Moran', 'Thaddeus', 'QIB33EWS1OQ', 'quis.tristique@acipsumPhasellus.co.uk', '900', 'Quis Ave', 'Tontelange', 'V1C 0T3', 0, 'Gestionnaire', 15, 0, 1, 1, 0, 0, 1, '216.140.262.440', '368.365.718.549'),
-  ('Cash', 'Ethan', 'NQK73RHU6PK', 'Vestibulum.accumsan@Cras.ca', '178', 'Erat Chemin', 'Assiniboia', 'S7N 4Z8', 0, 'Gestionnaire', 7, 0, 1, 0, 1, 1, 0, '307.525.472.973', '074.147.026.979'),
-  ('Lowe', 'Murphy', 'LVH85OUJ9UD', 'dapibus.gravida@malesuadafames.edu', '810', 'Cum Impasse', 'Vance', 'Y7C 2L2', 0, 'Employe', 23, 0, 0, 0, 0, 0, 1, '158.255.045.617', '664.629.370.675'),
-  ('Rios', 'Drake', 'OJW58LFX2VP', 'ornare.sagittis.felis@sitametultricies.co.uk', '631', 'Lobortis, Ave', 'Latisana', 'H5K 0R9', 0, 'Employe', 21, 0, 0, 1, 0, 1, 0, '597.761.454.333', '861.174.042.291'),
-  ('Austin', 'Garrison', 'SRN12AMQ3JG', 'molestie.tortor@acfermentumvel.ca', '398', 'Duis Avenue', 'Santa Fiora', 'P6C 2K5', 1, 'Gestionnaire', 11, 1, 1, 1, 0, 1, 1, '420.907.439.394', '799.167.500.388'),
-  ('Leon', 'Harrison', 'NPD08CKU5ET', 'quam.vel@tempusrisus.co.uk', '400', 'Montes, Route', 'Bulzi', 'C1X 5B7', 1, 'Gestionnaire', 5, 1, 1, 0, 0, 0, 1, '851.471.020.196', '896.780.087.583'),
-  ('Benton', 'Chaim', 'EUJ20KKA0GZ', 'mauris.aliquam.eu@Donecluctusaliquet.edu', '674', ' Rutrum Ave', 'Dongelberg', 'K1W 1T5', 1, 'Gestionnaire', 20, 0, 0, 1, 1, 1, 1, '748.942.485.158', '420.617.251.743'),
-  ('Mclaughlin', 'Kareem', 'LCT99IAO2NV', 'ullamcorper@egetmetuseu.org', '554', 'Nec, Rue', 'Grand-Reng', 'H4Y 9S5', 0, 'Gestionnaire', 9, 1, 0, 0, 1, 1, 0, '639.395.171.382', '415.551.208.808'),
-  ('Glover', 'Lucius', 'YGE00ILV6YZ', 'Fusce@adlitora.net', '514', 'Non Ave', 'Palmerston North', 'T2B 7G8', 0, 'Employe', 3, 0, 1, 0, 0, 1, 1, '776.474.519.345', '126.271.482.578'),
-  ('Langley', 'Stuart', 'HGH93HFV8JC', 'sit.amet@etmagnisdis.edu', '734', 'Sollicitudin Ave', 'Baden-Baden', 'X5S 8K8', 0, 'Gestionnaire', 24, 0, 1, 1, 0, 1, 1, '169.214.598.713', '386.667.802.883'),
-  ('Langley', 'Erich', 'ASV56RIU9RQ', 'ridiculus.mus@Morbi.com', '259', ' Magnis Rue', 'Plancenoit', 'L9L 4B7', 0, 'Gestionnaire', 11, 1, 0, 1, 0, 1, 0, '281.928.304.755', '839.235.233.213'),
-  ('Duke', 'Cooper', 'SOD06NWD0SL', 'et@aliquetmetusurna.edu', '144', 'Mi, Rd.', 'Terni', 'Y2R 7H7', 0, 'Gestionnaire', 15, 1, 0, 1, 0, 1, 0, '180.206.814.596', '265.556.780.376'),
-  ('Macdonald', 'Dillon', 'AQY87JKT9PL', 'non.enim@eleifendnecmalesuada.co.uk', '856', ' Semper Chemin', 'San Fele', 'M8N 6B7', 0, 'Gestionnaire', 27, 1, 1, 0, 0, 0, 0, '268.993.065.092', '638.473.345.117'),
-  ('Forbes', 'Travis', 'SFG78UUS0LC', 'felis.eget.varius@InfaucibusMorbi.com', '363', 'Elit, Chemin', 'Vancouver', 'B4J 6X2', 0, 'Employe', 21, 1, 1, 0, 0, 1, 0, '926.157.075.034', '972.034.021.534'),
-  ('Schneider', 'Joel', 'KKH51VON3MH', 'blandit.mattis@tellusimperdiet.ca', '956', 'Orci. Route', 'Selkirk', 'A5V 1G9', 1, 'Gestionnaire', 27, 0, 1, 1, 0, 0, 1, '181.698.879.394', '566.607.750.520'),
-  ('', '', '4e6cd23841dc0bff317b403903b4a0b47ff5ad1a', 'marc', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
+  ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 5, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 3, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 0, 0, 0, 0, 1, 0, NULL, NULL);
   -- --------------------------------------------------------
 
   --
@@ -290,11 +258,7 @@
   -- Contenu de la table `plagedetravail`
   --
 
-  INSERT INTO `plagedetravail` (`idQuartTravail`, `typeTravail`, `heureDebut`, `heureFin`, `remplacement`, `courriel`) VALUES
-  (1, 'Chaussure', '2013-11-25 09:30:00', '2013-11-28 16:00:00', 0, 'marc'),
-  (2, 'Vetement', '2013-11-28 13:00:00', '2013-11-28 18:00:00', 0, 'marc'),
-  (3, 'Caissier', '2013-11-28 10:00:00', '2013-11-28 16:00:00', 0, 'marc'),
-  (4, 'Chaussure', '2013-11-28 08:00:00', '2013-11-28 15:00:00', 0, 'marc');
+  -- ---------À faire
 
   -- --------------------------------------------------------
 
@@ -304,7 +268,9 @@
 
   CREATE TABLE IF NOT EXISTS `ressource` (
     `idBlocRessource` int(11) NOT NULL AUTO_INCREMENT,
-    `dateDuJour` date NOT NULL,
+    `annee` int(11) NOT NULL,
+	`noSemaine` int(11) NOT NULL,
+	`jour` int(11) NOT NULL,
     `heureDebut` time NOT NULL,
     `heureFin` time NOT NULL,
     `nbEmpChaussures` int(11) NOT NULL,
@@ -317,19 +283,7 @@
   -- Contenu de la table `ressource`
   --
 
-  INSERT INTO `ressource` (`idBlocRessource`, `dateDuJour`, `heureDebut`, `heureFin`, `nbEmpChaussures`, `nbEmpVetements`, `nbEmpCaissier`) VALUES
-  (1, '2012-11-19', '14:00:00', '18:00:00', 1, 7, 9),
-  (2, '2012-11-20', '11:00:00', '17:00:00', 10, 3, 7),
-  (3, '2012-11-18', '09:30:00', '16:00:00', 10, 7, 8),
-  (4, '2012-11-21', '09:00:00', '12:00:00', 10, 4, 2),
-  (5, '2012-11-22', '10:00:00', '17:00:00', 2, 4, 2),
-  (6, '2012-11-23', '17:00:00', '20:00:00', 6, 3, 2),
-  (7, '2012-11-24', '14:00:00', '20:00:00', 5, 6, 10),
-  (8, '2012-11-24', '10:00:00', '14:00:00', 7, 6, 3),
-  (9, '2012-11-23', '10:00:00', '17:00:00', 9, 7, 10),
-  (10, '2012-11-22', '17:00:00', '20:00:00', 9, 9, 10),
-  (11, '2012-11-21', '12:00:00', '18:00:00', 6, 9, 6),
-  (12, '2012-11-19', '10:00:00', '14:00:00', 5, 9, 9);
+
 
   -- --------------------------------------------------------
 
@@ -350,23 +304,23 @@
   --
 
   INSERT INTO `telephone` (`noTelephone`, `description`, `courriel`) VALUES
-  ('004-844-4278', 'Cellulaire','marc'),
-  ('006-181-6338', 'Cellulaire', 'marc'),
-  ('051-555-4823', 'Maison','marc'),
-  ('077-769-4311', 'Cellulaire', 'marc'),
-  ('082-831-2444', 'Maison','marc'),
-  ('093-411-8435', 'Cellulaire', 'marc'),
-  ('105-166-3326', 'Maison', 'marc'),
-  ('114-872-5680', 'Cellulaire', 'marc'),
-  ('122-360-5870', 'Maison','marc'),
-  ('122-525-1562', 'Cellulaire', 'marc'),
-  ('124-702-9445', 'Cellulaire', 'marc'),
-  ('126-146-7522', 'Cellulaire', 'marc'),
-  ('154-802-9877', 'Cellulaire','marc'),
-  ('165-833-5997', 'Cellulaire', 'marc'),
-  ('169-439-6730', 'Cellulaire', 'marc'),
-  ('175-026-2139', 'Cellulaire', 'marc'),
-  ('175-987-3099', 'Cellulaire', 'marc');
+  ('004-844-4278', 'Cellulaire','marcantoine.bouchardm@gmail.com'),
+  ('006-181-6338', 'Cellulaire', 'Charles.Delmaire@gmail.com'),
+  ('051-555-4823', 'Maison','marcantoine.bouchardm@gmail.com'),
+  ('077-769-4311', 'Cellulaire', 'Charles.Delmaire@gmail.com'),
+  ('082-831-2444', 'Maison','marcantoine.bouchardm@gmail.com'),
+  ('093-411-8435', 'Cellulaire', 'Charles.Delmaire@gmail.com'),
+  ('105-166-3326', 'Maison', 'marcantoine.bouchardm@gmail.com'),
+  ('114-872-5680', 'Cellulaire', 'Charles.Delmaire@gmail.com'),
+  ('122-360-5870', 'Maison','francouelle93@gmail.com'),
+  ('122-525-1562', 'Cellulaire', 'samuel.beland@live.ca'),
+  ('124-702-9445', 'Cellulaire', 'francouelle93@gmail.com'),
+  ('126-146-7522', 'Cellulaire', 'samuel.beland@live.ca'),
+  ('154-802-9877', 'Cellulaire','francouelle93@gmail.com'),
+  ('165-833-5997', 'Cellulaire', 'samuel.beland@live.ca'),
+  ('169-439-6730', 'Cellulaire', 'francouelle93@gmail.com'),
+  ('175-026-2139', 'Cellulaire', 'samuel.beland@live.ca'),
+  ('175-987-3099', 'Cellulaire', 'francouelle93@gmail.com');
 
   --
   -- Contraintes pour les tables exportées
@@ -527,7 +481,7 @@
 
   DROP PROCEDURE IF EXISTS Utilisateurs $$
   CREATE PROCEDURE Utilisateurs ()
-      SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
+      SELECT *
       FROM employe;
   $$
 
@@ -771,8 +725,12 @@ $$
 		lienReinit = p_random
 		where courriel = p_courriel;
 	END
+<<<<<<< HEAD
 	
 
+=======
+$$
+>>>>>>> 28dc3d14e5d051fddc5f94bee6b14889518466ed
 DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
                                     in p_str varchar(60))
@@ -795,4 +753,27 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
   END
 
 
+	
+$$
+DROP PROCEDURE IF EXISTS listeDispoJours $$
+	CREATE PROCEDURE listeDispoJours(in p_idDispoSemaine INT(11))
+	BEGIN
+		SELECT * FROM disponibilitejours WHERE idDispoSemaine = p_idDispoSemaine;
+	END
+	
+	
+$$
 
+DROP PROCEDURE IF EXISTS listeDispoSemaine $$
+	CREATE PROCEDURE listeDispoSemaine(in p_noDispoSemaine INT(11) , in p_annee INT(11))
+	BEGIN
+		SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee;
+	END
+
+	$$
+
+DROP PROCEDURE IF EXISTS listeRessource $$
+	CREATE PROCEDURE listeRessource(in p_noSemaine INT(11), in p_annee INT(11))
+	BEGIN
+		SELECT * FROM ressource WHERE noSemaine = p_noSemaine AND annee = p_annee;
+	END
