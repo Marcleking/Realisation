@@ -727,6 +727,7 @@ $$
 	END
 
 $$
+
 DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
                                     in p_str varchar(60))
