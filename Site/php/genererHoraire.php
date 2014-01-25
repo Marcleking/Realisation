@@ -13,6 +13,7 @@ function lstUtilHoraire() {
 
 	//Numero de la semaine que nous sommes présentement
 	$semaine = intval(date("W"));
+	$annee = intval(date("Y"));
 
 	//Connexion a la BD(à changer de place)
 	$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');
@@ -27,9 +28,9 @@ function lstUtilHoraire() {
 
 
 	//Information sur les disponibilités d'une semaine selon le critère
-	$sql = 'Call listeDispoSemaine(:cour)';
+	$sql = 'Call listeDispoSemaine(:semaine, :annee)';
 	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-	$prep->execute(array(':cour' =>  $semaine ));
+	$prep->execute(array(':semaine' =>  $semaine, ':annee' =>  $annee  ));
 		
 	//Array des dispoSemaines selectionnés
 	$listeDispoSemaine = $prep->fetchAll();
@@ -76,4 +77,45 @@ function lstUtilHoraire() {
 
 	return $listeModifie;
 }
+
+
+/**
+ * lstRessource permet d'avoir accès aux ressources utile selon la bonne semaine
+ * 
+ * @return Array des informations utile pour gênérer un horaire 
+ */
+function lstRessource() {
+	date_default_timezone_set('UTC');
+
+	//Numero de la semaine que nous sommes présentement et annee
+	$semaine = intval(date("W"));
+	$annee = intval(date("Y"));
+	
+	
+	//Connexion a la BD(à changer de place)
+	$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');
+
+	//Information sur un Utilisateurs
+	$sql = 'Call Utilisateurs()';
+	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+	$prep->execute();
+
+	//Array des utilisateurs
+	$listUtilisateur = $prep->fetchAll();
+
+
+	//Information sur les disponibilités d'une semaine selon le critère
+	$sql = 'Call listeRessource(:noSemaine, :annee)';
+	$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+	$prep->execute(array(':noSemaine' =>  $semaine, ':annee' =>  $annee ));
+		
+	//Array des dispoSemaines selectionnés
+	$listeDispoSemaine = $prep->fetchAll(PDO::FETCH_ASSOC);
+
+	return $listeDispoSemaine;
+	
+}
+
+
+
 ?>

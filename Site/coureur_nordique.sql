@@ -162,14 +162,14 @@
   --
 
   INSERT INTO `employe` (`nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-  ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', NULL, NULL, NULL, NULL, 0, "Gestionnaire", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL),
-  ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", NULL, 0, 0, 0, 0, 1, 0, NULL, NULL);
+  ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 5, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 3, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 0, 0, 0, 0, 1, 0, NULL, NULL),
+  ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 0, 0, 0, 0, 1, 0, NULL, NULL);
   -- --------------------------------------------------------
 
   --
@@ -268,7 +268,9 @@
 
   CREATE TABLE IF NOT EXISTS `ressource` (
     `idBlocRessource` int(11) NOT NULL AUTO_INCREMENT,
-    `dateDuJour` date NOT NULL,
+    `annee` int(11) NOT NULL,
+	`noSemaine` int(11) NOT NULL,
+	`jour` int(11) NOT NULL,
     `heureDebut` time NOT NULL,
     `heureFin` time NOT NULL,
     `nbEmpChaussures` int(11) NOT NULL,
@@ -281,19 +283,7 @@
   -- Contenu de la table `ressource`
   --
 
-  INSERT INTO `ressource` (`idBlocRessource`, `dateDuJour`, `heureDebut`, `heureFin`, `nbEmpChaussures`, `nbEmpVetements`, `nbEmpCaissier`) VALUES
-  (1, '2012-11-19', '14:00:00', '18:00:00', 1, 7, 9),
-  (2, '2012-11-20', '11:00:00', '17:00:00', 10, 3, 7),
-  (3, '2012-11-18', '09:30:00', '16:00:00', 10, 7, 8),
-  (4, '2012-11-21', '09:00:00', '12:00:00', 10, 4, 2),
-  (5, '2012-11-22', '10:00:00', '17:00:00', 2, 4, 2),
-  (6, '2012-11-23', '17:00:00', '20:00:00', 6, 3, 2),
-  (7, '2012-11-24', '14:00:00', '20:00:00', 5, 6, 10),
-  (8, '2012-11-24', '10:00:00', '14:00:00', 7, 6, 3),
-  (9, '2012-11-23', '10:00:00', '17:00:00', 9, 7, 10),
-  (10, '2012-11-22', '17:00:00', '20:00:00', 9, 9, 10),
-  (11, '2012-11-21', '12:00:00', '18:00:00', 6, 9, 6),
-  (12, '2012-11-19', '10:00:00', '14:00:00', 5, 9, 9);
+
 
   -- --------------------------------------------------------
 
@@ -758,8 +748,15 @@ DROP PROCEDURE IF EXISTS listeDispoJours $$
 $$
 
 DROP PROCEDURE IF EXISTS listeDispoSemaine $$
-	CREATE PROCEDURE listeDispoSemaine(in p_noDispoSemaine INT(11))
+	CREATE PROCEDURE listeDispoSemaine(in p_noDispoSemaine INT(11) , in p_annee INT(11))
 	BEGIN
-		SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine;
+		SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee;
 	END
 
+	$$
+
+DROP PROCEDURE IF EXISTS listeRessource $$
+	CREATE PROCEDURE listeRessource(in p_noSemaine INT(11), in p_annee INT(11))
+	BEGIN
+		SELECT * FROM ressource WHERE noSemaine = p_noSemaine AND annee = p_annee;
+	END
