@@ -725,12 +725,9 @@ $$
 		lienReinit = p_random
 		where courriel = p_courriel;
 	END
-<<<<<<< HEAD
-	
 
-=======
 $$
->>>>>>> 28dc3d14e5d051fddc5f94bee6b14889518466ed
+
 DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
                                     in p_str varchar(60))
