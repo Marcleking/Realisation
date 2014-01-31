@@ -14,8 +14,9 @@ class Connexion_Controller extends TinyMVC_Controller
     	$this->view->assign('dispo', '');
     	$this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
-		
-		
+		$this->view->assign('ressource', '');
+
+
 	  	if(isset($_POST['user']) && isset($_POST['pwd']))
 	  	{
 
@@ -34,7 +35,7 @@ class Connexion_Controller extends TinyMVC_Controller
 	  	}
 		$this->view->assign('erreur', "Numéro d'utilisateur ou mot de passe incorrect.");
 	  	$this->view->display('view-connexion');
-		
+
 	  }
 }
 ?>

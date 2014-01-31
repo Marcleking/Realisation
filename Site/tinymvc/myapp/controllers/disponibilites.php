@@ -14,15 +14,16 @@ class Disponibilites_Controller extends TinyMVC_Controller
         $this->view->assign('dispo', 'class="active"');
         $this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
-	  	
-	 	
+		$this->view->assign('ressource', '');
+
+
 	 	if(isset($_SESSION['user']))
 	  	{
 	  		$this->view->assign('menu', $this->view->fetch("menu"));
 		  	$this->view->assign('contenu', $this->view->fetch("view-disponibilites"));
-			
-			
-			
+
+
+
 		} else {
 			$this->view->display('view-connexion');
 	  		return;
@@ -30,7 +31,7 @@ class Disponibilites_Controller extends TinyMVC_Controller
 
 		$this->view->display('gabarit');
 	  }
-	  
+
 }
 
 ?>
