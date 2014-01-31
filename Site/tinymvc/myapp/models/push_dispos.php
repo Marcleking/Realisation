@@ -16,9 +16,11 @@
 	$dbUser = "user_coureur";
 	$dbPwd = "qweqwe";
 	
+	$message = "";
+	
 	if (isset($_POST['horaire']['disponibilites']))
 	{
-		if (ValiderHeures($_POST['horaire']['disponibilites']))
+		if (ValiderHeures($_POST['horaire']['disponibilites'], $message))
 		{
 			
 			try{
@@ -103,7 +105,7 @@
 		}
 		else
 		{
-			echo "Données invalides.";
+			echo $message;
 		}
 	}
 	else
@@ -111,7 +113,7 @@
 		echo "vide";
 	}
 		
-	function ValiderHeures($disponibilites){
+	function ValiderHeures($disponibilites, &$message){
 		
 		$valid = true;
 		$totalTimelapse = 0;
@@ -134,6 +136,7 @@
 			if ($timelapse < 3 )
 			{
 				$valid = false;
+				$message = "Les périodes de disponibilités doivent avoir une durée minimale de trois heures.";
 			}
 			
 			$totalTimelapse = $totalTimelapse + $timelapse;
@@ -141,27 +144,29 @@
 			$i++;
 		}
 		
-		$différent = false;
+		$different = false;
 		for($j = 0; $j < count($disponibilites); $j++) {
 			if($j == 0) {
 				$jour = $disponibilites[$j]['jour'];
 			}
 			
 			if($j != 0 && $jour != $disponibilites[$j]['jour']) 
-				$différent = true;
+				$different = true;
 			
 		}
 		
-		if($différent == false) {
-			$valid = false;
-		}
+		if($valid){
 		
-		if($totalTimelapse < 10){
-			$valid = false;
+			if($different == false) {
+				$valid = false;
+				$message = "Les disponibilités doivent être placées sur au moins deux jours.";
+			}
+			elseif($totalTimelapse < 10){
+				$valid = false;
+				$message = "Le total des disponibilités doit faire au moins dix heures.";
+			}
 		}
-		if($i < 2){
-			$valid = false;
-		}
+				
 		return $valid;
 	}
 ?>
