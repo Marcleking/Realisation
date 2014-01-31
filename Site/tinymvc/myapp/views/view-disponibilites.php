@@ -94,6 +94,12 @@
 		
 		function ShowMessage(text, status){
 			
+			var previousMessage = document.getElementById('message');
+			
+			if(typeof(previousMessage) != 'undefined' && previousMessage != null){
+				previousMessage.parentNode.removeChild(previousMessage);
+			}
+			
 			if(text != "vide")
 			{
 				var message = document.createElement("div");
