@@ -5,9 +5,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="<?=url?>/../css/foundation.css" />
-
+		<link rel="stylesheet" type="text/css" href="<?=url?>/../../css/timePicker.css" />
 
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		
 
 		<style>
 			#feedback { font-size: 1.4em; }
@@ -53,6 +54,7 @@
 		<script src="<?=url?>/../js/vendor/jquery.cookie.js"></script>
 		<script src="<?=url?>/../js/jquery.js"></script>
 		<script src="<?=url?>/../js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="<?=url?>/../../js/jquery.timePicker.js"></script>
 
 	</head>
 	<body>
