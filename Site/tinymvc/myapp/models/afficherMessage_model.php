@@ -9,10 +9,7 @@
 			
 			
 			while($row = $this->db->next()) {
-			
-					$results[] = $row;
-					
-					
+				$results[] = $row;					
 			}
 			return $results;
 			

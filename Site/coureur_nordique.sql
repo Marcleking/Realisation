@@ -786,3 +786,17 @@ DROP PROCEDURE IF EXISTS afficheMessage $$
 			SELECT * FROM message WHERE idMessage > p_debut ORDER BY idMessage DESC LIMIT 0, 10;
 		END IF;
 	END
+
+$$
+
+
+DROP PROCEDURE IF EXISTS SupprimerMessage $$
+  CREATE PROCEDURE SupprimerMessage (in p_idMessage int(11))
+  BEGIN
+    if exists(Select * from message where idMessage = p_idMessage) then
+      Select * from message where idMessage = p_idMessage;
+
+      DELETE FROM message
+      WHERE idMessage = p_idMessage;
+    end if;
+  END

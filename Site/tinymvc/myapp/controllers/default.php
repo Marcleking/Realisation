@@ -28,7 +28,7 @@ class Default_Controller extends TinyMVC_Controller
 			$result = $this->lesMessage->afficherLesMessage(0);
 			
 			$dernierMess = 0;
-			if($result[0] != null)
+			if($result[0] != null) {
 				for($i = 0; $i< count($result); $i++) {
 				
 				
@@ -39,7 +39,11 @@ class Default_Controller extends TinyMVC_Controller
 					$dernierMess = $result[$i]['idMessage'];
 				}
 			
-			
+			}
+			else 
+			{
+				$this->view->assign("aucunMessage", "");
+			}
 			
 			$this->view->assign('listMessage', $listMessage);
 		

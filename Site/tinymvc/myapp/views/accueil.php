@@ -2,9 +2,15 @@
 	<h3>Messages</h3>
 	
 	
-	
+	<div class="panel">
 	<?=$listMessage?>
-
+	
+	<?php if (isset($aucunMessage)) { ?>
+			Il n'y a pas de message!
+	<?php } ?>
+	</div>
+	
+	
 </div>
 	
 <!--<div class="medium-4 columns">
