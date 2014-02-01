@@ -226,7 +226,7 @@
     `titre` varchar(70) NOT NULL,
     `message` varchar(1000) NOT NULL,
     `courriel` varchar(60) NOT NULL,
-    `date` date NOT NULL,
+    `date` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (`idMessage`),
     KEY `fk_Article_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
@@ -749,6 +749,19 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
 	  VALUES (p_titre, p_message, p_courriel);
   END
 
+$$
+  
+  
+  
+DROP PROCEDURE IF EXISTS Messages $$
+CREATE PROCEDURE Messages ()
+  SELECT *
+  FROM message
+   LIMIT 0, 10;
+  
+  
+  
+  
 
 	
 $$
