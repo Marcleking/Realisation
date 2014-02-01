@@ -745,8 +745,8 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
 								in p_message varchar(1000),
 							    in p_courriel varchar(60))
   BEGIN
-	  INSERT INTO message (titre, message, courriel)
-	  VALUES (p_titre, p_message, p_courriel);
+	  INSERT INTO message (titre, message, courriel, date)
+	  VALUES (p_titre, p_message, p_courriel, now());
   END
 
 
@@ -773,4 +773,16 @@ DROP PROCEDURE IF EXISTS listeRessource $$
 	CREATE PROCEDURE listeRessource(in p_noSemaine INT(11), in p_annee INT(11))
 	BEGIN
 		SELECT * FROM ressource WHERE noSemaine = p_noSemaine AND annee = p_annee;
+	END
+
+$$
+
+DROP PROCEDURE IF EXISTS afficheMessage $$
+	CREATE PROCEDURE afficheMessage(in p_debut INT(11))
+	BEGIN
+		IF p_debut = 0 THEN 
+			SELECT * FROM message ORDER BY idMessage DESC LIMIT 0, 10;
+		ELSE
+			SELECT * FROM message WHERE idMessage > p_debut ORDER BY idMessage DESC LIMIT 0, 10;
+		END IF;
 	END
