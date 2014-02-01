@@ -98,7 +98,7 @@
     KEY `fk_DisponibiliteSemaine_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  
+
   -- --------------------------------------------------------
 
   --
@@ -266,17 +266,28 @@
   -- Structure de la table `ressource`
   --
 
-  CREATE TABLE IF NOT EXISTS `ressource` (
+  CREATE TABLE IF NOT EXISTS `ressourceMere` (
     `idBlocRessource` int(11) NOT NULL AUTO_INCREMENT,
+    `nomBloc` varchar(30) NOT NULL,
+    `description` varchar(1000) NOT NULL,
     `annee` int(11) NOT NULL,
-	`noSemaine` int(11) NOT NULL,
-	`jour` int(11) NOT NULL,
+    `noSemaine` int(11) NOT NULL,
+    PRIMARY KEY (`idBlocRessource`)
+  ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+
+
+
+  CREATE TABLE IF NOT EXISTS `ressource` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `noBlocRessource` int(11) NOT NULL,
+    `jour` int(11) NOT NULL,
     `heureDebut` time NOT NULL,
     `heureFin` time NOT NULL,
     `nbEmpChaussures` int(11) NOT NULL,
     `nbEmpVetements` int(11) NOT NULL,
     `nbEmpCaissier` int(11) NOT NULL,
-    PRIMARY KEY (`idBlocRessource`)
+    PRIMARY KEY (`id`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
   --
@@ -331,6 +342,9 @@
   --
   ALTER TABLE `ancienhoraire`
     ADD CONSTRAINT `fk_AncienHoraire_Employe1` FOREIGN KEY (`courriel`) REFERENCES `employe` (`courriel`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+  ALTER TABLE `ressource`
+    ADD CONSTRAINT `fk_noRessourceMere` FOREIGN KEY (`noBlocRessource`) REFERENCES `ressourceMere` (`idBlocRessource`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
   --
   -- Contraintes pour la table `destinataire`
@@ -400,7 +414,7 @@
   USE coureur_nordique $$
 
   DROP PROCEDURE IF EXISTS Connexion $$
-  CREATE PROCEDURE Connexion (in p_courriel varchar(60), 
+  CREATE PROCEDURE Connexion (in p_courriel varchar(60),
                               in p_mdp varchar(60),
                               in p_lastIp varchar(20),
                               in p_lastLogon date)
@@ -410,10 +424,10 @@
           set lastIp = p_lastIp,
           lastLogon = p_lastLogon
           where courriel = p_courriel;
-        
-        SELECT courriel, typeEmploye 
-          FROM employe 
-          WHERE courriel = p_courriel 
+
+        SELECT courriel, typeEmploye
+          FROM employe
+          WHERE courriel = p_courriel
           AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
       end if;
   END
@@ -429,7 +443,7 @@
                                       in p_respHoraireConflit tinyint(1))
   BEGIN
     if not exists (SELECT * from employe where courriel = p_courriel) then
-      INSERT INTO employe (courriel, motDePasse, typeEmploye, formationVetement, formationCaissier, possesseurCle, respHoraireConflit) 
+      INSERT INTO employe (courriel, motDePasse, typeEmploye, formationVetement, formationCaissier, possesseurCle, respHoraireConflit)
         VALUES (p_courriel, sha1(concat(sha1(p_courriel), p_courriel)), p_typeEmploye, p_formationVetement, p_formationChaussure, p_possesseurCle, p_respHoraireConflit);
       SELECT * FROM employe where courriel = p_courriel;
     end if;
@@ -442,7 +456,7 @@
                                       in p_description varchar(100),
                                       in p_courriel varchar(60))
     BEGIN
-      if (exists(Select * from employe where courriel = p_courriel) 
+      if (exists(Select * from employe where courriel = p_courriel)
         and not exists (Select * from telephone where noTelephone = p_noTelephone)) then
           INSERT INTO telephone (noTelephone, description, courriel)
             VALUES (p_noTelephone, p_description, p_courriel);
@@ -475,7 +489,7 @@
   DROP PROCEDURE IF EXISTS Utilisateur $$
   CREATE PROCEDURE Utilisateur (in p_courriel varchar(60))
       SELECT nom, prenom, courriel, numeroCivique, rue, ville, codePostal, possesseurCle, typeEmploye, indPriorite, hrsMin, hrsMax, formationVetement, formationChaussure, formationCaissier, respHoraireConflit, notifHoraire, notifRemplacement
-      FROM employe 
+      FROM employe
       where courriel = p_courriel;
   $$
 
@@ -499,14 +513,14 @@
   $$
 
   DROP PROCEDURE IF EXISTS ModifierUtilisateurAdmin $$
-  CREATE PROCEDURE ModifierUtilisateurAdmin (p_courriel varchar(60), p_nom varchar(30), 
-                                        p_prenom varchar(30), 
-                                        p_numeroCivique varchar(10), 
-                                        p_rue varchar(50), p_ville varchar(45), 
-                                        p_codePostal varchar(7), p_possesseurCle tinyint(1), 
+  CREATE PROCEDURE ModifierUtilisateurAdmin (p_courriel varchar(60), p_nom varchar(30),
+                                        p_prenom varchar(30),
+                                        p_numeroCivique varchar(10),
+                                        p_rue varchar(50), p_ville varchar(45),
+                                        p_codePostal varchar(7), p_possesseurCle tinyint(1),
                                         p_typeEmploye varchar(45), p_indPriorite int(11),
 										p_hrsMin int(11), p_hrsMax int(11),
-                                        p_formationVetement tinyint(1), p_formationChaussure tinyint(1), 
+                                        p_formationVetement tinyint(1), p_formationChaussure tinyint(1),
                                         p_formationCaissier tinyint(1), p_respHoraireConflit tinyint(1))
   BEGIN
     if exists(Select * from employe where courriel = p_courriel) then
@@ -536,10 +550,10 @@
   $$
 
   DROP PROCEDURE IF EXISTS ModifierUtilisateur $$
-  CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30), 
+  CREATE PROCEDURE ModifierUtilisateur (p_courriel varchar(60), p_nom varchar(30),
                                         p_prenom varchar(30), p_motDePasseNew varchar(40),  p_motDePassePast varchar(40),
-                                        p_numeroCivique varchar(10), 
-                                        p_rue varchar(50), p_ville varchar(45), 
+                                        p_numeroCivique varchar(10),
+                                        p_rue varchar(50), p_ville varchar(45),
                                         p_codePostal varchar(7),
                                         p_notifHoraire tinyint(1), p_notifRemplacement tinyint(1))
   BEGIN
@@ -581,22 +595,22 @@
   $$
 
 	DROP PROCEDURE IF EXISTS dispoChoisie $$
-	CREATE PROCEDURE dispoChoisie(	in p_courriel varchar(60), 
-									in p_noSemaine int(11), 
+	CREATE PROCEDURE dispoChoisie(	in p_courriel varchar(60),
+									in p_noSemaine int(11),
 									in p_annee int(11))
 	BEGIN
-	
+
 	DECLARE idSemaine int(11);
-	
+
 	if(-1 = (SELECT refIdSemaineACopier FROM disponibilitesemaine WHERE noDispoSemaine = p_noSemaine AND annee = p_annee AND courriel = p_courriel )) then
-		SET idSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine 
-							WHERE disponibilitesemaine.courriel = p_courriel 
+		SET idSemaine = (	SELECT idDispoSemaine FROM disponibilitesemaine
+							WHERE disponibilitesemaine.courriel = p_courriel
 							AND disponibilitesemaine.noDispoSemaine = p_noSemaine
   							AND disponibilitesemaine.annee = p_annee);
 	else
-		SET idSemaine = (	SELECT refIdSemaineACopier FROM disponibilitesemaine 
-							WHERE noDispoSemaine = p_noSemaine 
-							AND annee = p_annee 
+		SET idSemaine = (	SELECT refIdSemaineACopier FROM disponibilitesemaine
+							WHERE noDispoSemaine = p_noSemaine
+							AND annee = p_annee
 							AND courriel = p_courriel );
 	end if;
 	SELECT heureDebut, heureFin, jour
@@ -604,16 +618,16 @@
 	WHERE disponibilitejours.idDispoSemaine = idSemaine;
 	END
 	$$
-	
+
 	DROP PROCEDURE IF EXISTS ajoutModifDisposSemaine $$
 	CREATE PROCEDURE ajoutModifDisposSemaine(
-										p_noDispoSemaine int(11), 
-										p_annee int(11), 
-										p_nbHeureSouhaite int(11), 
+										p_noDispoSemaine int(11),
+										p_annee int(11),
+										p_nbHeureSouhaite int(11),
 										p_courriel varchar(60))
 	BEGIN
 		if exists (SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND courriel = p_courriel AND annee = p_annee) then
-			
+
 			-- Mise à jour d'une disponibilité existante
 			UPDATE disponibilitesemaine
 			SET annee = p_annee,
@@ -623,7 +637,7 @@
 				AND annee = p_annee
 				AND noDispoSemaine = p_noDispoSemaine;
 			-- Supprime les blocs d'horaire déjà réservés
-			DELETE FROM disponibilitejours WHERE idDispoSemaine = 
+			DELETE FROM disponibilitejours WHERE idDispoSemaine =
 				(SELECT idDispoSemaine FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee AND courriel = p_courriel);
 			SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee AND courriel = p_courriel;
 		else
@@ -631,11 +645,11 @@
 			VALUES (p_noDispoSemaine, p_annee, p_nbHeureSouhaite, p_courriel);
 			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = LAST_INSERT_ID();
 		end if;
-		
+
 	END
-	
+
 	$$
-	
+
 	DROP PROCEDURE IF EXISTS ajoutDisposSemainesCopie $$
 	CREATE PROCEDURE ajoutDisposSemainesCopie(
 										p_refIdSemaineACopier int(11),
@@ -644,48 +658,48 @@
 	BEGIN
 		DECLARE	v_nbHeureSouhaite int(11);
 		DECLARE v_courriel varchar(60);
-	
+
 		SET v_nbHeureSouhaite = (SELECT nbHeureSouhaite FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier);
 		SET v_courriel = (SELECT courriel FROM disponibilitesemaine WHERE idDispoSemaine = p_refIdSemaineACopier);
-	
-		if exists(	SELECT * FROM disponibilitesemaine 
-					WHERE noDispoSemaine = p_noDispoSemaine 
-					AND courriel = (SELECT courriel FROM disponibilitesemaine 
+
+		if exists(	SELECT * FROM disponibilitesemaine
+					WHERE noDispoSemaine = p_noDispoSemaine
+					AND courriel = (SELECT courriel FROM disponibilitesemaine
 									WHERE idDispoSemaine = p_refIdSemaineACopier)) then
 			-- Met à jour une semaine existante pour qu'elle référence une autre semaine
-			
+
 			UPDATE disponibilitesemaine
 			SET nbHeureSouhaite = v_nbHeureSouhaite,
 				refIdSemaineACopier = p_refIdSemaineACopier
 			WHERE noDispoSemaine = p_noDispoSemaine
 			AND courriel = v_courriel
 			AND annee = p_annee;
-			
+
 			-- Supprime les blocs horaire de la semaine existante
-			DELETE FROM disponibilitejours 
-			WHERE idDispoSemaine = (SELECT idDispoSemaine FROM disponibilitesemaine 
-									WHERE noDispoSemaine = p_noDispoSemaine 
-									AND courriel = (SELECT courriel FROM disponibilitesemaine 
+			DELETE FROM disponibilitejours
+			WHERE idDispoSemaine = (SELECT idDispoSemaine FROM disponibilitesemaine
+									WHERE noDispoSemaine = p_noDispoSemaine
+									AND courriel = (SELECT courriel FROM disponibilitesemaine
 													WHERE idDispoSemaine = p_refIdSemaineACopier)
 									AND annee = p_annee);
-			-- Retourne la semaine modifiée										
-			SELECT * FROM disponibilitesemaine 
-			WHERE noDispoSemaine = p_noDispoSemaine 
-			AND courriel = (SELECT courriel FROM disponibilitesemaine 
+			-- Retourne la semaine modifiée
+			SELECT * FROM disponibilitesemaine
+			WHERE noDispoSemaine = p_noDispoSemaine
+			AND courriel = (SELECT courriel FROM disponibilitesemaine
 							WHERE idDispoSemaine = p_refIdSemaineACopier)
 			AND annee = p_annee;
 		else
 			INSERT INTO disponibilitesemaine(noDispoSemaine, annee, nbHeureSouhaite, refIdSemaineACopier, courriel)
-			VALUES (p_noDispoSemaine, 
-					p_annee, 
-					v_nbHeureSouhaite, 
-					p_refIdSemaineACopier, 
+			VALUES (p_noDispoSemaine,
+					p_annee,
+					v_nbHeureSouhaite,
+					p_refIdSemaineACopier,
 					v_courriel);
 			SELECT * FROM disponibilitesemaine WHERE idDispoSemaine = LAST_INSERT_ID();
 		end if;
 	END
 	$$
-	
+
 	DROP PROCEDURE IF EXISTS ajoutDispoBloc $$
 	CREATE PROCEDURE ajoutDispoBloc(
 									p_jour varchar(10),
@@ -706,7 +720,7 @@ $$
                             in p_mdp varchar(40))
 	BEGIN
 		Select * from employe where courriel = p_courriel and lienReinit = p_str;
-  
+
 		UPDATE employe set
 			motDePasse = sha1(concat(sha1(p_mdp), courriel)),
 			lienReinit = null
@@ -717,7 +731,7 @@ $$
 $$
 
 	DROP PROCEDURE IF EXISTS demandeReinitMdp $$
-	CREATE PROCEDURE demandeReinitMdp(in p_courriel varchar(60), 
+	CREATE PROCEDURE demandeReinitMdp(in p_courriel varchar(60),
                                   in p_random varchar(40))
 	BEGIN
 		Select * from employe where courriel = p_courriel;
@@ -732,7 +746,7 @@ DROP PROCEDURE IF EXISTS bonneDemandeReinit $$
 CREATE PROCEDURE bonneDemandeReinit(in p_courriel varchar(60),
                                     in p_str varchar(60))
 BEGIN
-  SELECT * FROM employe 
+  SELECT * FROM employe
     where courriel = p_courriel
     and lienReinit = p_str;
 END
@@ -750,15 +764,15 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
   END
 
 
-	
+
 $$
 DROP PROCEDURE IF EXISTS listeDispoJours $$
 	CREATE PROCEDURE listeDispoJours(in p_idDispoSemaine INT(11))
 	BEGIN
 		SELECT * FROM disponibilitejours WHERE idDispoSemaine = p_idDispoSemaine;
 	END
-	
-	
+
+
 $$
 
 DROP PROCEDURE IF EXISTS listeDispoSemaine $$
