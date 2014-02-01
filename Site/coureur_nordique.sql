@@ -759,10 +759,7 @@ CREATE PROCEDURE Messages ()
   FROM message
    LIMIT 0, 10;
   
-  
-  
-  
-
+$$
 	
 $$
 DROP PROCEDURE IF EXISTS listeDispoJours $$

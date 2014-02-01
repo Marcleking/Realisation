@@ -14,6 +14,7 @@ class Message_Controller extends TinyMVC_Controller
 		$this->view->assign('dispo', '');
 		$this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
+		$this->view->assign('ressource', '');
 		
 		if(isset($_SESSION['user']))
 		{
@@ -59,8 +60,8 @@ class Message_Controller extends TinyMVC_Controller
 			return;
 		}
 			$this->view->display('gabarit');
-	}
+		}
 		$this->view->display('gabarit');
-	  }
+  }
 }
 ?>
