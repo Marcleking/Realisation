@@ -226,7 +226,7 @@
     `titre` varchar(70) NOT NULL,
     `message` varchar(1000) NOT NULL,
     `courriel` varchar(60) NOT NULL,
-    `date` date NOT NULL,
+    `date` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (`idMessage`),
     KEY `fk_Article_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
@@ -759,8 +759,8 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
 								in p_message varchar(1000),
 							    in p_courriel varchar(60))
   BEGIN
-	  INSERT INTO message (titre, message, courriel)
-	  VALUES (p_titre, p_message, p_courriel);
+	  INSERT INTO message (titre, message, courriel, date)
+	  VALUES (p_titre, p_message, p_courriel, now());
   END
 
 
@@ -788,3 +788,29 @@ DROP PROCEDURE IF EXISTS listeRessource $$
 	BEGIN
 		SELECT * FROM ressource WHERE noSemaine = p_noSemaine AND annee = p_annee;
 	END
+
+$$
+
+DROP PROCEDURE IF EXISTS afficheMessage $$
+	CREATE PROCEDURE afficheMessage(in p_debut INT(11))
+	BEGIN
+		IF p_debut = 0 THEN 
+			SELECT * FROM message ORDER BY idMessage DESC LIMIT 0, 10;
+		ELSE
+			SELECT * FROM message WHERE idMessage > p_debut ORDER BY idMessage DESC LIMIT 0, 10;
+		END IF;
+	END
+
+$$
+
+
+DROP PROCEDURE IF EXISTS SupprimerMessage $$
+  CREATE PROCEDURE SupprimerMessage (in p_idMessage int(11))
+  BEGIN
+    if exists(Select * from message where idMessage = p_idMessage) then
+      Select * from message where idMessage = p_idMessage;
+
+      DELETE FROM message
+      WHERE idMessage = p_idMessage;
+    end if;
+  END

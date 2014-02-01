@@ -3,18 +3,10 @@
 	  <hr />
 	  <li <?=$message?> id="numero2"><a href="<?=url?>/message"><i class="fa fa-envelope fa-2x"></i> Message</a></li>
 	  <hr />
-
-
-
-
 	  <?php if ( $_SESSION['user']->getType() == "Gestionnaire") { ?>
 	  	<li <?=$envoyerMessage?> id="numero9"><a href="<?=url?>/envoyerMessage"><i class="fa fa-envelope fa-2x"></i> Envoyer un message</a></li>
 	  	<hr />
 	  <?php } ?>
-
-
-
-
 	  <li <?=$documents?> id="numero3"><a href="<?=url?>/documents"><i class="fa fa-folder fa-2x"></i> Documents</a></li>
 	  <hr />
 	  <li <?=$horaire?> id="numero4"><a href="<?=url?>/horaire"><i class="fa fa-calendar fa-2x"></i> Affichage d’un horaire</a></li>

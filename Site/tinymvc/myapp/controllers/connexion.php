@@ -27,9 +27,38 @@ class Connexion_Controller extends TinyMVC_Controller
 
 	  		if (isset($_SESSION['user']))
 	  		{
+			$listMessage = '';
+		
+		
+			$this->load->model('afficherMessage_model','lesMessage');
+			$result = $this->lesMessage->afficherLesMessage(0);
+			
+			$dernierMess = 0;
+			if($result != null) {
+				for($i = 0; $i< count($result); $i++) {
+				
+				
+				
+					$listMessage = $listMessage . '<div class="row"><p class="panel"><b>' . $result[$i]['titre'];
+					$listMessage = $listMessage .'</b><span style="float:right">'. $result[$i]['courriel'] . '</span><br /><span style="float:right">' . $result[$i]['date'] . '</span><br />';
+					$listMessage = $listMessage . $result[$i]['message'] . '<br /></p></div>';
+					$dernierMess = $result[$i]['idMessage'];
+				}
+			
+			}
+			else 
+			{
+				$this->view->assign("aucunMessage", "");
+			}
+			
+			$this->view->assign('listMessage', $listMessage);
+			
+			
 	  			$this->view->assign('menu', $this->view->fetch("menu"));
 			  	$this->view->assign('contenu', $this->view->fetch("accueil"));
-			  	$this->view->display('gabarit');
+				   $this->view->display('gabarit');
+				
+			  	
 			  	return;
 	  		}
 	  	}
