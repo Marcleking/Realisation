@@ -1,6 +1,6 @@
 <?php
 
-class ressource_Controller extends TinyMVC_Controller
+class Pressource_Controller extends TinyMVC_Controller
 {
 
 	function index()

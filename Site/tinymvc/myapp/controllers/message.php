@@ -51,7 +51,7 @@ class Message_Controller extends TinyMVC_Controller
 					$listMessage = $listMessage .'<div id="panel'.$i.'" class="content">';
 					
 					if($_SESSION['user']->getType() == "Gestionnaire") {
-					$listMessage = $listMessage . '<a href="?noSupp='. $result[$i]['idMessage']  .'" class="button radius left"> Supprimer</a>';
+					$listMessage = $listMessage . '<a href="?noSupp='. $result[$i]['idMessage']  .'" class="button tiny radius left"> Supprimer</a>';
 					}
 					$listMessage = $listMessage .'<span style="float:right">' . $result[$i]['date'] . '</span> <hr>';
 					$listMessage = $listMessage . $result[$i]['message'] . '</div></dd>';
