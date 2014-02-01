@@ -14,25 +14,26 @@ class EnvoyerMessage_Controller extends TinyMVC_Controller
         $this->view->assign('dispo', '');
         $this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
-	 	
+		$this->view->assign('ressource', '');
+
 	 	if(isset($_SESSION['user']))
 	  	{
 	  		$this->view->assign('menu', $this->view->fetch("menu"));
-			
+
 			if($_SESSION['user']->getType() == "Gestionnaire") {
-			
+
 				if (isset($_POST['titre']) && isset($_POST['message'])){
-				
+
 					if(empty($_POST['titre'])){
-					
+
 						$this->view->assign("fail", "");
-						
+
 					} else if(empty($_POST['message'])){
-					
+
 						$this->view->assign("fail", "");
-						
+
 					} else{
-					
+
 						$this->load->model('envoyerMessage_model','envoiMes');
 						$result = $this->envoiMes->AjoutMessage(trim($_POST['titre']), trim($_POST['message']), $_SESSION['user']->getNom());
 						$this->view->assign("success", "");

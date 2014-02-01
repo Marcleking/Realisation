@@ -28,9 +28,6 @@ class Message_Controller extends TinyMVC_Controller
 					$baliseHTML = $baliseHTML .	'<font size = "1">' . $valeur["date"] . '</font>';
 					$baliseHTML = $baliseHTML .	'<h5>'. '<b>' . '<center>' . $valeur["titre"] . '</center>' . '</b>' . '</h5>';
 					$baliseHTML = $baliseHTML . '<hr>' . '</hr>';
-					//$position_espace = strrpos($valeur["message"], " ");
-					//$description = substr($valeur["message"], 0, $position_espace);
-					//$description = $description."...";
 					$chaine = strlen($valeur["message"]);
 					if($chaine > 200)
 					{
@@ -46,24 +43,24 @@ class Message_Controller extends TinyMVC_Controller
 						$baliseHTML = $baliseHTML .	'</div>';
 					}
 				}
-				
-//$position_espace = strrpos($description, " ");
-//$description = substr($description, 0, $position_espace);
-//$description = $description."...";
-//$cellule .= substr($row['texte'], 0, 4);
-//substr ($chaine, 0, $longueur) . "..."; 
 
 
 
 				$this->view->assign('listeMessages', $baliseHTML);
 				$this->view->assign('contenu', $this->view->fetch("view-message"));
-			
+				$this->view->assign('ressource', '');
+
+	 	if(isset($_SESSION['user']))
+	  	{
+	  		$this->view->assign('menu', $this->view->fetch("menu"));
+		  	$this->view->assign('contenu', $this->view->fetch("view-message"));
 		} else {
 			$this->view->display('view-connexion');
 			return;
 		}
-
 			$this->view->display('gabarit');
-	} 
+	}
+		$this->view->display('gabarit');
+	  }
 }
 ?>
