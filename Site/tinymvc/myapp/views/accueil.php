@@ -3,7 +3,9 @@
 	
 	
 	<div class="panel">
+	<?php if (isset($listMessage)) { ?>
 	<?=$listMessage?>
+	<?php } ?>
 	
 	<?php if (isset($aucunMessage)) { ?>
 			Il n'y a pas de message!

@@ -23,16 +23,15 @@ class Default_Controller extends TinyMVC_Controller
 		$listMessage = '';
 		
 		
-		
 			$this->load->model('afficherMessage_model','lesMessage');
 			$result = $this->lesMessage->afficherLesMessage(0);
 			
 			$dernierMess = 0;
-			if($result[0] != null) {
+			if($result != null) {
 				for($i = 0; $i< count($result); $i++) {
 				
 				
-				//echo var_dump($result[$i]);
+				
 					$listMessage = $listMessage . '<div class="row"><p class="panel"><b>' . $result[$i]['titre'];
 					$listMessage = $listMessage .'</b><span style="float:right">'. $result[$i]['courriel'] . '</span><br /><span style="float:right">' . $result[$i]['date'] . '</span><br />';
 					$listMessage = $listMessage . $result[$i]['message'] . '<br /></p></div>';
@@ -46,11 +45,11 @@ class Default_Controller extends TinyMVC_Controller
 			}
 			
 			$this->view->assign('listMessage', $listMessage);
-		
+			$this->view->assign('contenu', $this->view->fetch("accueil"));
 		
 		
 	  		$this->view->assign('menu', $this->view->fetch("menu"));
-		  	$this->view->assign('contenu', $this->view->fetch("accueil"));
+		  	
 		} else {
 	  		$this->view->display('view-connexion');
 	  		return;
