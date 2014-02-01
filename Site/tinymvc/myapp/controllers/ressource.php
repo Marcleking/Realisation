@@ -9,20 +9,20 @@ class Pressource_Controller extends TinyMVC_Controller
 		$this->view->assign('accueil', '');
 		$this->view->assign('message', '');
 		$this->view->assign('envoyerMessage', '');
-   		$this->view->assign('documents', '');
-    	$this->view->assign('horaire', '');
-    	$this->view->assign('dispo', '');
-    	$this->view->assign('gestionCompte', '');
+		$this->view->assign('documents', '');
+		$this->view->assign('horaire', '');
+		$this->view->assign('dispo', '');
+		$this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
 		$this->view->assign('ressource', 'class="active"');
 
 		if(isset($_SESSION['user']) && $_SESSION['user']->getType() == "Gestionnaire")
-	  	{
-	  		$this->view->assign('menu', $this->view->fetch("menu"));
-		  	$this->view->assign('contenu', $this->view->fetch("view-entrerressource"));
+		{
+			$this->view->assign('menu', $this->view->fetch("menu"));
+			$this->view->assign('contenu', $this->view->fetch("view-entrerressource"));
 		} else {
 			$this->view->display('view-connexion');
-	  		return;
+			return;
 		}
 
 		$this->view->display('gabarit');
