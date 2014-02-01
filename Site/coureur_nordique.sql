@@ -226,7 +226,7 @@
     `titre` varchar(70) NOT NULL,
     `message` varchar(1000) NOT NULL,
     `courriel` varchar(60) NOT NULL,
-    `date` date NOT NULL,
+    `date` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (`idMessage`),
     KEY `fk_Article_Employe1_idx` (`courriel`)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;

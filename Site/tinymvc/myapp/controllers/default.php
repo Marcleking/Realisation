@@ -20,19 +20,24 @@ class Default_Controller extends TinyMVC_Controller
 
 	 	if(isset($_SESSION['user']))
 	  	{
+		$listMessage = '';
+		
+		
+		
 			$this->load->model('afficherMessage_model','lesMessage');
 			$result = $this->lesMessage->afficherLesMessage(0);
-			$listMessage = '';
-			$dernierMess = 0;
-			for($i = 0; $i< count($result); $i++) {
 			
-
-			//echo var_dump($result[$i]);
-				$listMessage = $listMessage . '<div class="row"><p class="panel"><b>' . $result[$i]['titre'];
-				$listMessage = $listMessage .'</b><span style="float:right">'. $result[$i]['courriel'] . '</span><br /><span style="float:right">' . $result[$i]['date'] . '</span><br />';
-				$listMessage = $listMessage . $result[$i]['message'] . '<br /></p></div>';
-				$dernierMess = $result[$i]['idMessage'];
-			}
+			$dernierMess = 0;
+			if($result[0] != null)
+				for($i = 0; $i< count($result); $i++) {
+				
+				
+				//echo var_dump($result[$i]);
+					$listMessage = $listMessage . '<div class="row"><p class="panel"><b>' . $result[$i]['titre'];
+					$listMessage = $listMessage .'</b><span style="float:right">'. $result[$i]['courriel'] . '</span><br /><span style="float:right">' . $result[$i]['date'] . '</span><br />';
+					$listMessage = $listMessage . $result[$i]['message'] . '<br /></p></div>';
+					$dernierMess = $result[$i]['idMessage'];
+				}
 			
 			
 			

@@ -2,24 +2,24 @@
 
 class Message_Controller extends TinyMVC_Controller
 {
-	  function index()
-	  {
-	  	$this->view->assign('entete', $this->view->fetch("entete"));
-
+  function index()
+  {
+		$this->view->assign('entete', $this->view->fetch("entete"));
 		$this->view->assign('accueil', '');
 		$this->view->assign('message', 'class="active"');
 		$this->view->assign('envoyerMessage', '');
-        $this->view->assign('documents', '');
-        $this->view->assign('horaire', '');
-        $this->view->assign('dispo', '');
-        $this->view->assign('gestionCompte', '');
+		$this->view->assign('documents', '');
+		$this->view->assign('horaire', '');
+		$this->view->assign('dispo', '');
+		$this->view->assign('gestionCompte', '');
 		$this->view->assign('gestionComptes', '');
 		$this->view->assign('ressource', '');
+		
 
 	 	if(isset($_SESSION['user']))
 	  	{
 		
-		if(isset($_GET['debut'])) {
+			if(isset($_GET['debut'])) {
 				$debut = trim($_GET['debut']);
 			} else {
 				$debut = 0;
@@ -29,18 +29,20 @@ class Message_Controller extends TinyMVC_Controller
 			$result = $this->lesMessage->afficherLesMessage($debut);
 			$listMessage = '<dl class="accordion" data-accordion>';
 			$dernierMess = 0;
-			for($i = 0; $i< count($result); $i++) {
 			
-				$listMessage = $listMessage. '<dd><a href="#panel'.$i.'"><b>' . $result[$i]['titre'] . '</b><span style="float:right">'. $result[$i]['courriel'] . '</span></a>';
-								$listMessage = $listMessage .'<div id="panel'.$i.'" class="content"><span style="float:right">' . $result[$i]['date'] . '</span> <hr>';
-				$listMessage = $listMessage . $result[$i]['message'] . '</div></dd>';
+			if($result[0] != null)
+				for($i = 0; $i< count($result); $i++) {
 				
-				
-				$dernierMess = $result[$i]['idMessage'];
-				
-				
-				
-			}
+					$listMessage = $listMessage. '<dd><a href="#panel'.$i.'"><b>' . $result[$i]['titre'] . '</b><span style="float:right">'. $result[$i]['courriel'] . '</span></a>';
+					$listMessage = $listMessage .'<div id="panel'.$i.'" class="content"><span style="float:right">' . $result[$i]['date'] . '</span> <hr>';
+					$listMessage = $listMessage . $result[$i]['message'] . '</div></dd>';
+					
+					
+					$dernierMess = $result[$i]['idMessage'];
+					
+					
+					
+				}
 			
 			
 			$listMessage =  $listMessage . '</dl>';
@@ -72,12 +74,10 @@ class Message_Controller extends TinyMVC_Controller
 			
 		} else {
 			$this->view->display('view-connexion');
-	  		return;
+			return;
 		}
+			$this->view->display('gabarit');
 
-		$this->view->display('gabarit');
-	  }
-
+  }
 }
-
 ?>
