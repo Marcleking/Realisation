@@ -1,6 +1,294 @@
 <div id="contenu" class="medium-12 columns">
-	<h3>Ressources</h3>
-	<div class="row panel">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium, nihil inventore fugit pariatur ad incidunt. Nihil, distinctio, vero voluptate dicta fugit repellat quidem eos necessitatibus facere sapiente quos excepturi suscipit.
-	</div>
+	<h2>Ressources</h2>
+	<!--<div class="row panel">-->
+		
+		<style>
+			.bloc{
+				background:#F39814;
+			}
+			.blocSelected{
+				background:#FECA40;
+			}
+		</style>
+		
+		<form id="ajoutBloc">
+			<select id="jour" required="required">
+				<option value="dimanche">Dimanche</option>
+				<option value="lundi">Lundi</option>
+				<option value="mardi">Mardi</option>
+				<option value="mercredi">Mercredi</option>
+				<option value="jeudi">Jeudi</option>
+				<option value="vendredi">Vendredi</option>
+				<option value="samedi">Samedi</option>
+			</select>
+			
+			<label for="debut">Heure de début</label>
+			<input type="text" id="debut" class="time" name="debut" />
+			
+			<label for="fin">Heure de fin</label>
+			<input type="text" id="fin" class="time" name="fin" />
+			
+			<br />
+			
+			<label for="nbChaussures">Nombre d'employés "chaussure"</label>
+			<input type="number" id="nbChaussures" name="nbChaussures" min="0" />
+			<br />
+			
+			<label for="nbVetements">Nombre d'employés "vêtements"</label>
+			<input type="number" id="nbVetements" name="nbVetements" min="0" />
+			<br />
+			
+			<label for="nbCaisses">Nombre d'employés "caisse"</label>
+			<input type="number" id="nbCaisses" name="nbCaisses" min="0" />
+			<br />
+			
+			<input type="submit" id="ajouterBloc" value="Ajouter un bloc" />
+			<input type="submit" id="enregistrer" value="Enregistrer" />
+		</form>
+		
+		<script type="text/javascript">
+			
+			function parseJour(no){
+				var jour;
+				
+				switch(no){
+					case 0:
+						jour = "Dimanche";
+					break;
+					case 1:
+						jour = "Lundi";
+					break;
+					case 2:
+						jour = "Mardi";
+					break;
+					case 3:
+						jour = "Mercredi";
+					break;
+					case 4:
+						jour = "Jeudi";
+					break;
+					case 5:
+						jour = "Vendredi";
+					break;
+					case 6:
+						jour = "Samedi";
+					break;
+					default:
+						jour = "";
+				}
+				return jour;
+			}
+			
+			// Génération du tableau
+			var table = document.createElement('table');
+			table.id = "ressources";
+			var thead = document.createElement('thead');
+			var tbody = document.createElement('tbody');
+			for (var i = 0; i < 8; i++){
+			
+				var tr = document.createElement('tr');
+				
+				if (i != 0) {
+					
+					for (var j = 0; j < 27; j++){
+						
+						if (j != 0){
+							var td = document.createElement('td');
+							tr.appendChild(td);
+						}
+						else{
+							var th = document.createElement('th');
+							th.innerHTML = parseJour(i-1);
+							tr.appendChild(th);
+						}
+					}
+					
+					tbody.appendChild(tr);
+					table.appendChild(tbody);
+				}
+				else {
+					for (var j = 0; j < 14; j++){
+						var th = document.createElement('th');
+						if (j!= 0){
+							th.colSpan = 2;
+							th.innerHTML = (j + 8) + ":00";
+						}
+						tr.appendChild(th);
+					}
+					
+					thead.appendChild(tr);
+					table.appendChild(thead);
+				}
+			}
+			
+			//document.getElementById('tableau').appendChild(table);
+			document.getElementById('contenu').insertBefore(table,document.getElementById('ajoutBloc'));
+			
+		</script>
+		
+		<script type="text/javascript">
+			window.addEventListener('load',init,false);
+			
+			var lesBlocs = [];
+			var noAutoBloc = 0;
+			/***************************************************
+				Structure JSON
+				
+				lesBlocs
+				lesBlocs[i].jour
+				lesBlocs[i].heureDebut
+				lesBlocs[i].heureFin
+				lesBlocs[i].nbChaussures
+				lesBlocs[i].nbVetements
+				lesBlocs[i].nbCaisses
+			
+			****************************************************/
+			
+			
+			function init(){
+				document.getElementById('ajouterBloc').addEventListener('click',ajoutBloc);
+				document.getElementById('enregistrer').addEventListener('click',enregistrer);
+				
+				$(".time").timePicker({
+					startTime: "09:00",
+					endTime:"21:00",
+					step:30
+				});
+			}
+			
+			function ajoutBloc(e){
+				e.preventDefault();
+				
+				var jour = document.getElementById('jour').selectedIndex;
+				var debut = document.getElementById('debut').value;
+				var fin = document.getElementById('fin').value;
+				
+				for (var i = 0; i < lesBlocs.length; i++){
+					if (lesBlocs[i].jour == jour ){
+						
+						// Left limit of new block
+						if(parseInt(lesBlocs[i].heureFin.split(':')[0]) > parseInt(debut.split(':')[0]) ){
+							lesBlocs[i].heureFin = debut;
+						}
+						else if(parseInt(lesBlocs[i].heureFin.split(':')[0]) == parseInt(debut.split(':')[0]) && 
+								parseInt(lesBlocs[i].heureFin.split(':')[1]) > parseInt(debut.split(':')[1])){
+							lesBlocs[i].heureFin = debut;
+						}
+						
+						// Right limit of new block
+						else if(parseInt(lesBlocs[i].heureDebut.split(':')[0]) < parseInt(fin.split(':')[0]) ){
+							lesBlocs[i].heureDebut = fin;
+						}
+						else if(parseInt(lesBlocs[i].heureDebut.split(':')[0]) == parseInt(fin.split(':')[0]) && 
+								parseInt(lesBlocs[i].heureDebut.split(':')[1]) < parseInt(fin.split(':')[1])){
+							lesBlocs[i].heureDebut = fin;
+						}
+						
+					}
+				}
+				
+				
+				lesBlocs.push({
+					'id':noAutoBloc,
+					'jour':jour,
+					'heureDebut':debut,
+					'heureFin':fin,
+					'nbChaussures':document.getElementById('nbChaussures').value,
+					'nbVetements':document.getElementById('nbVetements').value,
+					'nbCaisses':document.getElementById('nbCaisses').value
+				});
+				
+				var table = document.getElementById('ressources');
+				var row = table.rows[jour + 1];
+				
+				var iDebut = (parseInt(lesBlocs[getBlocPosition(noAutoBloc)].heureDebut.split(':')[0]) - 9) * 2 + 1;
+				var iFin = (parseInt(lesBlocs[getBlocPosition(noAutoBloc)].heureFin.split(':')[0]) - 9) * 2 + 1;
+				
+				if (lesBlocs[lesBlocs.length - 1].heureDebut.split(':')[1] == '30'){
+					iDebut++;
+				}
+				if (lesBlocs[lesBlocs.length - 1].heureFin.split(':')[1] == '30' ){
+					iFin++;
+				}
+				
+				for (var i = iDebut; i < iFin; i++){
+					row.childNodes[i].className = "bloc " + noAutoBloc;
+					row.childNodes[i].addEventListener('click', selectionBloc);
+				}
+				
+				noAutoBloc++;
+			}
+			
+			function enregistrer(){
+				
+			}
+			
+			function selectionBloc(e){
+				
+				var noBloc = parseInt(e.target.className.split(' ')[1]);
+				var alreadySelectedBloc = blocSelected();
+				if (alreadySelectedBloc != -1 && alreadySelectedBloc != noBloc){
+					changeTdArrayClass(document.getElementsByClassName(alreadySelectedBloc),'blocSelected','bloc');
+				}
+				
+				var bloc = document.getElementsByClassName(noBloc);
+				
+				var jour = 0, heureDebut = '', heureFin = '', nbChaussures = 0; nbVetements = 0, nbCaisses = 0;
+				
+				// Sélectionne le bloc
+				if (bloc[0].className.split(' ')[0] == "bloc")
+				{
+					changeTdArrayClass(bloc,'bloc','blocSelected');
+					
+					var position = getBlocPosition(noBloc);
+					
+					jour = lesBlocs[position].jour;
+					heureDebut = lesBlocs[position].heureDebut;
+					heureFin = lesBlocs[position].heureFin;
+					nbChaussures = lesBlocs[position].nbChaussures;
+					nbVetements = lesBlocs[position].nbVetements;
+					nbCaisses = lesBlocs[position].nbCaisses;
+				}
+				// Désélectionne le bloc
+				else{
+					changeTdArrayClass(bloc, 'blocSelected', 'bloc');
+				}
+					
+				document.getElementById('jour').selectedIndex = jour;
+				document.getElementById('debut').value = heureDebut;
+				document.getElementById('fin').value = heureFin;
+				document.getElementById('nbChaussures').value = nbChaussures;
+				document.getElementById('nbVetements').value = nbVetements;
+				document.getElementById('nbCaisses').value = nbCaisses;
+			}
+		
+		function changeTdArrayClass(td, previousClass, newClass ){
+			for (var i = 0; i < td.length; i++){
+				td[i].className = td[i].className.replace(previousClass,newClass);
+			}
+		}
+		
+		function blocSelected(){
+			
+			if(typeof document.getElementsByClassName('blocSelected')[0] != 'undefined'){
+				return parseInt(document.getElementsByClassName('blocSelected')[0].className.split(' ')[1]);	
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		
+		function getBlocPosition(noBloc){
+			var i = 0;
+			while (i < lesBlocs.length && lesBlocs[i].id != noBloc)
+			{
+				i++
+			}
+			return i;
+		}
+		
+		</script>
+		
+	<!--</div>-->
 </div>
