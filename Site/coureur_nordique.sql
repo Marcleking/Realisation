@@ -816,6 +816,8 @@ DROP PROCEDURE IF EXISTS SupprimerMessage $$
         end if;
     END
 
+$$	
+	
 DROP PROCEDURE IF EXISTS SupprimeBlocRessource $$
 
 CREATE PROCEDURE SupprimeBlocRessource (in p_idBlocRessource int(11))
@@ -916,4 +918,3 @@ CREATE PROCEDURE getUsedMere ()
     BEGIN
         Select * from ressourceMere where used = true;
     END
-$$
