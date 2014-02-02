@@ -269,11 +269,10 @@
     CREATE TABLE IF NOT EXISTS `ressourceMere` (
         `idBlocRessource` int(11) NOT NULL AUTO_INCREMENT,
         `nomBloc` varchar(30) NOT NULL,
-        `description` varchar(1000) NOT NULL
+        `description` varchar(1000) NOT NULL,
+        `used` boolean NOT NULL,
         PRIMARY KEY (`idBlocRessource`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-
-
 
 
     CREATE TABLE IF NOT EXISTS `ressource` (
@@ -894,5 +893,27 @@ DROP PROCEDURE IF EXISTS getRessourcesMere $$
 CREATE PROCEDURE getRessourcesMere ()
     BEGIN
         Select * from ressourceMere;
+    END
+$$
+
+DROP PROCEDURE IF EXISTS setUsedMere $$
+
+CREATE PROCEDURE setUsedMere (in p_idBlocRessource boolean)
+    BEGIN
+        if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
+            UPDATE ressourceMere set
+                used = false;
+            UPDATE ressourceMere set
+                used = true
+                where idBlocRessource = p_idBlocRessource;
+        end if;
+    END
+$$
+
+DROP PROCEDURE IF EXISTS getUsedMere $$
+
+CREATE PROCEDURE getUsedMere ()
+    BEGIN
+        Select * from ressourceMere where used = true;
     END
 $$
