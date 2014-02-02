@@ -801,7 +801,6 @@ DROP PROCEDURE IF EXISTS afficheMessage $$
             SELECT * FROM message WHERE idMessage > p_debut ORDER BY idMessage DESC LIMIT 0, 10;
         END IF;
     END
-
 $$
 
 

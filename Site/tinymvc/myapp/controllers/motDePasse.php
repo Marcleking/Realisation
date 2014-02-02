@@ -21,9 +21,9 @@ class motDePasse_Controller extends TinyMVC_Controller
 			$this->view->assign('entete', $this->view->fetch("entete"));
 			$this->load->model("motdepasse_model", "reinit");
 
-			if(isset($_POST['pwd']) && 
-				isset($_POST['pwd2']) && 
-				isset($_POST['courriel']) && 
+			if(isset($_POST['pwd']) &&
+				isset($_POST['pwd2']) &&
+				isset($_POST['courriel']) &&
 				isset($_POST['str'])) {
 
 				if ($_POST['pwd'] == $_POST['pwd2']) {
@@ -49,12 +49,12 @@ class motDePasse_Controller extends TinyMVC_Controller
 					$this->view->assign('erreur', 'Votre lien de réinisialisation n\'est plus valide.');
 					$this->view->display('view-connexion');
 				}
-				
+
 			}
 
-			
+
 		}
-	  
+
 }
 
 ?>

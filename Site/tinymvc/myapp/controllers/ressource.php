@@ -1,9 +1,9 @@
 <?php
 
-class Pressource_Controller extends TinyMVC_Controller
+class ressource_Controller extends TinyMVC_Controller
 {
 
-	function index()
+	public function index()
 	{
 		$this->view->assign('entete', $this->view->fetch("entete"));
 		$this->view->assign('accueil', '');
@@ -16,8 +16,7 @@ class Pressource_Controller extends TinyMVC_Controller
 		$this->view->assign('gestionComptes', '');
 		$this->view->assign('ressource', 'class="active"');
 
-		if(isset($_SESSION['user']) && $_SESSION['user']->getType() == "Gestionnaire")
-		{
+		if (isset($_SESSION['user']) && $_SESSION['user']->getType() == "Gestionnaire") {
 			$this->view->assign('menu', $this->view->fetch("menu"));
 			$this->view->assign('contenu', $this->view->fetch("view-entrerressource"));
 		} else {
@@ -28,4 +27,3 @@ class Pressource_Controller extends TinyMVC_Controller
 		$this->view->display('gabarit');
 	}
 }
-?>
