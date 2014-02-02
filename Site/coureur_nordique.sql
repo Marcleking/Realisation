@@ -278,8 +278,6 @@
     CREATE TABLE IF NOT EXISTS `ressource` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `noBlocRessource` int(11) NOT NULL,
-        `annee` int(11) NOT NULL,
-        `noSemaine` int(11) NOT NULL,
         `jour` int(11) NOT NULL,
         `heureDebut` time NOT NULL,
         `heureFin` time NOT NULL,
@@ -809,14 +807,13 @@ DROP PROCEDURE IF EXISTS SupprimerMessage $$
     BEGIN
         if exists(Select * from message where idMessage = p_idMessage) then
             Select * from message where idMessage = p_idMessage;
-
-            DELETE FROM message
-            WHERE idMessage = p_idMessage;
+            DELETE FROM message WHERE idMessage = p_idMessage;
         end if;
     END
+	
+	$$
 
 DROP PROCEDURE IF EXISTS SupprimeBlocRessource $$
-
 CREATE PROCEDURE SupprimeBlocRessource (in p_idBlocRessource int(11))
     BEGIN
         if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
@@ -910,9 +907,7 @@ CREATE PROCEDURE setUsedMere (in p_idBlocRessource boolean)
 $$
 
 DROP PROCEDURE IF EXISTS getUsedMere $$
-
 CREATE PROCEDURE getUsedMere ()
     BEGIN
         Select * from ressourceMere where used = true;
     END
-$$
