@@ -1,5 +1,4 @@
 <?php
-print_r(arraySemaine());
 
 
 /**
@@ -90,7 +89,6 @@ function lstRessource() {
 	//Numero de la semaine que nous sommes présentement et annee
 	$semaine = intval(date("W"));
 	$annee = intval(date("Y"));
-	
 	
 	//Connexion a la BD(à changer de place)
 	$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');

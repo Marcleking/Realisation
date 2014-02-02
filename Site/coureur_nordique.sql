@@ -810,14 +810,14 @@ DROP PROCEDURE IF EXISTS SupprimerMessage $$
     BEGIN
         if exists(Select * from message where idMessage = p_idMessage) then
             Select * from message where idMessage = p_idMessage;
-
-            DELETE FROM message
-            WHERE idMessage = p_idMessage;
+            DELETE FROM message WHERE idMessage = p_idMessage;
         end if;
     END
+	
+	$$
+
 
 DROP PROCEDURE IF EXISTS SupprimeBlocRessource $$
-
 CREATE PROCEDURE SupprimeBlocRessource (in p_idBlocRessource int(11))
     BEGIN
         if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
@@ -911,9 +911,7 @@ CREATE PROCEDURE setUsedMere (in p_idBlocRessource boolean)
 $$
 
 DROP PROCEDURE IF EXISTS getUsedMere $$
-
 CREATE PROCEDURE getUsedMere ()
     BEGIN
         Select * from ressourceMere where used = true;
     END
-$$
