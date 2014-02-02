@@ -817,10 +817,6 @@ DROP PROCEDURE IF EXISTS SupprimerMessage $$
         end if;
     END
 
-
---pour ajouter des ressources dans un bloc
---un pour avoir les ressources d'un bloc
-
 DROP PROCEDURE IF EXISTS SupprimeBlocRessource $$
 
 CREATE PROCEDURE SupprimeBlocRessource (in p_idBlocRessource int(11))
@@ -855,7 +851,7 @@ CREATE PROCEDURE editBlocRessource (
     BEGIN
         if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
             UPDATE ressourceMere set
-                nomBloc = p_nomBloc
+                nomBloc = p_nomBloc,
                 description = p_description
                 where idBlocRessource = p_idBlocRessource;
             Select * from ressourceMere where idBlocRessource = p_idBlocRessource;
@@ -863,3 +859,33 @@ CREATE PROCEDURE editBlocRessource (
     END
 $$
 
+DROP PROCEDURE IF EXISTS addRessource $$
+
+CREATE PROCEDURE addRessource (
+    in p_noBlocRessource int(11),
+    in p_jour int(11),
+    in pjour int(11),
+    in p_heureDebut time,
+    in p_heureFin time,
+    in p_nbChaussure int(11),
+    in p_nbVetements int(11),
+    in p_nbCaissier int(11)
+)
+    BEGIN
+        if exists(Select * from ressourceMere where idBlocRessource = p_noBlocRessource) then
+            INSERT INTO ressource (noBlocRessource, jour, heureDebut, heureFin, nbEmpChaussures, nbEmpVetements, nbEmpCaissier)
+                VALUES (p_noBlocRessource, p_jour, p_heureDebut, p_heureFin, p_nbEmpChaussures, p_nbEmpVetements, p_nbEmpCaissier);
+            SELECT * FROM ressource WHERE id = LAST_INSERT_ID();
+        end if;
+    END
+$$
+
+DROP PROCEDURE IF EXISTS getRessources $$
+
+CREATE PROCEDURE getRessourcesFromBloc (in p_idBlocRessource int(11))
+    BEGIN
+        if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
+            Select * from ressource where noBlocRessource = p_idBlocRessource;
+        end if;
+    END
+$$
