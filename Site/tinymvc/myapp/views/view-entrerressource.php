@@ -42,7 +42,7 @@
 			<input type="number" id="nbCaisses" name="nbCaisses" min="0" />
 			<br />
 			
-			<input type="submit" id="ajouterBloc" value="Ajouter un bloc" />
+			<input type="submit" id="ajouterBloc" value="Ajouter" />
 			<input type="submit" id="enregistrer" value="Enregistrer" />
 		</form>
 		
@@ -163,30 +163,62 @@
 				var debut = document.getElementById('debut').value;
 				var fin = document.getElementById('fin').value;
 				
+				var toRemove = [];
+				
 				for (var i = 0; i < lesBlocs.length; i++){
 					if (lesBlocs[i].jour == jour ){
 						
-						// Left limit of new block
-						if(parseInt(lesBlocs[i].heureFin.split(':')[0]) > parseInt(debut.split(':')[0]) ){
-							lesBlocs[i].heureFin = debut;
-						}
-						else if(parseInt(lesBlocs[i].heureFin.split(':')[0]) == parseInt(debut.split(':')[0]) && 
-								parseInt(lesBlocs[i].heureFin.split(':')[1]) > parseInt(debut.split(':')[1])){
-							lesBlocs[i].heureFin = debut;
-						}
+						var debutOld = {'heure' : parseInt(lesBlocs[i].heureDebut.split(':')[0]) , 'minutes' : parseInt(lesBlocs[i].heureDebut.split(':')[1])};
+						var finOld = {'heure' : parseInt(lesBlocs[i].heureFin.split(':')[0]) , 'minutes' : parseInt(lesBlocs[i].heureFin.split(':')[1])};
 						
-						// Right limit of new block
-						else if(parseInt(lesBlocs[i].heureDebut.split(':')[0]) < parseInt(fin.split(':')[0]) ){
-							lesBlocs[i].heureDebut = fin;
-						}
-						else if(parseInt(lesBlocs[i].heureDebut.split(':')[0]) == parseInt(fin.split(':')[0]) && 
-								parseInt(lesBlocs[i].heureDebut.split(':')[1]) < parseInt(fin.split(':')[1])){
-							lesBlocs[i].heureDebut = fin;
-						}
+						var debutNew = {'heure' : parseInt(debut.split(':')[0]) , 'minutes' : parseInt(debut.split(':')[1])};
+						var finNew = {'heure' : parseInt(fin.split(':')[0]) , 'minutes' : parseInt(fin.split(':')[1])};
 						
+						// Nouveau bloc à l'intérieur d'un bloc existant
+						if (	
+							(debutOld.heure < debutNew.heure && finOld.heure > finNew.heure) ||
+							(debutOld.heure == debutNew.heure && finOld.heure > finNew.heure && debutOld.minutes <= debutNew.minutes) ||
+							(debutOld.heure < debutNew.heure && finOld.heure == finNew.heure && finOld.minutes >= finNew.minutes) ||
+							(debutOld.heure == debutNew.heure && finOld.heure == finNew.heure && finOld.minutes >= finNew.minutes && debutOld.minutes <= debutNew.minutes)){
+							
+							toRemove.push(i);
+						}
+						// Nouveau bloc autour d'un bloc existant
+						else if (
+							(debutOld.heure > debutNew.heure && finOld.heure < finNew.heure) ||
+							(debutOld.heure == debutNew.heure && finOld.heure < finNew.heure && debutOld.minutes >= debutNew.minutes) ||
+							(debutOld.heure > debutNew.heure && finOld.heure == finNew.heure && finOld.minutes <= finNew.minutes) ||
+							(debutOld.heure == debutNew.heure && finOld.heure == finNew.heure && finOld.minutes <= finNew.minutes && debutOld.minutes >= debutNew.minutes)){
+							
+							toRemove.push(i);
+						}
+						else{
+							// Left limit of new block
+							if(
+								(finOld.heure > debutNew.heure && finOld.heure < finNew.heure) ||
+								(finOld.heure == debutNew.heure && finOld.minutes > debutNew.minutes) ||
+								(finOld.heure == finNew.heure && finOld.minutes < finNew.minutes)){
+							
+								lesBlocs[i].heureFin = debut;
+							}
+							
+							// Right limit of new block
+							if(
+								(debutOld.heure < finNew.heure && debutOld.heure > debutNew.heure) ||
+								(debutOld.heure == finNew.heure && debutOld.minutes < finNew.minutes) ||
+								(debutOld.heure == debutNew.heure && debutOld.minutes > debutNew.minutes)){
+								
+								lesBlocs[i].heureDebut = fin;
+							}
+						}
 					}
 				}
 				
+				for (var i = 0; i < toRemove.length; i++){
+					var td = document.getElementsByClassName(lesBlocs[toRemove[i] - i].id);
+					changeTdArrayClass(td,'bloc ',"");
+					lesBlocs.splice(toRemove[i] - i, 1);
+				}
 				
 				lesBlocs.push({
 					'id':noAutoBloc,
@@ -216,44 +248,99 @@
 					row.childNodes[i].addEventListener('click', selectionBloc);
 				}
 				
+				changeFormValues(jour,fin,fin,0,0,0);
+				
 				noAutoBloc++;
 			}
 			
 			function enregistrer(){
 				
+				
+				
+			}
+			
+			function supprimerBloc(noBloc){
+				lesBlocs.splice(getBlocPosition(noBloc),1);
+				changeTdArrayClass(document.getElementsByClassName(noBloc),'blocSelected ', '');
+				document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
 			}
 			
 			function selectionBloc(e){
 				
-				var noBloc = parseInt(e.target.className.split(' ')[1]);
-				var alreadySelectedBloc = blocSelected();
-				if (alreadySelectedBloc != -1 && alreadySelectedBloc != noBloc){
-					changeTdArrayClass(document.getElementsByClassName(alreadySelectedBloc),'blocSelected','bloc');
+				if (e.target.className.split(' ').length > 1){
+					var noBloc = parseInt(e.target.className.split(' ')[1]);
+					var alreadySelectedBloc = blocSelected();
+					if (alreadySelectedBloc != -1 && alreadySelectedBloc != noBloc){
+						changeTdArrayClass(document.getElementsByClassName(alreadySelectedBloc),'blocSelected','bloc');
+					}
+					
+					var bloc = document.getElementsByClassName(noBloc);
+					
+					var jour = 0, heureDebut = '', heureFin = '', nbChaussures = 0; nbVetements = 0, nbCaisses = 0;
+					
+					// Sélectionne le bloc
+					if (bloc[0].className.split(' ')[0] == "bloc")
+					{
+						changeTdArrayClass(bloc,'bloc','blocSelected');
+						
+						var position = getBlocPosition(noBloc);
+						
+						jour = lesBlocs[position].jour;
+						heureDebut = lesBlocs[position].heureDebut;
+						heureFin = lesBlocs[position].heureFin;
+						nbChaussures = lesBlocs[position].nbChaussures;
+						nbVetements = lesBlocs[position].nbVetements;
+						nbCaisses = lesBlocs[position].nbCaisses;
+						
+						document.getElementById('ajouterBloc').value = "Modifier";
+						
+						var btnSupp = document.createElement('input');
+						btnSupp.value = 'Supprimer';
+						btnSupp.type = 'button';
+						btnSupp.addEventListener('click', function(){supprimerBloc(noBloc);});
+						btnSupp.id = 'supprimer';
+						document.getElementById('ajoutBloc').appendChild(btnSupp);
+					}
+					// Désélectionne le bloc
+					else{
+						changeTdArrayClass(bloc, 'blocSelected', 'bloc');
+						document.getElementById('ajouterBloc').value = "Ajouter";
+						document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
+					}
+						
+					changeFormValues(jour, heureDebut, heureFin, nbChaussures, nbVetements, nbCaisses);
+
 				}
+			}	
+			
+			function changeTdArrayClass(td, previousClass, newClass ){
 				
-				var bloc = document.getElementsByClassName(noBloc);
+				for (var i = 0; i < td.length; i++){
+					td[i].className = td[i].className.replace(previousClass,newClass);
+				}
+			}
+			
+			function blocSelected(){
 				
-				var jour = 0, heureDebut = '', heureFin = '', nbChaussures = 0; nbVetements = 0, nbCaisses = 0;
-				
-				// Sélectionne le bloc
-				if (bloc[0].className.split(' ')[0] == "bloc")
+				if(typeof document.getElementsByClassName('blocSelected')[0] != 'undefined'){
+					return parseInt(document.getElementsByClassName('blocSelected')[0].className.split(' ')[1]);	
+				}
+				else
 				{
-					changeTdArrayClass(bloc,'bloc','blocSelected');
-					
-					var position = getBlocPosition(noBloc);
-					
-					jour = lesBlocs[position].jour;
-					heureDebut = lesBlocs[position].heureDebut;
-					heureFin = lesBlocs[position].heureFin;
-					nbChaussures = lesBlocs[position].nbChaussures;
-					nbVetements = lesBlocs[position].nbVetements;
-					nbCaisses = lesBlocs[position].nbCaisses;
+					return -1;
 				}
-				// Désélectionne le bloc
-				else{
-					changeTdArrayClass(bloc, 'blocSelected', 'bloc');
+			}
+			
+			function getBlocPosition(noBloc){
+				var i = 0;
+				while (i < lesBlocs.length && lesBlocs[i].id != noBloc)
+				{
+					i++
 				}
-					
+				return i;
+			}
+			
+			function changeFormValues(jour, heureDebut, heureFin, nbChaussures, nbVetements, nbCaisses ){
 				document.getElementById('jour').selectedIndex = jour;
 				document.getElementById('debut').value = heureDebut;
 				document.getElementById('fin').value = heureFin;
@@ -261,32 +348,6 @@
 				document.getElementById('nbVetements').value = nbVetements;
 				document.getElementById('nbCaisses').value = nbCaisses;
 			}
-		
-		function changeTdArrayClass(td, previousClass, newClass ){
-			for (var i = 0; i < td.length; i++){
-				td[i].className = td[i].className.replace(previousClass,newClass);
-			}
-		}
-		
-		function blocSelected(){
-			
-			if(typeof document.getElementsByClassName('blocSelected')[0] != 'undefined'){
-				return parseInt(document.getElementsByClassName('blocSelected')[0].className.split(' ')[1]);	
-			}
-			else
-			{
-				return -1;
-			}
-		}
-		
-		function getBlocPosition(noBloc){
-			var i = 0;
-			while (i < lesBlocs.length && lesBlocs[i].id != noBloc)
-			{
-				i++
-			}
-			return i;
-		}
 		
 		</script>
 		
