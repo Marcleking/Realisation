@@ -864,7 +864,6 @@ DROP PROCEDURE IF EXISTS addRessource $$
 CREATE PROCEDURE addRessource (
     in p_noBlocRessource int(11),
     in p_jour int(11),
-    in pjour int(11),
     in p_heureDebut time,
     in p_heureFin time,
     in p_nbChaussure int(11),
@@ -887,5 +886,13 @@ CREATE PROCEDURE getRessourcesFromBloc (in p_idBlocRessource int(11))
         if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
             Select * from ressource where noBlocRessource = p_idBlocRessource;
         end if;
+    END
+$$
+
+DROP PROCEDURE IF EXISTS getRessourcesMere $$
+
+CREATE PROCEDURE getRessourcesMere ()
+    BEGIN
+        Select * from ressourceMere;
     END
 $$
