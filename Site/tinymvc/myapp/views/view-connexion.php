@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Le coureur nordique</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="<?=url?>/../css/foundation.css" />
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 				<form data-abide action="<?=url?>/connexion" method="POST">
 					<div class="panel">
 						<h1>Connexion</h1>
-		
+
 						<div>
 						  	<label for="user">Numéro d'utilisateur</label>
 					      	<input type="text" id="user" name="user" placeholder="Entrez votre nom d'utilisateur..." required />
@@ -39,14 +39,14 @@
 				      	<div>
 							<a href="<?=url?>/motDePasse">Réinitialiser votre mot de passe</a>
 						</div>
-				      	
+
 				      	<?php if (isset($erreur)) { ?>
 				      		<div data-alert class='alert-box warning'>
 								<?=$erreur?>
 								<a href="#" class="close">&times;</a>
 							</div>
 						<?php } ?>
-							
+
 			      	</div>
 			  	</form>
 			</div>
