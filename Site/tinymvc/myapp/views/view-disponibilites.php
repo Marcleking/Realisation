@@ -77,7 +77,6 @@
 			}
 			
 			jsonForm.horaire = serializeSchedule(sender.id);
-			console.log(jsonForm);
 			$.ajax({
 				url:"<?=url?>/../../tinymvc/myapp/models/push_dispos.php",
 				type:"POST",
@@ -513,12 +512,6 @@
 			input3.value = "Envoyer";
 			input3.className = "button right radius";
 			document.getElementById("formDispo").appendChild(input3);
-			
-			
-			
-			
-			
-			
 			
 		}
 		

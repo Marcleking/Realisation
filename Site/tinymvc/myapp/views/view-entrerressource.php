@@ -11,7 +11,22 @@
 			}
 		</style>
 		
-		<form id="ajoutBloc">
+		<div class="row panel">
+			<select id="groupes">
+				
+			</select>
+			<form id="ressourcesMere">
+				<label for="nom">Nom du groupe : </label>
+				<input type="text" id="nom" name="nom" /> 
+				<label for="description">Description</label>
+				<input type="text" id="description" name="description" />
+				<label for="actif">Actif : </label>
+				<input type="checkbox" id="actif" name="actif" />
+				<input type="button" id="ajouterGroupe" value="Ajouter" />
+			</form>
+		</div>
+		<br />
+		<form id="ajoutBloc" class="row panel">
 			<select id="jour" required="required">
 				<option value="dimanche">Dimanche</option>
 				<option value="lundi">Lundi</option>
@@ -122,7 +137,7 @@
 			}
 			
 			//document.getElementById('tableau').appendChild(table);
-			document.getElementById('contenu').insertBefore(table,document.getElementById('ajoutBloc'));
+			document.getElementById('ajoutBloc').insertBefore(table,document.getElementById('jour'));
 			
 		</script>
 		
@@ -130,11 +145,13 @@
 			window.addEventListener('load',init,false);
 			
 			var lesBlocs = [];
+			var lesGroupes = [];
 			var noAutoBloc = 0;
 			/***************************************************
 				Structure JSON
 				
 				lesBlocs
+				lesBlocs[i].id
 				lesBlocs[i].jour
 				lesBlocs[i].heureDebut
 				lesBlocs[i].heureFin
@@ -148,12 +165,64 @@
 			function init(){
 				document.getElementById('ajouterBloc').addEventListener('click',ajoutBloc);
 				document.getElementById('enregistrer').addEventListener('click',enregistrer);
+				document.getElementById('ajouterGroupe').addEventListener('click',ajoutGroupe);
+				
+				loadGroups();
 				
 				$(".time").timePicker({
 					startTime: "09:00",
 					endTime:"21:00",
 					step:30
 				});
+			}
+			
+			function loadGroups(){
+				
+				$.ajax({
+					type:"POST",
+					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php?type=groupes",
+					dataType:"json",
+					error:function(){},
+					success:function(groupes){
+						if (typeof groupes != 'undefined'){
+							lesGroupes = groupes;
+							var select = document.createElement('select');
+							select.id = "groupes";
+							select.addEventListener('change',selectGroupe);
+							for (var i = 0; i < groupes.length; i++){
+								var option = document.createElement('option');
+								option.value = groupes[i].id;
+								option.innerHTML = groupes[i].nom;
+								select.appendChild(option);
+							}
+							document.getElementById('ressourcesMere').insertBefore(select,document.getElementById('nom'));
+						}
+					}
+				});
+			}
+			
+			function ajoutGroupe(e){
+				e.preventDefault();
+				
+				$.ajax({
+					type:"POST",
+					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php?type=addGroup",
+					data:{
+						'nom':document.getElementById('nom'),
+						'description':document.getElementById('description')};,
+					error:function(){},
+					success:function(groupe){
+						lesGroupes.push(groupe);
+						var option = document.createElement('option');
+						option.value = groupe.id;
+						option.innerHTML = groupe.nom;
+						document.getElementById('groupes').appendChild(option);
+					}
+				});
+			}
+			
+			function selectGroupe(){
+			
 			}
 			
 			function ajoutBloc(e){
@@ -253,15 +322,27 @@
 				noAutoBloc++;
 			}
 			
-			function enregistrer(){
-				
-				
+			function enregistrer(e){
+				e.preventDefault();
+				$.ajax({
+					url:"<?=url?>/../../tinymvc/myapp/models/push_ressources.php",
+					type:"POST",
+					data:lesBlocs,
+					dataType:"text",
+					error:function (text){
+						//ShowMessage(text, "error");
+					},
+					success:function(text){
+						//ShowMessage(text, "success");
+					}
+				});
 				
 			}
 			
 			function supprimerBloc(noBloc){
 				lesBlocs.splice(getBlocPosition(noBloc),1);
 				changeTdArrayClass(document.getElementsByClassName(noBloc),'blocSelected ', '');
+				changeFormValues(0,'','','','','');
 				document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
 			}
 			
