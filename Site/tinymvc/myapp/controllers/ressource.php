@@ -1,8 +1,7 @@
 <?php
 
-class ressource_Controller extends TinyMVC_Controller
+class RessourceController extends TinyMVC_Controller
 {
-
 	public function index()
 	{
 		$this->view->assign('entete', $this->view->fetch("entete"));
