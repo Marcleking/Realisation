@@ -26,7 +26,7 @@ class MessageController extends TinyMVC_Controller
 
             if ($_SESSION['user']->getType() == "Gestionnaire") {
                 if (isset($_GET['noSupp'])) {
-                    $this->load->model('supprimerMessage_model', 'supprimer');
+                    $this->load->model('supprimermessage_model', 'supprimer');
 
                     if ($this->supprimer->SupprimerMessage($_GET['noSupp'])) {
                         $this->view->assign("success", "");
@@ -36,7 +36,7 @@ class MessageController extends TinyMVC_Controller
                 }
             }
 
-            $this->load->model('afficherMessage_model', 'lesMessage');
+            $this->load->model('affichermessage_model', 'lesMessage');
             $result = $this->lesMessage->afficherLesMessage($debut);
             $listMessage = '<dl class="accordion" data-accordion>';
             $dernierMess = 0;

@@ -36,7 +36,7 @@ class EnvoyerMessageController extends TinyMVC_Controller
 						$this->view->assign("fail", "");
 					} else {
 
-						$this->load->model('envoyerMessage_model', 'envoiMes');
+						$this->load->model('envoyermessage_model', 'envoiMes');
 						$result = $this->envoiMes->AjoutMessage(
 							trim($_POST['titre']),
 							trim($_POST['message']),
