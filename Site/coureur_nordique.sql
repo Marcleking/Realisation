@@ -780,14 +780,6 @@ DROP PROCEDURE IF EXISTS listeDispoSemaine $$
         SELECT * FROM disponibilitesemaine WHERE noDispoSemaine = p_noDispoSemaine AND annee = p_annee;
     END
 
-    $$
-
-DROP PROCEDURE IF EXISTS listeRessource $$
-    CREATE PROCEDURE listeRessource(in p_noSemaine INT(11), in p_annee INT(11))
-    BEGIN
-        SELECT * FROM ressource WHERE noSemaine = p_noSemaine AND annee = p_annee;
-    END
-
 $$
 
 DROP PROCEDURE IF EXISTS afficheMessage $$
