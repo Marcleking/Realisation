@@ -1,13 +1,12 @@
 <div class="panel medium-12 columns">
 
-
 	<?php  if (isset($success)) { ?>
-		<div data-alert class="alert-box success radius">
+		<div data-alert id="fade" class="alert-box success radius">
 		  Message envoyé avec succès
 		  <a href="#" class="close">&times;</a>
-		</div>
+		</div>		
 	<?php } else if (isset($fail)) { ?>
-		<div data-alert class="alert-box warning radius">
+		<div data-alert id="fade" class="alert-box warning radius">
 		  Remplir les champs obligatoires
 		  <a href="#" class="close">&times;</a>
 		</div>
@@ -31,4 +30,11 @@
 			
 			<input type="submit" class="button"/>
 		</form>
+		
+		<script>
+			$(document).ready(function(){
+				$("#fade").fadeOut(1500,function(){
+				});
+			});
+		</script>
 </div>
