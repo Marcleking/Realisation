@@ -26,3 +26,4 @@ class RessourceController extends TinyMVC_Controller
 		$this->view->display('gabarit');
 	}
 }
+?>

@@ -12,10 +12,8 @@
 		</style>
 		
 		<div class="row panel">
-			<select id="groupes">
-				
-			</select>
 			<form id="ressourcesMere">
+				<select id="groupes"></select>
 				<label for="nom">Nom du groupe : </label>
 				<input type="text" id="nom" name="nom" /> 
 				<label for="description">Description</label>
@@ -158,6 +156,12 @@
 				lesBlocs[i].nbChaussures
 				lesBlocs[i].nbVetements
 				lesBlocs[i].nbCaisses
+				
+				lesGroupes
+				lesGroupes[i].id
+				lesGroupes[i].nom
+				lesGroupes[i].description
+				lesGroupes[i].actif
 			
 			****************************************************/
 			
@@ -166,6 +170,7 @@
 				document.getElementById('ajouterBloc').addEventListener('click',ajoutBloc);
 				document.getElementById('enregistrer').addEventListener('click',enregistrer);
 				document.getElementById('ajouterGroupe').addEventListener('click',ajoutGroupe);
+				document.getElementById('actif').addEventListener('change',changeActif);
 				
 				loadGroups();
 				
@@ -180,22 +185,32 @@
 				
 				$.ajax({
 					type:"POST",
-					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php?type=groupes",
+					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php",
+					data:{'type':'groupes'},
 					dataType:"json",
-					error:function(){},
+					error:function(){
+						document.getElementById('groupes').style.display = 'none';
+					},
 					success:function(groupes){
 						if (typeof groupes != 'undefined'){
 							lesGroupes = groupes;
-							var select = document.createElement('select');
-							select.id = "groupes";
+							var select = document.getElementById('groupes');
+							select.style.display = 'none';
 							select.addEventListener('change',selectGroupe);
-							for (var i = 0; i < groupes.length; i++){
-								var option = document.createElement('option');
-								option.value = groupes[i].id;
-								option.innerHTML = groupes[i].nom;
-								select.appendChild(option);
+							
+							if (groupes.length > 0){
+								for (var i = 0; i < groupes.length; i++){
+									var option = document.createElement('option');
+									option.value = groupes[i].id;
+									option.innerHTML = groupes[i].nom;
+									select.appendChild(option);
+								}
+								select.style.display = 'inline-block';
+								selectGroupe();
+							}else{
+								document.getElementById('actif').checked = true;
+								document.getElementById('actif').disabled = true;
 							}
-							document.getElementById('ressourcesMere').insertBefore(select,document.getElementById('nom'));
 						}
 					}
 				});
@@ -206,23 +221,135 @@
 				
 				$.ajax({
 					type:"POST",
-					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php?type=addGroup",
+					url: "<?=url?>/../../tinymvc/myapp/models/push_ressources.php",
 					data:{
-						'nom':document.getElementById('nom'),
-						'description':document.getElementById('description')};,
+						'nom':document.getElementById('nom').value,
+						'description':document.getElementById('description').value,
+						'type':'addGroup'},
 					error:function(){},
 					success:function(groupe){
+						groupe = jQuery.parseJSON(groupe);
 						lesGroupes.push(groupe);
 						var option = document.createElement('option');
-						option.value = groupe.id;
-						option.innerHTML = groupe.nom;
+						option.value = groupe['id'];
+						option.innerHTML = groupe['nom'];
 						document.getElementById('groupes').appendChild(option);
+						document.getElementById('groupes').style.display = "inline-block";
+						document.getElementById('groupes').selectedIndex = document.getElementById('groupes').length - 1;
+						selectGroupe();
+					}
+				});
+			}
+			
+			function modifGroupe(e){
+				e.preventDefault();
+				
+				$.ajax({
+					type:"POST",
+					url: "<?=url?>/../../tinymvc/myapp/models/push_ressources.php",
+					data:{
+						'id': document.getElementById('groupes').options[document.getElementById('groupes').selectedIndex].value,
+						'nom':document.getElementById('nom').value,
+						'description':document.getElementById('description').value,
+						'type':'modifGroup'},
+					error:function(){},
+					success:function(groupe){
+						groupe = jQuery.parseJSON(groupe);
+						var i = 0;
+						while ( i < lesGroupes.length && lesGroupes[i].id != groupe.id){
+							i++;
+						}
+						
+						lesGroupes[i].nom = groupe.nom;
+						lesGroupes[i].descriptions = groupe.nom;
+						lesGroupes[i].actif = groupe.actif;
 					}
 				});
 			}
 			
 			function selectGroupe(){
+				var leGroupe = lesGroupes[document.getElementById('groupes').selectedIndex];
+				
+				document.getElementById('nom').value = leGroupe.nom;
+				document.getElementById('description').value = leGroupe.description;
+				if (leGroupe.actif == 0){
+					document.getElementById('actif').checked = true;
+					document.getElementById('actif').disabled = true;
+					document.getElementById('actif').title = "Au moins un groupe de ressources doit être sélectionné.";
+				}
+				else{
+					document.getElementById('actif').checked = false;
+					document.getElementById('actif').disabled = false;
+					document.getElementById('actif').title = "";
+				}
+				
+				try{
+					document.getElementById('ressourcesMere').removeChild(document.getElementById('modifierGroupe'));
+				}
+				catch(err){}
+				if (document.getElementById('groupes').length > 0){
+					var btnModif = document.createElement('input');
+					btnModif.id = 'modifierGroupe';
+					btnModif.type = 'button';
+					btnModif.value = 'Modifier';
+					btnModif.addEventListener('click',modifGroupe);
+					document.getElementById('ressourcesMere').appendChild(btnModif);
+				}
+				
+				$.ajax({
+					type:"POST",
+					url: "<?=url?>/../../tinymvc/myapp/models/fetch_ressources.php",
+					data:{'type':'blocs','idGroup':leGroupe.id},
+					dataType:'json',
+					error:function(){},
+					success:function(blocs){
+						lesBlocs = blocs;
+						var table = document.getElementById('ressources');
+						
+						for(var i = 0; i < blocs.length; i++){
+							var row = table.rows[parseInt(lesBlocs[i].jour) + 1];
+							var iDebut = (parseInt(lesBlocs[i].heureDebut.split(':')[0]) - 9) * 2 + 1;
+							var iFin = (parseInt(lesBlocs[i].heureFin.split(':')[0]) - 9) * 2 + 1;
+							
+							if (lesBlocs[i].heureDebut.split(':')[1] == '30'){
+								iDebut++;
+							}
+							if (lesBlocs[i].heureFin.split(':')[1] == '30' ){
+								iFin++;
+							}
+							
+							for (var j = iDebut; j < iFin; j++){
+								row.childNodes[j].className = "bloc " + lesBlocs[i].id;
+								row.childNodes[j].addEventListener('click', selectionBloc);
+							}
+						}
+						
+						noAutoBloc = parseInt(lesBlocs[lesBlocs.length - 1].id) + 1;
+					}
+				});
+			}
 			
+			function changeActif(){
+				$.ajax({
+					type:"POST",
+					url: "<?=url?>/../../tinymvc/myapp/models/push_ressources.php",
+					data:{'noGroupe':document.getElementById('groupes').options[document.getElementById('groupes').selectedIndex].value,
+						  'type':'changeActif'},
+					error:function(){},
+					success:function(){
+						for(var i = 0; i < lesGroupes.length; i++){
+							if(i == document.getElementById('groupes').selectedIndex){
+								lesGroupes[i].actif = "0";
+								document.getElementById('actif').disabled = true;
+								document.getElementById('actif').checked = true;
+								document.getElementById('actif').title = "Au moins un groupe de ressources doit être sélectionné.";
+							}
+							else{
+								lesGroupes[i].actif = "1";
+							}
+						}
+					}
+				});
 			}
 			
 			function ajoutBloc(e){
@@ -305,10 +432,10 @@
 				var iDebut = (parseInt(lesBlocs[getBlocPosition(noAutoBloc)].heureDebut.split(':')[0]) - 9) * 2 + 1;
 				var iFin = (parseInt(lesBlocs[getBlocPosition(noAutoBloc)].heureFin.split(':')[0]) - 9) * 2 + 1;
 				
-				if (lesBlocs[lesBlocs.length - 1].heureDebut.split(':')[1] == '30'){
+				if (lesBlocs[getBlocPosition(noAutoBloc)].heureDebut.split(':')[1] == '30'){
 					iDebut++;
 				}
-				if (lesBlocs[lesBlocs.length - 1].heureFin.split(':')[1] == '30' ){
+				if (lesBlocs[getBlocPosition(noAutoBloc)].heureFin.split(':')[1] == '30' ){
 					iFin++;
 				}
 				
@@ -316,8 +443,6 @@
 					row.childNodes[i].className = "bloc " + noAutoBloc;
 					row.childNodes[i].addEventListener('click', selectionBloc);
 				}
-				
-				changeFormValues(jour,fin,fin,0,0,0);
 				
 				noAutoBloc++;
 			}
@@ -327,13 +452,15 @@
 				$.ajax({
 					url:"<?=url?>/../../tinymvc/myapp/models/push_ressources.php",
 					type:"POST",
-					data:lesBlocs,
+					data:{	'lesBlocs':lesBlocs,
+							'groupId':document.getElementById('groupes').options[document.getElementById('groupes').selectedIndex].value,
+							'type':'ajoutBlocs'},
 					dataType:"text",
 					error:function (text){
-						//ShowMessage(text, "error");
+						
 					},
 					success:function(text){
-						//ShowMessage(text, "success");
+						
 					}
 				});
 				
@@ -353,6 +480,7 @@
 					var alreadySelectedBloc = blocSelected();
 					if (alreadySelectedBloc != -1 && alreadySelectedBloc != noBloc){
 						changeTdArrayClass(document.getElementsByClassName(alreadySelectedBloc),'blocSelected','bloc');
+						document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
 					}
 					
 					var bloc = document.getElementsByClassName(noBloc);
@@ -404,7 +532,7 @@
 			function blocSelected(){
 				
 				if(typeof document.getElementsByClassName('blocSelected')[0] != 'undefined'){
-					return parseInt(document.getElementsByClassName('blocSelected')[0].className.split(' ')[1]);	
+					return parseInt(document.getElementsByClassName('blocSelected')[0].className.split(' ')[1]);
 				}
 				else
 				{
@@ -416,7 +544,7 @@
 				var i = 0;
 				while (i < lesBlocs.length && lesBlocs[i].id != noBloc)
 				{
-					i++
+					i++;
 				}
 				return i;
 			}
