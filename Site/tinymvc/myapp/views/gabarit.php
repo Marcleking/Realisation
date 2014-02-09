@@ -93,8 +93,13 @@
 		<script src="<?=url?>/../js/foundation/foundation.abide.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.joyride.js"></script>
 		<script src="<?=url?>/../js/foundation/foundation.alert.js"></script>
-	  	<script>
-		 	$(document).foundation();
+	  	
+		
+		<script>			
+			
+			$(document).foundation({
+			});			
+			
 		</script>
 		
 	</body>
