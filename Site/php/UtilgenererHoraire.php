@@ -8,7 +8,9 @@
 * @return Array des informations utile pour gênérer un horaire 
 */
 function lstUtilHoraire() {
-	date_default_timezone_set('UTC');
+	date_default_timezone_set('America/Montreal');
+	
+	
 
 	//Numero de la semaine que nous sommes présentement
 	$semaine = intval(date("W"));
@@ -90,7 +92,7 @@ function lstUtilHoraire() {
 * @return Array des informations utile pour gênérer un horaire 
 */
 function lstRessource() {
-	date_default_timezone_set('UTC');
+	date_default_timezone_set('America/Montreal');
 
 	//Connexion a la BD(à changer de place)
 	$connBD = new PDO('mysql:host=localhost;dbname=coureur_nordique', 'user_coureur', 'qweqwe');
