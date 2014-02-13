@@ -5,12 +5,12 @@
 	
 	<div class="panel">
 		<?php  if (isset($success)) { ?>
-		<div data-alert id="fade" class="alert-box success radius">
+		<div data-alert class="fade" class="alert-box success radius fade">
 			 Le message a été supprimé
 			 <a href="#" class="close">&times;</a>
 		</div>
 		<?php } else if (isset($fail)) { ?>
-		<div data-alert id="fade" class="alert-box warning radius">
+		<div data-alert class="alert-box warning radius fade">
 			Une erreur s'est produit lors de la suppression.
 			<a href="#" class="close">&times;</a>
 		</div> 
@@ -28,13 +28,5 @@
 				<?=$btnSuivant?>
 				
 		</div>
-	</div>
-	
-	<script>
-		$(document).ready(function(){
-			$("#fade").fadeOut(1500,function(){
-			});
-		});
-	</script>
-	
+	</div>	
 </div>
