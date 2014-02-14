@@ -5,12 +5,12 @@
 
 
 	<?php  if (isset($success)) { ?>
-		<div data-alert id="fade" class="alert-box success radius">
+		<div data-alert id="fade" class="alert-box success radius fade">
 		  Modifications appliqué
 		  <a href="#" class="close">&times;</a>
 		</div>
 	<?php } else if (isset($fail)) { ?>
-		<div data-alert id="fade" class="alert-box warning radius">
+		<div data-alert id="fade" class="alert-box warning radius fade">
 		  Remplir les champs obligatoires
 		  <a href="#" class="close">&times;</a>
 		</div> 
@@ -146,14 +146,6 @@
 			i++;
 		}
 	}
-</script>
-	
-	
-<script>
-	$(document).ready(function(){
-		$("#fade").fadeOut(1500,function(){
-		});
-	});
 </script>
 </div>
 

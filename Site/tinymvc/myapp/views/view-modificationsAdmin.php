@@ -1,11 +1,11 @@
 <div class="panel medium-12 columns">
 	<?php  if (isset($success)) { ?>
-		<div data-alert class="alert-box success radius">
+		<div data-alert class="alert-box success radius fade">
 		  Modifications appliqué
 		  <a href="#" class="close">&times;</a>
 		</div>
 	<?php } else if (isset($fail)) { ?>
-		<div data-alert class="alert-box warning radius">
+		<div data-alert class="alert-box warning radius fade">
 		  Vous devez avoir un courriel valide et disponible dans un des comptes des employés!
 		  <a href="#" class="close">&times;</a>
 		</div> 

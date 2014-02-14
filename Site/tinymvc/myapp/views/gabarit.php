@@ -95,12 +95,18 @@
 		<script src="<?=url?>/../js/foundation/foundation.alert.js"></script>
 	  	
 		
-		<script>			
-			
+		<script>
 			$(document).foundation({
-			});			
-			
+			});
 		</script>
+		
+		<script>
+			$(document).ready(function(){
+				$(".fade").fadeOut(7500,function(){
+				});
+			});
+		</script>
+		
 		
 	</body>
 </html>

@@ -7,12 +7,12 @@
 					
 
 					<?php  if (isset($success)) { ?>
-						<div data-alert class="alert-box success radius">
+						<div data-alert class="alert-box success radius fade">
 						  L'employé à bien été supprimé.
 						  <a href="#" class="close">&times;</a>
 						</div>
 					<?php } else if (isset($fail)) { ?>
-						<div data-alert class="alert-box warning radius">
+						<div data-alert class="alert-box warning radius fade">
 						  Une erreur s'est produit lors de la suppression.
 						  <a href="#" class="close">&times;</a>
 						</div> 
